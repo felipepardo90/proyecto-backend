@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"),
+  url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@300&display=swap");
+
+.form {
+  font-family: "Poppins", sans-serif;
+  background-color: green;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 400px;
+  padding: 4.5em 3em;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px -5px rgb(0, 0, 0, 30%);
+
+  &-title {
+    font-size: 2rem;
+    margin-bottom: 0.5em;
+    color: white;
+    align-items: center;
+  }
+  &-paragraph {
+    font-size: small;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+    .form-link {
+      font-weight: 400;
+      color: yellow;
+    }
+  }
+
+  &-container {
+    margin-top: 3em;
+    display: grid;
+    gap: 2.5em;
+    .form-group {
+      position: relative;
+      color: purple;
+      .form-input {
+        width: 100%;
+        background: none;
+        color: yellow;
+        font-size: 1rem;
+        padding: 0.6em 0.3em;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid yellow;
+        font-family: "Roboto", sans-serif;
+        &:focus + .form-label,
+        &:not(:placeholder-shown) + .form-label {
+          transform: translateY(-12px) scale(0.7);
+          transform-origin: left top;
+          color: lightblue;
+        }
+        &:focus ~ .form-line,
+        &:not(:placeholder-shown) ~ .form-line {
+          transform: scale(1);
+        }
+        &:focus,
+        &:not(:placeholder-shown) {
+          color: lightblue;
+        }
+      }
+      .form-label {
+        color: yellow;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 5px;
+        transform: translateY(10px);
+        transition: transform 0.5s, color 0.3s;
+      }
+      .form-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: lightblue;
+        transform: scale(0);
+        transform: left bottom;
+        transition: transform .4s;
+      }
+    }
+    .form-submit {
+      background-color: yellow;
+      color: green;
+      font-size: 1rem;
+      font-weight: 300;
+      font-family: "Popins", sans-serif;
+      padding: 0.8em 0;
+      border: none;
+      border-radius: 0.5em;
+      cursor: pointer;
+      transition: .3s all;
+      &:hover{
+        background-color: blue;
+        color: yellow;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px){
+    .form-title{
+        font-size: 1.8rem;
+    }
+}

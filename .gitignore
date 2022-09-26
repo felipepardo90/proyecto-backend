@@ -1,0 +1,17 @@
+node_modules
+pruebas.js
+
+#############
+
+# clean caché 
+
+# git rm -r --cached .
+# git add .
+# git commit -m "fixed untracked files" 
+
+
+desafio1
+desafio2
+desafio3
+desafio4
+desafio5

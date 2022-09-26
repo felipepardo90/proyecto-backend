@@ -1,0 +1,41 @@
+<div>
+  {{#if products}}
+    <table width="60%">
+      <thead>
+        <tr>
+          <td>Nombre</td>
+          <td>Precio</td>
+          <td>Producto</td>
+          <td>Ver</td>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr key={{this.id}}>
+            <td>
+              {{this.title}}
+            </td>
+            <td>
+              $AR
+              {{this.price}}
+            </td>
+            <td>
+              <img
+                alt="{{this.title}}"
+                src="{{this.thumbnail}}"
+                width="40px"
+                height="40px"
+              />
+            </td>
+            <td>
+              <a href="/api/products/{{this.id}}">Ver</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <h1> There are no products here </h1>
+  {{/if}}
+</div>
+

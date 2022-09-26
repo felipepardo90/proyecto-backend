@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <title>CHAT WEBSOCKETS</title>
+  </head>
+  <body>
+    <!--? FORM PRODUCTOS -->
+
+    <form class="form" id="products-form">
+      <h2 class="form-title">Ingresar productos</h2>
+      <p class="form-paragraph">
+        Websockets
+        <a
+          href="https://github.com/felipepardo90/new-Backend.git"
+          target="_blank"
+          class="form-link"
+          >Ver repo</a
+        >
+      </p>
+      <div class="form-container">
+        <div class="form-group">
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form-input"
+            placeholder=" "
+            required
+          />
+          <label for="title" class="form-label">Title:</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            name="price"
+            id="price"
+            class="form-input"
+            placeholder=" "
+            required
+          />
+          <label for="price" class="form-label">Price:</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            name="thumbnail"
+            id="thumbnail"
+            class="form-input"
+            placeholder=" "
+            required
+          />
+          <label for="thumbnail" class="form-label">Thumbnail:</label>
+          <span class="form-line"></span>
+        </div>
+
+        <input type="submit" class="form-submit" value="Ingresar" />
+      </div>
+    </form>
+
+    <!--? PRODUCTS -->
+
+    <h1 class="products-title">PRODUCTOS</h1>
+    <section class="section-products">
+      <div id="output-products">
+        <!--? DESPLIEGUE DE HBS -->
+      </div>
+    </section>
+
+    <!--? CHAT -->
+
+    <div id="chat-container">
+      <div id="chat-window">
+        <div id="output"></div>
+        <div id="actions"></div>
+      </div>
+      <input type="email" id="username" placeholder="user@email.com" required />
+      <input type="text" id="message" placeholder="Message" required />
+      <button id="send">Enviar</button>
+    </div>
+
+    <!-- ? SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="form.products.js"></script>
+    <script src="chat.js"></script>
+  </body>
+</html>
