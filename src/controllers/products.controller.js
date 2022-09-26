@@ -1,13 +1,13 @@
 //! CONTENEDOR /////////////////////////////////
 const Container = require("../models/Container");
-const contenedor = new Container("products.json");
+const contenedor = new Container("src/db/products.json");
 //! CONTENEDOR /////////////////////////////////
 const controller = {};
 
 controller.getAll = async (req, res) => {
   //* DEVUELVE TODOS LOS PRODUCTOS
   const data = await contenedor.getAll();
-  res.status(200).render("products", { products: data });
+  res.status(200).json(data);
 };
 
 controller.getById = async (req, res) => {
@@ -25,8 +25,8 @@ controller.post = async (req, res) => {
   const { title, price, thumbnail } = req.body;
   const data = await contenedor.save({ title, price, thumbnail });
   data == null
-    ? res.status(500).json({ message: ` [[${title}]] ya existe en el archivo` })
-    : res.status(200).render("index");
+    ? res.status(500).json({ message: `[[${title}]] ya existe en el archivo` })
+    : res.status(200).json(data);
 };
 
 controller.put = async (req, res) => {
