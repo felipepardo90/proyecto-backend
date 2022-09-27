@@ -6,7 +6,6 @@ class Container {
   }
 
   async save(object) {
-
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -51,7 +50,6 @@ class Container {
   }
 
   async getById(idEntered) {
-
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -69,7 +67,6 @@ class Container {
   }
 
   async getAll() {
-
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
