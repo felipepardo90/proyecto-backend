@@ -5,7 +5,7 @@ const morgan = require("morgan");
 
 //! SETTINGS
 
-app.set("port", 8080 || process.env.port); //! CONFIG port
+app.set("port", process.env.PORT || 8080); //! CONFIG port
 app.set("json spaces", 2); //! JSON formatter
 
 //! MIDDLEWARES
@@ -13,9 +13,17 @@ app.set("json spaces", 2); //! JSON formatter
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
-// app.use("/", express.static(path.join(__dirname, "../public"))); //! STATIC FILES
+app.use("/", express.static(path.join(__dirname, "../public"))); //! STATIC FILES
+
 //! ROUTES
+
 const indexRoute = require("./routes/index.routes");
 app.use("/api", indexRoute); //
+
+//! 404 - Not Found
+
+app.use((req, res) => {
+  res.status(404).json({ Message: "Error 404 - Page not found" });
+});
 
 module.exports = app;
