@@ -5,10 +5,10 @@ const middlewares = require("../middlewares/middlewares");
 
 //? CART
 
-router.post("/", controller.newCart); // TODO Agregar carro finalizado
-router.delete("/:id", controller.delete); // TODO ELiminar carro - finalizado
-// router.get("/:id/products", controller.productsInCart); //TODO Ver los productos guardados en el carrito
-router.post("/:id/products"); // TODO Agregar un producto al carro por su ID
+router.post("/", controller.newCart); 
+router.delete("/:id", controller.delete); 
+router.get("/:id/products", controller.getProductsInCart); 
+router.post("/:id/products", controller.saveProductInCart); // TODO Agregar un producto al carro por su ID - terminar de implementar
 router.delete("/:id/products/:id_prod"); // TODO Eliminar un producto de un carrito por su id de producto y de carrito
 
 module.exports = router;
