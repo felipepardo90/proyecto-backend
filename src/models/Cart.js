@@ -45,7 +45,7 @@ class Cart {
     }
   }
 
-  async getCartById(idEntered) {
+  async getCartById(idEntered) { // TODO mejorar la funcionalidad
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -62,7 +62,7 @@ class Cart {
     }
   }
 
-  async addProductToCart(idEntered, object) {
+  async addProductToCart(idEntered, object) { //TODO mejorar la funcionalidad
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -70,11 +70,12 @@ class Cart {
       const cartFound = dataParsed.find(({ id }) => id == idEntered);
 
       if (cartFound) {
-        const cartFound = { ...object, id: idEntered };
+        object.id = cartFound.productos.length + 1;
+        cartFound.productos.push(object);
         leakedCartId.push(cartFound);
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
         fs.promises.writeFile(this.file, updatedFile);
-        console.log(`Producto ${idEntered} modificado con éxito`, cartFound);
+        console.log(`Se ha agregado el producto ${object} exitosamente al carrito ${idEntered}`);
         return cartFound;
       } else {
         return null;
