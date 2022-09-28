@@ -1,1 +1,30 @@
-[]
+[
+ {
+  "id": 1,
+  "nombre": "carro1",
+  "productos": [
+   "manzana",
+   "pera",
+   "banana"
+  ]
+ },
+ {
+  "id": 2,
+  "nombre": "carro2",
+  "productos": [
+   "manzana",
+   "banana"
+  ]
+ },
+ {
+  "id": 3,
+  "nombre": "carro3",
+  "productos": [
+   "pera",
+   "banana",
+   "naranja",
+   "ciruelas",
+   "uvas"
+  ]
+ }
+]
