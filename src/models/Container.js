@@ -45,7 +45,7 @@ class Container {
         return null;
       }
     } catch (error) {
-      console.error(`Se produjo un error en saveById:${error}`);
+      console.error(`Se produjo un error en update:${error}`);
     }
   }
 
