@@ -16,7 +16,7 @@ controller.newCart = async (req, res) => {
   });
 };
 
-controller.delete = async (req, res) => {
+controller.deleteCart = async (req, res) => {
   const data = await cart.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
@@ -43,9 +43,11 @@ controller.getProductsInCart = async (req, res) => {
 };
 
 controller.saveProductInCart = async (req, res) => { //TODO Mejorar la funcionalidad - terminar de implementar
-  const data = await cart.addProductToCart(req.params.id, req.body);
+  const productToAdd = await contenedor.getById(req.body.id)
 
-  res
+  const data = await cart.addProductToCart(req.params.id, productToAdd);
+
+  res //  TODO Implementar respuesta encaso que no exista carrito
     .status(200)
     .json({
       message: "Se añadió un producto al carrito",
@@ -53,6 +55,11 @@ controller.saveProductInCart = async (req, res) => { //TODO Mejorar la funcional
     });
 };
 
-// controller.productsInCart = async(req, res)=>{}
+controller.deleteProductInCart = async (req, res)=>{
+  const {id, id_prod} = req.params
+  const data = await cart.deleteProductInCartById(id, id_prod)
+
+  res.status(200).json({message:`Se ha eliminado el producto ${id_prod} del carrito`})
+}
 
 module.exports = controller;

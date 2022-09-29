@@ -45,7 +45,8 @@ class Cart {
     }
   }
 
-  async getCartById(idEntered) { // TODO mejorar la funcionalidad
+  async getCartById(idEntered) {
+    // TODO mejorar la funcionalidad
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -62,7 +63,8 @@ class Cart {
     }
   }
 
-  async addProductToCart(idEntered, object) { //TODO mejorar la funcionalidad
+  async addProductToCart(idEntered, object) {
+    //TODO mejorar la funcionalidad
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -70,18 +72,45 @@ class Cart {
       const cartFound = dataParsed.find(({ id }) => id == idEntered);
 
       if (cartFound) {
-        object.id = cartFound.productos.length + 1;
         cartFound.productos.push(object);
         leakedCartId.push(cartFound);
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
         fs.promises.writeFile(this.file, updatedFile);
-        console.log(`Se ha agregado el producto ${object} exitosamente al carrito ${idEntered}`);
+        console.log(
+          `Se ha agregado el producto ${object.title} exitosamente al carrito ${idEntered}`
+        );
         return cartFound;
       } else {
         return null;
       }
     } catch (error) {
       console.error(`Se produjo un error en addProductToCart:${error}`);
+    }
+  }
+
+  async deleteProductInCartById(idCart, idProduct) {
+    try {
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+
+      const leakedCarts = dataParsed.filter(({ id }) => id != idCart);
+      const cartFound = dataParsed.find(({ id }) => id == idCart);
+
+      const leakedProducts = cartFound.productos.filter(
+        ({ id }) => id != idProduct
+      );
+
+      cartFound.productos = leakedProducts;
+
+      leakedCarts.push(cartFound);
+
+      const updatedFile = JSON.stringify(leakedCarts, null, " ");
+
+      fs.promises.writeFile(this.file, updatedFile);
+
+      return cartFound.productos;
+    } catch (error) {
+      console.error(`Se produjo un error en deleteProductInCartById:${error}`);
     }
   }
 }
