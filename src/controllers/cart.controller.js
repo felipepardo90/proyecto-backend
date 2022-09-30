@@ -34,7 +34,7 @@ controller.getProductsInCart = async (req, res) => {
     ? res.status(200).json({
         message: "Se obtuvieron los productos del carrito",
         "cart id": `${req.params.id}`,
-        products: data.productos,
+        products: data.products,
       })
     : res.status(401).json({
         message: "El carrito no tiene productos", //FIXME REVISAR LUEGO
