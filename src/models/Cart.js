@@ -3,6 +3,8 @@ const fs = require("fs");
 class Cart {
   constructor(file) {
     this.file = file;
+    this.products= [];
+    this.date = new Date().toLocaleString()
   }
 
   async newCart() {
@@ -11,8 +13,8 @@ class Cart {
       const dataParsed = JSON.parse(dataToParse);
       const newCart = {
         id: dataParsed.length + 1,
-        timestamp: new Date().toLocaleString(),
-        products: [],
+        timestamp: this.date,
+        products: this.products,
         total: 0,
       };
       dataParsed.push(newCart);
