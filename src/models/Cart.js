@@ -9,18 +9,15 @@ class Cart {
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
-
       const newCart = {
         id: dataParsed.length + 1,
         timestamp: new Date().toLocaleString(),
         products: [],
         total: 0,
       };
-
       dataParsed.push(newCart);
       const updatedFile = JSON.stringify(dataParsed, null, " ");
       fs.promises.writeFile(this.file, updatedFile);
-
       return newCart;
     } catch (error) {
       console.error(`Se produjo un error en newCart:${error}`);
@@ -49,7 +46,7 @@ class Cart {
   }
 
   async getCartById(idEntered) {
-    // TODO mejorar la funcionalidad
+    
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -60,14 +57,15 @@ class Cart {
         return cartFound;
       } else {
         console.log(`No se ha encontrado el carrito ${idEntered}`);
+        return null
       }
     } catch (error) {
       console.error(`Se produjo un error en getCartById: ${error}`);
+      
     }
   }
 
   async addProductToCart(idEntered, object) {
-    //TODO mejorar la funcionalidad
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -75,7 +73,7 @@ class Cart {
       const cartFound = dataParsed.find(({ id }) => id == idEntered);
 
       if (cartFound) {
-        cartFound.products.push(object)
+        cartFound.products.push(object);
         cartFound.products.sort((a, b) => a.id - b.id);
         leakedCartId.push(cartFound);
         leakedCartId.sort((a, b) => a.id - b.id);
@@ -104,6 +102,7 @@ class Cart {
       const leakedProducts = cartFound.products.filter(
         ({ id }) => id != idProduct
       );
+      const productFound = cartFound.products.find(({ id }) => id == idProduct);
 
       cartFound.products = leakedProducts;
       cartFound.products.sort((a, b) => a.id - b.id);
@@ -113,7 +112,7 @@ class Cart {
 
       fs.promises.writeFile(this.file, updatedFile);
 
-      return cartFound.products;
+      return productFound;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById:${error}`);
     }
