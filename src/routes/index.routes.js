@@ -6,7 +6,7 @@ const controller = require("../controllers/index.controller");
 
 //? INDEX
 router.get("/", controller.index);
-router.use("/products", productsRoute);
-router.use("/cart", cartRoute);
+router.use("/api/products", productsRoute);
+router.use("/api/cart", cartRoute);
 
 module.exports = router;

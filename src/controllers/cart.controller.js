@@ -1,10 +1,10 @@
-//! CONTENEDOR /////////////////////////////////
+//! MODELS /////////////////////////////////
 const Container = require("../models/Container");
 const contenedor = new Container("src/db/products.json");
 
 const Cart = require("../models/Cart");
 const cart = new Cart("src/db/cart.json");
-//! CONTENEDOR /////////////////////////////////
+//! MODELS /////////////////////////////////
 const controller = {};
 
 controller.newCart = async (req, res) => {
@@ -68,7 +68,6 @@ controller.saveProductInCart = async (req, res) => {
 controller.deleteProductInCart = async (req, res) => {
   const { id, id_prod } = req.params;
   const data = await cart.deleteProductInCartById(id, id_prod);
-  console.log(data, "data 63 producto eliminado");
   data != undefined
     ? res.status(200).json({
         message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,

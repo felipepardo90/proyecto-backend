@@ -8,22 +8,40 @@ const morgan = require("morgan");
 app.set("port", process.env.PORT || 8080); //! CONFIG port
 app.set("json spaces", 2); //! JSON formatter
 
+app.set("views", path.join(__dirname, "./views"));
+app.set("view engine", "hbs"); //! VIEW ENGINES
+
+//! CONFIGURACIÓN EXTRA HBS
+
+const { engine } = require("express-handlebars");
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: path.join(__dirname, "./views/layout/main.hbs"),
+    layoutsDir: path.join(__dirname, "./views/layout"),
+    partialsDir: path.join(__dirname, "./views/partials"),
+  })
+);
+
 //! MIDDLEWARES
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
-app.use("/", express.static(path.join(__dirname, "../public"))); //! STATIC FILES
+app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
+
+
 
 //! ROUTES
 
 const indexRoute = require("./routes/index.routes");
-app.use("/api", indexRoute); //
+app.use("/", indexRoute); //
 
 //! 404 - Not Found
 
 app.use((req, res) => {
-  res.status(404).json({ Message: "Error 404 - Page not found" });
+  res.status(404).render("404");
 });
 
 module.exports = app;

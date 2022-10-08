@@ -3,8 +3,9 @@ const fs = require("fs");
 class Cart {
   constructor(file) {
     this.file = file;
+    this.date = new Date().toLocaleString();
     this.products= [];
-    this.date = new Date().toLocaleString()
+    this.price = 0
   }
 
   async newCart() {
@@ -15,7 +16,7 @@ class Cart {
         id: dataParsed.length + 1,
         timestamp: this.date,
         products: this.products,
-        total: 0,
+        total: this.price,
       };
       dataParsed.push(newCart);
       const updatedFile = JSON.stringify(dataParsed, null, " ");
@@ -79,6 +80,7 @@ class Cart {
         cartFound.products.sort((a, b) => a.id - b.id);
         leakedCartId.push(cartFound);
         leakedCartId.sort((a, b) => a.id - b.id);
+        this.price=2500
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
         fs.promises.writeFile(this.file, updatedFile);
         console.log(

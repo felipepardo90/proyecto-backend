@@ -8,7 +8,7 @@ const controller = {};
 
 controller.getAll = async (req, res) => {
   const data = await contenedor.getAll();
-  res.status(200).json(data);
+  res.render("products", { products: data });
 };
 
 //? DEVUELVE UN PRODUCTO SEGÚN SU ID
@@ -28,11 +28,10 @@ controller.post = async (req, res) => {
   const newObject = req.body;
   const data = await contenedor.save(newObject);
   data == null
-    ? res.status(500).json({ message: `[[${newObject.title}]] ya existe en el archivo` })
-    : res.status(200).json({
-        message: `Se ha agregado el producto ${data.title}`,
-        "new product": data,
-      });
+    ? res
+        .status(500)
+        .json({ message: `[[${newObject.title}]] ya existe en el archivo` })
+    : res.status(200).redirect("index");
 };
 
 //? RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID
