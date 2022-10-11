@@ -48,5 +48,15 @@
   "stock": 21,
   "id": 5,
   "timestamp": "30/9/2022 15:29:37"
+ },
+ {
+  "title": "Cerveza Stella",
+  "price": "450",
+  "thumbnail": "https://vineriasanjuan.com.ar/wp-content/uploads/2020/08/1855-Cerveza-Stella-Artois-1-Lt-Retornable.jpg",
+  "code": "A558",
+  "stock": "23",
+  "description": "Stella Artois cerveza rubia,  presentación envase de vidrio. Contenido 1lt",
+  "id": 6,
+  "timestamp": "8/10/2022 01:08:33"
  }
 ]

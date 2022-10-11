@@ -13,7 +13,7 @@ controller.newCart = async (req, res) => {
     date: `${data.timestamp}`,
     message: "Se ha creado un nuevo carrito",
     id: `${data.id}`,
-  });
+  })
 };
 
 controller.deleteCart = async (req, res) => {

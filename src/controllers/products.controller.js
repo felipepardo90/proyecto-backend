@@ -25,13 +25,12 @@ controller.getById = async (req, res) => {
 //? RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
 
 controller.post = async (req, res) => {
-  const newObject = req.body;
-  const data = await contenedor.save(newObject);
+  const data = await contenedor.save(req.body);
   data == null
     ? res
         .status(500)
-        .json({ message: `[[${newObject.title}]] ya existe en el archivo` })
-    : res.status(200).redirect("index");
+        .json({ message: `[[${req.body.title}]] ya existe en el archivo` })
+    : res.status(200).render("index");
 };
 
 //? RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID

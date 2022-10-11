@@ -1,0 +1,43 @@
+<%- include("layout/main", {title: "Productos"}) %>
+<%- include("partials/nav.ejs") %>
+
+<body>
+  <main>
+    <div class="section-products">
+      <% if(products) { %>
+      <table width="60%">
+        <thead>
+          <tr>
+            <td>Nombre</td>
+            <td>Precio</td>
+            <td>Producto</td>
+            <td>Ver</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach((item)=>{ %>
+          <tr key="<%= item.id %>">
+            <td><%= item.title %></td>
+            <td>$AR <%= item.price %></td>
+            <td>
+              <img
+                alt="<%= item.title %>"
+                src="<%= item.thumbnail %>"
+                width="40px"
+                height="40px"
+              />
+            </td>
+            <td>
+              <a href="/api/products/<%= item.id %>">Ver</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h1>There are no products here</h1>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>
