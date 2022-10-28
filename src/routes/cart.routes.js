@@ -1,7 +1,7 @@
-const { Router } = require("express");
+import { Router } from "express";
 const router = Router();
-const controller = require("../controllers/cart.controller");
-const { adminAuth } = require("../middlewares/middlewares");
+import controller from "../controllers/cart.controller.js";
+import { adminAuth } from "../middlewares/middlewares.js";
 
 //? CART
 
@@ -15,4 +15,4 @@ router.delete(
   controller.deleteProductInCart
 );
 
-module.exports = router;
+export default router;

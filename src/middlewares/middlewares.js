@@ -1,8 +1,6 @@
-const middlewares = {};
-
 //? completedFields revisará si el input del formulario o la query recibe todos los parámetros solicitados // Método POST
 
-middlewares.completedFields = (req, res, next) => {
+const completedFields = (req, res, next) => {
   const { title, price, thumbnail, description, code, stock } = req.body;
   title && price && thumbnail && description && code && stock
     ? next()
@@ -13,8 +11,7 @@ middlewares.completedFields = (req, res, next) => {
 
 //TODO implementar otros roles
 
-middlewares.adminAuth = (permissions) => {
-
+const adminAuth = (permissions) => {
   return (req, res, next) => {
     permissions === true
       ? next()
@@ -23,5 +20,4 @@ middlewares.adminAuth = (permissions) => {
           .json({ error: -1, description: "unauthorized permission" });
   };
 };
-
-module.exports = middlewares;
+export { adminAuth, completedFields };

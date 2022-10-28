@@ -408,7 +408,7 @@ class Cart {
       );
       //! Se aisla el producto del carro a borrar
       const productFound = cartFound.products.find(({ id }) => id == idProduct);
-//! Se sobreescribe el array de productos con el array con el producto filtrado, y se ordena con sort()
+      //! Se sobreescribe el array de productos con el array con el producto filtrado, y se ordena con sort()
       cartFound.products = leakedProducts;
       cartFound.products.sort((a, b) => a.id - b.id);
       //! Se pushea al array principal de carritos, el array modificado en el paso anterior, y se ordena con sort()
@@ -417,7 +417,7 @@ class Cart {
       //! Se sobreescribe el archivo ya modificado
       const updatedFile = JSON.stringify(leakedCarts, null, " ");
       fs.promises.writeFile(this.file, updatedFile);
-//! retorna el producto modificado (eliminado)
+      //! retorna el producto modificado (eliminado)
       return productFound;
     } catch (error) {
       //! Error Handler

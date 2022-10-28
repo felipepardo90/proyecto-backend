@@ -10,5 +10,21 @@
   "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "name": "proyecto-backend",
+  "description": "```json\r \"devDependencies\": {\r     \"morgan\": \"^1.10.0\",\r     \"nodemon\": \"^2.0.20\"\r   }\r ```",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipepardo90/proyecto-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felipepardo90/proyecto-backend/issues"
+  },
+  "homepage": "https://github.com/felipepardo90/proyecto-backend#readme"
 }

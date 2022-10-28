@@ -1,5 +1,5 @@
 //! CONTENEDOR /////////////////////////////////
-const Container = require("../models/Container");
+import Container from "../models/Container.js";
 const contenedor = new Container("src/db/products.json");
 //! CONTENEDOR /////////////////////////////////
 const controller = {};
@@ -60,4 +60,4 @@ controller.delete = async (req, res) => {
     : res.status(404).send({ message: "No se ha encontrado el producto" });
 };
 
-module.exports = controller;
+export default controller;

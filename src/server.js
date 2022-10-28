@@ -1,9 +1,9 @@
-const app = require("./app");
+import app from "./app.js";
 
 //! STARTING SERVER
 
 const server = app.listen(app.get("port"), () => {
-  console.log(`Servidor express iniciado en puerto ${app.get("port")}`);
+  console.log(`Express server started on port ${app.get("port")}`);
 });
 
 //! ERROR HANDLER
@@ -11,5 +11,3 @@ const server = app.listen(app.get("port"), () => {
 server.on("error", (error) => {
   console.log(`Error !!!: ${error}`);
 });
-
-

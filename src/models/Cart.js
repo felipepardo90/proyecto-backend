@@ -1,11 +1,11 @@
-const fs = require("fs");
+import fs from "fs";
 
-class Cart {
+export default class Cart {
   constructor(file) {
     this.file = file;
     this.date = new Date().toLocaleString();
-    this.products= [];
-    this.price = 0
+    this.products = [];
+    this.price = 0;
   }
 
   async newCart() {
@@ -49,7 +49,6 @@ class Cart {
   }
 
   async getCartById(idEntered) {
-    
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
       const dataParsed = JSON.parse(dataToParse);
@@ -60,11 +59,10 @@ class Cart {
         return cartFound;
       } else {
         console.log(`No se ha encontrado el carrito ${idEntered}`);
-        return null
+        return null;
       }
     } catch (error) {
       console.error(`Se produjo un error en getCartById: ${error}`);
-      
     }
   }
 
@@ -80,7 +78,7 @@ class Cart {
         cartFound.products.sort((a, b) => a.id - b.id);
         leakedCartId.push(cartFound);
         leakedCartId.sort((a, b) => a.id - b.id);
-        this.price=2500
+        this.price = 2500;
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
         fs.promises.writeFile(this.file, updatedFile);
         console.log(
@@ -122,5 +120,3 @@ class Cart {
     }
   }
 }
-
-module.exports = Cart;

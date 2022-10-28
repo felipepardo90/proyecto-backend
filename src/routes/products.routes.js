@@ -1,7 +1,7 @@
-const { Router } = require("express");
+import { Router } from "express";
 const router = Router();
-const controller = require("../controllers/products.controller");
-const { completedFields, adminAuth } = require("../middlewares/middlewares");
+import controller from "../controllers/products.controller.js";
+import { completedFields, adminAuth } from "../middlewares/middlewares.js";
 
 //? PRODUCTS
 
@@ -11,4 +11,4 @@ router.post("/", adminAuth(true), completedFields, controller.post);
 router.put("/:id", adminAuth(false), completedFields, controller.put);
 router.delete("/:id", adminAuth(false), controller.delete);
 
-module.exports = router;
+export default router;

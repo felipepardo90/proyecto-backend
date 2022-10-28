@@ -1,8 +1,8 @@
 //! MODELS /////////////////////////////////
-const Container = require("../models/Container");
+import Container from "../models/Container.js";
 const contenedor = new Container("src/db/products.json");
 
-const Cart = require("../models/Cart");
+import Cart from "../models/Cart.js";
 const cart = new Cart("src/db/cart.json");
 //! MODELS /////////////////////////////////
 const controller = {};
@@ -13,7 +13,7 @@ controller.newCart = async (req, res) => {
     date: `${data.timestamp}`,
     message: "Se ha creado un nuevo carrito",
     id: `${data.id}`,
-  })
+  });
 };
 
 controller.deleteCart = async (req, res) => {
@@ -75,4 +75,4 @@ controller.deleteProductInCart = async (req, res) => {
     : res.status(200).json({ error: "No existe el producto en el carrito" });
 };
 
-module.exports = controller;
+export default controller;

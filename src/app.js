@@ -1,16 +1,21 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
 const app = express();
-const morgan = require("morgan");
+import morgan from "morgan";
+
+import path from "path";
+import { fileURLToPath } from "url";
+const filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(filename);
 
 //! SETTINGS
 
 app.set("port", process.env.PORT || 8080); //! CONFIG port
 app.set("json spaces", 2); //! JSON formatter
 
-app.set("views", path.join(__dirname, "./views"));
-app.set("view engine", "ejs"); //! VIEW ENGINES
+//! VIEW ENGINES
 
+app.set("views", path.join(__dirname, "./views"));
+app.set("view engine", "ejs");
 
 //! MIDDLEWARES
 
@@ -19,10 +24,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
 
-
 //! ROUTES
 
-const indexRoute = require("./routes/index.routes");
+import indexRoute from "./routes/index.routes.js";
 app.use("/", indexRoute); //
 
 //! 404 - Not Found
@@ -31,4 +35,4 @@ app.use((req, res) => {
   res.status(404).render("404");
 });
 
-module.exports = app;
+export default app;
