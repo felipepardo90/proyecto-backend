@@ -1,7 +1,10 @@
 import express from "express";
-const app = express();
 import morgan from "morgan";
-
+const app = express();
+//! DOTENV
+import * as dotenv from 'dotenv' 
+dotenv.config()
+//! __DIRNAME PATH
 import path from "path";
 import { fileURLToPath } from "url";
 const filename = fileURLToPath(import.meta.url);
@@ -9,7 +12,7 @@ const __dirname = path.dirname(filename);
 
 //! SETTINGS
 
-app.set("port", process.env.PORT || 8080); //! CONFIG port
+app.set("port", process.env.PORT); //! CONFIG port
 app.set("json spaces", 2); //! JSON formatter
 
 //! VIEW ENGINES
