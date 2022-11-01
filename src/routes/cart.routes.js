@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import controller from "../controllers/cart.controller.js";
-import { adminAuth } from "../middlewares/middlewares.js";
+import { adminAuth } from "../libs/middlewares.js";
 
 //? CART
 
