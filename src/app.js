@@ -11,6 +11,10 @@ import * as dotenv from "dotenv";
 process.env.NODE_ENV
   ? dotenv.config(`${__dirname}/.env.${process.env.NODE_ENV}`)
   : dotenv.config();
+
+console.log(process.env.TYPE, "type")
+console.log(process.env.NUM, "num")
+
 //! SETTINGS
 
 app.set("port", process.env.PORT); //! CONFIG port
