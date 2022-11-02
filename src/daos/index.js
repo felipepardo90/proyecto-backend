@@ -6,10 +6,9 @@ const __dirname = path.dirname(filename);
 //! DOTENV
 import * as dotenv from "dotenv";
 process.env.NODE_ENV
-  ? dotenv.config(`./${__dirname}/.env.${process.env.NODE_ENV}`)
+  ? dotenv.config(path.join(__dirname, `../../.env.${process.env.NODE_ENV}`))
   : dotenv.config();
-  console.log(`./src/.env.${process.env.NODE_ENV}`, "ruta en index")
-  console.log(__dirname)
+  console.log(path.join(__dirname, `../../.env.${process.env.NODE_ENV}`), "ruta en index")
 
 let DAOProducts, DAOCarts
 
