@@ -1,12 +1,6 @@
-//! MODELS /////////////////////////////////
-
+//! DAOS /////////////////////////////////
 import { DAOProducts, DAOCarts } from "../daos/index.js";
-// import Container from "../models/Files Pers/Container.js";
-// const contenedor = new Container("src/db/products.json");
-
-// import Cart from "../models/Files Pers/Cart.js";
-// const cart = new Cart("src/db/cart.json");
-//! MODELS /////////////////////////////////
+//! DAOS /////////////////////////////////
 const controller = {};
 
 controller.newCart = async (req, res) => {
