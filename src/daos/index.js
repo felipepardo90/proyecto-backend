@@ -1,4 +1,19 @@
+//! __DIRNAME PATH
+import path from "path";
+import { fileURLToPath } from "url";
+const filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(filename);
+//! DOTENV
+import * as dotenv from "dotenv";
+process.env.NODE_ENV
+  ? dotenv.config(`./${__dirname}/.env.${process.env.NODE_ENV}`)
+  : dotenv.config();
+  console.log(`./src/.env.${process.env.NODE_ENV}`, "ruta en index")
+  console.log(__dirname)
+
 let DAOProducts, DAOCarts
+
+console.log(process.env.TYPE, "type wrong") // TODO wrong
 
 switch (process.env.TYPE) {
     case 'file':
