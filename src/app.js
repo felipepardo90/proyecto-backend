@@ -1,14 +1,16 @@
 import express from "express";
 import morgan from "morgan";
 const app = express();
-//! DOTENV
-import * as dotenv from 'dotenv' 
-dotenv.config()
 //! __DIRNAME PATH
 import path from "path";
 import { fileURLToPath } from "url";
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
+//! DOTENV
+import * as dotenv from "dotenv";
+process.env.NODE_ENV
+  ? dotenv.config(`${__dirname}/.env.${process.env.NODE_ENV}`)
+  : dotenv.config();
 
 //! SETTINGS
 

@@ -1,14 +1,16 @@
 //! MODELS /////////////////////////////////
-import Container from "../models/Files Pers/Container.js";
-const contenedor = new Container("src/db/products.json");
 
-import Cart from "../models/Files Pers/Cart.js";
-const cart = new Cart("src/db/cart.json");
+import { DAOProducts, DAOCarts } from "../daos/index.js";
+// import Container from "../models/Files Pers/Container.js";
+// const contenedor = new Container("src/db/products.json");
+
+// import Cart from "../models/Files Pers/Cart.js";
+// const cart = new Cart("src/db/cart.json");
 //! MODELS /////////////////////////////////
 const controller = {};
 
 controller.newCart = async (req, res) => {
-  const data = await cart.newCart();
+  const data = await DAOCarts.newCart();
   res.status(200).json({
     date: `${data.timestamp}`,
     message: "Se ha creado un nuevo carrito",
@@ -17,7 +19,7 @@ controller.newCart = async (req, res) => {
 };
 
 controller.deleteCart = async (req, res) => {
-  const data = await cart.deleteCartById(req.params.id);
+  const data = await DAOCarts.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
         message: `Se ha eliminado el carrito`,
@@ -29,7 +31,7 @@ controller.deleteCart = async (req, res) => {
 };
 
 controller.getProductsInCart = async (req, res) => {
-  const data = await cart.getCartById(req.params.id);
+  const data = await DAOCarts.getCartById(req.params.id);
   if (data === null) {
     res
       .status(200)
@@ -50,9 +52,9 @@ controller.getProductsInCart = async (req, res) => {
 };
 
 controller.saveProductInCart = async (req, res) => {
-  const productToAdd = await contenedor.getById(req.body.id);
+  const productToAdd = await DAOProducts.getById(req.body.id);
 
-  const data = await cart.addProductToCart(req.params.id, productToAdd);
+  const data = await DAOCarts.addProductToCart(req.params.id, productToAdd);
 
   data != null
     ? res.status(200).json({
