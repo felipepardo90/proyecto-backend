@@ -1,5 +1,7 @@
 node_modules
 pruebas.js
+.env
+.env.file
 
 #############
 

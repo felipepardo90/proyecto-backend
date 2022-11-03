@@ -6,9 +6,9 @@
 // //! DOTENV
 import * as dotenv from "dotenv";
 process.env.NODE_ENV
-  ? dotenv.config(`../../.env.${process.env.NODE_ENV}`)
+  ? dotenv.config({path:`.env.${process.env.NODE_ENV}`})
   : dotenv.config();
-  console.log(`../../.env.${process.env.NODE_ENV}`, "ruta en index")
+  console.log(`.env.${process.env.NODE_ENV}`, "ruta en index")
 
 let DAOProducts, DAOCarts
 
