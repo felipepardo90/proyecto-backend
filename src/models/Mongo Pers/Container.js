@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import config from "../../db/config";
+import config from "../config";
 
-await mongoose.connect(config.mongodb)
+await mongoose.connect(config.mongodb.url, config.mongodb.options)
 
 export default class Container {
-  constructor(file) {
-    this.file = file;
+  constructor(coll, schema) {
+    this.db=mongoose.model(coll, schema)
     this.date = new Date().toLocaleString();
   }
 
@@ -27,6 +27,8 @@ export default class Container {
       //   fs.promises.writeFile(this.file, updatedFile);
       //   return object;
       // }
+     await this.db.create(object)
+     return object
     } catch (error) {
       console.error(`Se produjo un error en save:${error}`);
     }
