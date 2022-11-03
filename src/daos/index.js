@@ -1,14 +1,14 @@
-//! __DIRNAME PATH
-import path from "path";
-import { fileURLToPath } from "url";
-const filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(filename);
-//! DOTENV
+// //! __DIRNAME PATH
+// import path from "path";
+// import { fileURLToPath } from "url";
+// const filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(filename);
+// //! DOTENV
 import * as dotenv from "dotenv";
 process.env.NODE_ENV
-  ? dotenv.config(path.join(__dirname, `../../.env.${process.env.NODE_ENV}`))
+  ? dotenv.config(`../../.env.${process.env.NODE_ENV}`)
   : dotenv.config();
-  console.log(path.join(__dirname, `../../.env.${process.env.NODE_ENV}`), "ruta en index")
+  console.log(`../../.env.${process.env.NODE_ENV}`, "ruta en index")
 
 let DAOProducts, DAOCarts
 
