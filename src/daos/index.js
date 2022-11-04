@@ -3,7 +3,6 @@ import * as dotenv from "dotenv";
 process.env.NODE_ENV
   ? dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
   : dotenv.config();
-console.log(`.env.${process.env.NODE_ENV}`, "ruta en index");
 
 let DAOProducts, DAOCarts;
 
@@ -11,6 +10,12 @@ switch (process.env.TYPE) {
   case "firebase":
     break;
   case "mongodb":
+    const { default: DAOProductsMongo } = await import("./mongo.DAO.products.js");
+    const { default: DAOCartsMongo } = await import("./mongo.DAO.cart.js");
+
+    DAOProducts = new DAOProductsMongo();
+    // DAOCarts = new DAOCartsMongo();
+    break;
     break;
 
   default:
