@@ -1,7 +1,7 @@
-export default Config = {
+const Config = {
   firebase: {},
   mongodb: {
-    url: "mongodb+srv://Felipao:<password>@codercluster.exshfro.mongodb.net/?retryWrites=true&w=majority",
+    url: "mongodb://localhost:27017/ecommerce",
     options: {
       serverSelectionTimeoutMS: 5000,
     },
@@ -23,3 +23,5 @@ export default Config = {
     useNullAsDefault: true,
   },
 };
+
+export default Config
