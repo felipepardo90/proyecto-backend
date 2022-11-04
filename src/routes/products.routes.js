@@ -8,7 +8,7 @@ import { completedFields, adminAuth } from "../libs/middlewares.js";
 router.get("/", adminAuth(true), controller.getAll);
 router.get("/:id", adminAuth(true), controller.getById);
 router.post("/", adminAuth(true), completedFields, controller.post);
-router.put("/:id", adminAuth(false), completedFields, controller.put);
-router.delete("/:id", adminAuth(false), controller.delete);
+router.put("/:id", adminAuth(true), completedFields, controller.put);
+router.delete("/:id", adminAuth(true), controller.delete);
 
 export default router;
