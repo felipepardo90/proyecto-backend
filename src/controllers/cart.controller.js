@@ -46,7 +46,7 @@ controller.getProductsInCart = async (req, res) => {
 };
 
 controller.saveProductInCart = async (req, res) => {
-  const productToAdd = await DAOProducts.getById(req.body.id);
+  const productToAdd = await DAOProducts.getById(req.body._id);
 
   const data = await DAOCarts.addProductToCart(req.params.id, productToAdd);
 
