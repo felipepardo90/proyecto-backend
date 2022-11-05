@@ -63,7 +63,7 @@ controller.saveProductInCart = async (req, res) => {
 
 controller.deleteProductInCart = async (req, res) => {
   const { id, id_prod } = req.params;
-  const data = await cart.deleteProductInCartById(id, id_prod);
+  const data = await DAOCarts.deleteProductInCartById(id, id_prod);
   data != undefined
     ? res.status(200).json({
         message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,
