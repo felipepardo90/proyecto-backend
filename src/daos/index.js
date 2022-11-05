@@ -14,8 +14,7 @@ switch (process.env.TYPE) {
     const { default: DAOCartsMongo } = await import("./mongo.DAO.cart.js");
 
     DAOProducts = new DAOProductsMongo();
-    // DAOCarts = new DAOCartsMongo();
-    break;
+    DAOCarts = new DAOCartsMongo();
     break;
 
   default:
