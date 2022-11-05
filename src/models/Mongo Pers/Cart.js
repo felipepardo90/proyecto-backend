@@ -69,7 +69,7 @@ export default class Cart {
         { _id: idCart },
         {
           $pull: {
-            products: { _id: { idProduct } },
+            products: { _id: idProduct }
           },
         }
       );
