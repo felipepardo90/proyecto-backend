@@ -11,7 +11,7 @@ export default class Container {
 
   async save(object) {
     try {
-      await this.db.create(object);
+      await this.db.create({ ...object, timestamp: this.date });
       return object;
     } catch (error) {
       console.error(`Se produjo un error en save:${error}`);
@@ -20,9 +20,14 @@ export default class Container {
 
   async update(idEntered, object) {
     try {
-      await this.db.replaceOne({ _id: idEntered }, { $set: object });
+      await this.db.updateOne(
+        { _id: idEntered },
+        { $set: object },
+        { $upsert: true }
+      );
+      return object;
     } catch (error) {
-      console.error(`Se produjo un error en update:${error}`);
+      console.error(`Se produjo un error en update: ${error}`);
     }
   }
 
@@ -46,8 +51,8 @@ export default class Container {
 
   async deleteById(idEntered) {
     try {
-      const { i, iDeleted } = this.db.deleteOne({ _id: idEntered });
-      return iDeleted > 0;
+      await this.db.deleteOne({ _id: idEntered });
+      return idEntered;
     } catch (error) {
       console.error(`Se ha producido un error en deleteById: ${error}`);
     }

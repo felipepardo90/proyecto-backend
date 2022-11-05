@@ -1,93 +1,54 @@
-import fs from "fs";
+import mongoose from "mongoose";
+import config from "../../config.js";
+
+await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 export default class Cart {
-  constructor(file) {
-    this.file = file;
+  constructor(coll, schema) {
+    this.db = mongoose.model(coll, schema);
     this.date = new Date().toLocaleString();
     this.products = [];
-    this.price = 0;
+    this.total = 0;
   }
 
   async newCart() {
     try {
-      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
-      const dataParsed = JSON.parse(dataToParse);
-      const newCart = {
-        id: dataParsed.length + 1,
+      const newCart = await this.db.create({// TODO OPTIMIZAR
         timestamp: this.date,
         products: this.products,
-        total: this.price,
-      };
-      dataParsed.push(newCart);
-      const updatedFile = JSON.stringify(dataParsed, null, " ");
-      fs.promises.writeFile(this.file, updatedFile);
+        total: this.total,
+      });
       return newCart;
     } catch (error) {
-      console.error(`Se produjo un error en newCart:${error}`);
+      console.error(`Se produjo un error en save:${error}`);
     }
   }
 
-  async deleteCartById(idEntered) {
+  async deleteCartById(idEntered) {// TODO OPTIMIZAR
     try {
-      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
-      const dataParsed = JSON.parse(dataToParse);
-      const leakedCartId = dataParsed.filter(({ id }) => id != idEntered);
-      const cartFound = dataParsed.find(({ id }) => id == idEntered);
-
-      if (cartFound) {
-        console.log(`Se ha eliminado el carrito con id:${idEntered}`);
-        const updatedFile = JSON.stringify(leakedCartId, null, " ");
-
-        fs.promises.writeFile(this.file, updatedFile);
-        return cartFound;
-      } else {
-        console.log(`No se ha encontrado el carrito con id: ${idEntered}`);
-      }
+      await this.db.deleteOne({ _id: idEntered });
+      return idEntered;
     } catch (error) {
       console.error(`Se ha producido un error en deleteCartById: ${error}`);
     }
   }
 
-  async getCartById(idEntered) {
+  async getCartById(idEntered) {// TODO OPTIMIZAR
     try {
-      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
-      const dataParsed = JSON.parse(dataToParse);
-      const cartFound = dataParsed.find(({ id }) => id == idEntered);
-
-      if (cartFound) {
-        console.log(`Se obtuvo el carrito ${idEntered}`);
-        return cartFound;
-      } else {
-        console.log(`No se ha encontrado el carrito ${idEntered}`);
-        return null;
-      }
+      const data = await this.db.find({ _id: idEntered });
+      return data[0];
     } catch (error) {
       console.error(`Se produjo un error en getCartById: ${error}`);
     }
   }
 
-  async addProductToCart(idEntered, object) {
+  async addProductToCart(idEntered, object) {// TODO OPTIMIZAR
     try {
-      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
-      const dataParsed = JSON.parse(dataToParse);
-      const leakedCartId = dataParsed.filter(({ id }) => id != idEntered);
-      const cartFound = dataParsed.find(({ id }) => id == idEntered);
-
-      if (cartFound) {
-        cartFound.products.push(object);
-        cartFound.products.sort((a, b) => a.id - b.id);
-        leakedCartId.push(cartFound);
-        leakedCartId.sort((a, b) => a.id - b.id);
-        this.price = 2500;
-        const updatedFile = JSON.stringify(leakedCartId, null, " ");
-        fs.promises.writeFile(this.file, updatedFile);
-        console.log(
-          `Se ha agregado el producto ${object.title} exitosamente al carrito ${idEntered}`
-        );
-        return cartFound;
-      } else {
-        return null;
-      }
+      await this.db.updateOne(
+        { _id: idEntered },
+        { $set: { products: object } }
+      );
+      return await this.db.findOne({ _id: idEntered });
     } catch (error) {
       console.error(`Se produjo un error en addProductToCart:${error}`);
     }
@@ -95,26 +56,13 @@ export default class Cart {
 
   async deleteProductInCartById(idCart, idProduct) {
     try {
-      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
-      const dataParsed = JSON.parse(dataToParse);
 
-      const leakedCarts = dataParsed.filter(({ id }) => id != idCart);
-      const cartFound = dataParsed.find(({ id }) => id == idCart);
+      const data = await this.db.find({ _id: idEntered }); // TODO ARREGLAR QUE ESTÁ MALÏSIMO
 
-      const leakedProducts = cartFound.products.filter(
-        ({ id }) => id != idProduct
-      );
-      const productFound = cartFound.products.find(({ id }) => id == idProduct);
+      await this.db.deleteOne({ _id: idCart }, {_id:idEntered});
 
-      cartFound.products = leakedProducts;
-      cartFound.products.sort((a, b) => a.id - b.id);
-      leakedCarts.push(cartFound);
-      leakedCarts.sort((a, b) => a.id - b.id);
-      const updatedFile = JSON.stringify(leakedCarts, null, " ");
+      return data[0];
 
-      fs.promises.writeFile(this.file, updatedFile);
-
-      return productFound;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById:${error}`);
     }
