@@ -48,7 +48,7 @@ export default class Cart {
   async addProductToCart(idEntered, object) {
     // TODO OPTIMIZAR
     try {
-      await this.db.updateOne(
+      await this.db.updateMany(
         { _id: idEntered },
         {
           $push: {
@@ -69,12 +69,21 @@ export default class Cart {
         { _id: idCart },
         {
           $pull: {
-            products: { price: 3900 },
+            products: { _id: idProduct },
           },
         }
       );
 
-      return { title: "Classic Guitar" };
+      const data = await this.db.find({ _id: idCart }, { products: 1 });
+
+      console.log("|Í", data, "|Í");
+      console.log(
+        "|Í",
+        data.forEach((elem) => elem.products[0].title),
+        "|Í"
+      );
+
+      return await data;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById: ${error}`);
     }
