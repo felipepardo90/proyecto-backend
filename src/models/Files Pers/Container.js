@@ -2,7 +2,7 @@ import fs from "fs";
 
 export default class Container {
   constructor(file) {
-    this.file = file;
+    this.file = `src/db/${file}.json`;
     this.date = new Date().toLocaleString();
   }
 

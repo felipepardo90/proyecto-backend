@@ -2,7 +2,7 @@ import fs from "fs";
 
 export default class Cart {
   constructor(file) {
-    this.file = file;
+    this.file = `src/db/${file}.json`;
     this.date = new Date().toLocaleString();
     this.products = [];
     this.price = 0;
