@@ -75,15 +75,18 @@ export default class Cart {
       );
 
       const data = await this.db.find({ _id: idCart }, { products: 1 });
+      const productsInData = data[0].products;
+      const productFound = productsInData.find(({ _id }) => (_id == idProduct));
 
-      console.log("|Í", data, "|Í");
-      console.log(
-        "|Í",
-        data.forEach((elem) => elem.products[0].title),
-        "|Í"
-      );
+      // console.log("|Í", data, "|Í");
+      // console.log("|Í", productsInData, "|Í");
+      // console.log(
+      //   "|Í",
+      //   productsInData.find(({ _id }) => _id = idProduct),
+      //   "|Í"
+      // );
 
-      return await data;
+      return productFound;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById: ${error}`);
     }
