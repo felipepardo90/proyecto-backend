@@ -7,8 +7,6 @@ process.env.NODE_ENV
 let DAOProducts, DAOCarts;
 
 switch (process.env.TYPE) {
-  case "firebase":
-    break;
   case "mongodb":
     const { default: DAOProductsMongo } = await import("./mongo.DAO.products.js");
     const { default: DAOCartsMongo } = await import("./mongo.DAO.cart.js");
@@ -27,3 +25,4 @@ switch (process.env.TYPE) {
 }
 
 export { DAOProducts, DAOCarts };
+
