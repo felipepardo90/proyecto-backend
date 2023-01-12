@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import config from "../../config.js";
 
-await mongoose.connect(config.mongodb.url, config.mongodb.options);
+await mongoose.connect(`${config.mongodb.url}/ecommerce`, config.mongodb.options);
 
 export default class Container {
   constructor(coll, schema) {
