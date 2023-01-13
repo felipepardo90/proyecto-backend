@@ -9,4 +9,4 @@ await mongoose.connect(`${config.mongodb.url}/sessions`, config.mongodb.options)
 //     this.date = new Date().toLocaleString();
 //     this.total = 0;
 //     this.products = Array;
-//   }
+//   }}
