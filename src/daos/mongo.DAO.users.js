@@ -4,7 +4,8 @@ class DAOUsersMongo extends User {
   constructor() {
     super("users", {
       username: String,
-      password: String
+      password: String,
+      email: String,
     });
   }
 }
