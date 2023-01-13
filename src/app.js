@@ -25,7 +25,11 @@ app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
 //! MIDDLEWARES
-const users = [];
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
 app.use(
   session({
     secret: "secret",
@@ -36,10 +40,7 @@ app.use(
     },
   })
 );
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(morgan("dev"));
-app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
+
 //! ROUTES
 
 import indexRoute from "./routes/index.routes.js";
@@ -49,56 +50,6 @@ app.use("/", indexRoute); //
 
 app.use((req, res) => {
   res.status(404).render("404");
-});
-
-//* Register
-
-app.get("/register", (req, res) => {
-  {
-    res.send("HOla Mundoooo");
-  }
-});
-app.post("/register", (req, res) => {
-  {
-    const { username, password, email } = req.body;
-    const user = users.find(({ username }) => username == username);
-
-    if (user) return res.send({ error: true, msg: "Username already exists" });
-
-    users.push({ username, password, email });
-    // res.redirect("/login");
-    res.send({ error: false, msg: "¡User created succesfully!" });
-  }
-});
-//* Login
-
-app.get("/login", (req, res) => {});
-
-app.post("login", (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(
-    ({ username, password }) => username == username && password == password
-  );
-
-  if (!user) return res.send({ error: true, msg: "User not found" });
-  req.session.username = username;
-  // res.redirect("/profile");
-  res.send({ error: false, message: `Bienvenido ${req.session.username}` });
-});
-
-//* Logout
-
-//* Data
-
-const authMW = (req, res, next) => {
-  req.session.username
-    ? next()
-    : res.send({ error: true, msg: "Login failed" });
-};
-
-app.get("/profile", authMW, (req, res) => {
-  const user = users.find(({ username }) => (username = req.session.username));
-  res.send({ error: false, data: user });
 });
 
 export default app;
