@@ -2,29 +2,28 @@ import { Router } from "express";
 import controller from "../controllers/user.controller.js";
 const router = Router();
 
-//* Register
+//! Register
 
 router.get("/register", controller.renderRegistryView);
 router.post("/register", controller.registerUser);
 
-//* Login
+//! Login
 
 router.get("/login", controller.renderLoginView);
 router.post("/login", controller.loginUser);
 
-//* Logout
+//! Logout
 
-//* Data
+router.get("/logout", controller.logoutUser);
 
-const authMW = (req, res, next) => {
+//! Profile
+
+const sessionAuth = (req, res, next) => {
   req.session.username
     ? next()
     : res.send({ error: true, msg: "Login failed" });
 };
 
-router.get("/profile", authMW, (req, res) => {
-  const user = users.find(({ username }) => (username = req.session.username));
-  res.send({ error: false, data: user });
-});
+router.get("/profile", sessionAuth, controller.renderProfileView);
 
 export default router;

@@ -1,7 +1,3 @@
-const controller = {};
-
-controller.index = (req, res) => {
-  res.status(200).render("index");
+export const renderIndexView = (req, res) => {
+  res.redirect("login")
 };
-
-export default controller;
