@@ -1,5 +1,9 @@
 import express from "express";
 import session from "express-session";
+import passport from "passport";
+import localStrategy, { Strategy } from "passport-local";
+import multer from "multer";
+// const upload = multer()
 import morgan from "morgan";
 //! __DIRNAME PATH
 import path from "path";
@@ -40,6 +44,30 @@ app.use(
     },
   })
 );
+// passport.use("signup", new Strategy({
+
+// }(req, username, password, done)))
+
+//! MULTER
+
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname);
+  },
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+});
+
+const upload = multer({ storage });
+
+app.get("/prueba", (req, res) => {
+  res.render("prueba");
+});
+app.post("/prueba", upload.single("myFile"), (req, res) => {
+  const { file } = req.file;
+  res.send(file);
+});
 
 //! ROUTES
 
