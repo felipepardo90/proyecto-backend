@@ -1,4 +1,5 @@
 <%- include("layout/main", {title: "Log In"}) %>
+<%- include("partials/nav.ejs") %>
 
 <body>
   <main>
@@ -51,14 +52,15 @@
         </div>
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">
-          Sign in
-        </button>
-
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-block mb-4">
+            Sign in
+          </button>
+        </div>
         <!-- Register buttons -->
         <div class="text-center">
           <p>Not a member? <a href="/register">Register</a></p>
-          <p>or sign up with:</p>
+          <!-- <p>or sign up with:</p>
           <button type="button" class="btn btn-link btn-floating mx-1">
             <i class="fab fa-facebook-f"></i>
           </button>
@@ -73,10 +75,10 @@
 
           <button type="button" class="btn btn-link btn-floating mx-1">
             <i class="fab fa-github"></i>
-          </button>
+          </button> -->
         </div>
       </form>
     </div>
   </main>
 </body>
-</html>
+<!-- </html> -->
