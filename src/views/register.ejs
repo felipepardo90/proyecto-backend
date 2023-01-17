@@ -1,0 +1,28 @@
+<%- include("layout/main", {title: "Register"}) %>
+
+<body>
+  <form
+    action="/register"
+    class="form-container"
+    style="
+      /* background-color: red; */
+      min-width: 550px;
+      margin: 300px auto;
+      padding: 30px 40px;
+    "
+    enctype="multipart/form-data"
+    method="POST"
+  >
+    <!-- <input type="text" name="fullname" placeholder="Insert Fullname" /> -->
+    <input type="text" name="username" placeholder="Insert Email" required />
+    <!-- <input type="email" name="email" placeholder="Insert Email" />
+    <input type="number" name="age" placeholder="Insert age" />
+    <input type="number" name="phone" placeholder="Insert phone number" /> -->
+    <input type="password" name="password" placeholder="Insert Password" required/>
+    <!-- Sube tu imagen/avatar -->
+    <!-- <input type="file" name="avatar"/> -->
+
+    <button type="submit">Signup</button>
+  </form>
+</body>
+</html>
