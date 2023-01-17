@@ -61,35 +61,13 @@ body {
   border-bottom: 1px solid yellow;
   font-family: "Roboto", sans-serif;
 }
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) + .form-label {
-  transform: translateY(-12px) scale(0.7);
-  transform-origin: left top;
-  color: lightblue;
-}
-.form-container .form-group .form-input:not(:-ms-input-placeholder) + .form-label {
-  transform: translateY(-12px) scale(0.7);
-  transform-origin: left top;
-  color: lightblue;
-}
 .form-container .form-group .form-input:focus + .form-label, .form-container .form-group .form-input:not(:placeholder-shown) + .form-label {
   transform: translateY(-12px) scale(0.7);
   transform-origin: left top;
   color: lightblue;
 }
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) ~ .form-line {
-  transform: scale(1);
-}
-.form-container .form-group .form-input:not(:-ms-input-placeholder) ~ .form-line {
-  transform: scale(1);
-}
 .form-container .form-group .form-input:focus ~ .form-line, .form-container .form-group .form-input:not(:placeholder-shown) ~ .form-line {
   transform: scale(1);
-}
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) {
-  color: lightblue;
-}
-.form-container .form-group .form-input:not(:-ms-input-placeholder) {
-  color: lightblue;
 }
 .form-container .form-group .form-input:focus, .form-container .form-group .form-input:not(:placeholder-shown) {
   color: lightblue;
@@ -136,66 +114,6 @@ body {
     font-size: 1.8rem;
   }
 }
-#chat-container {
-  max-width: 600px;
-  border: 1px solid #ddd;
-  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
-  margin: 30px auto;
-  width: 90%;
-  background-color: yellow;
-}
-
-#chat-window {
-  background-color: white;
-  padding: 14px 0;
-  margin: 0 10px;
-  height: 200px;
-  border-bottom: 1px solid #e9e9e9;
-  overflow-y: scroll;
-  overflow-wrap: break-word;
-}
-
-#output {
-  padding: 14px 0;
-  margin: 0 20px;
-}
-#output p .message-user {
-  color: blue;
-}
-#output p .message-date {
-  color: brown;
-}
-#output p .message-txt {
-  color: green;
-  font-style: italic;
-}
-
-#actions p {
-  padding: 14px 0;
-  margin: 0 20px;
-  border-bottom: 1px solid #e9e9e9;
-  color: #555;
-}
-
-input {
-  padding: 10px 20px;
-  box-sizing: border-box;
-  border: 0;
-  background: #eee;
-  display: block;
-  width: 100%;
-}
-
-button {
-  background-color: green;
-  color: #fff;
-  font-size: 18px;
-  border: 0;
-  padding: 12px 0;
-  width: 100%;
-  border-radius: 0 0 2px 2px;
-}
-
 .section-products {
   width: 90%;
   height: 600px;
@@ -251,8 +169,7 @@ table td:nth-child(4), table td:nth-child(5), table td:nth-child(6) {
 table tbody img {
   width: 120px;
   height: 120px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   box-shadow: 1px 2px 4px black;
   border-radius: 50%;
 }
@@ -321,4 +238,11 @@ table tbody img {
   body {
     border-top: 16px solid #ffa100;
   }
+}
+.login-form {
+  background-color: lightseagreen;
+  color: white;
+  padding: 20px 10px;
+  margin: auto;
+  max-width: 500px;
 }
