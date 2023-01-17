@@ -13,13 +13,14 @@ controller.renderRegistryView = (req, res) => {
 };
 
 controller.registerUser = (req, res) => {
+  console.log("REGISTER>>>>", req.body, "<<<<REGISTER");
   const { username, password } = req.body;
-  // console.log(username, password, "PRUEBA")
+  console.log(username, password, "PRUEBA REGISTER"); //TODO fix on form
   const user = users.find((u) => u.username == username);
   if (user) return res.send({ error: true, msg: "Username already exists" });
-  
+
   users.push({ username, password });
-  // console.log(users, "users register")
+  console.log(users, "users register");
   console.log("¡User created succesfully!");
   res.redirect("/login");
 };
@@ -31,7 +32,8 @@ controller.renderLoginView = (req, res) => {
 };
 
 controller.loginUser = (req, res) => {
-  console.log(users, "users login")
+  console.log(users, "users login");
+  console.log("LOGIN>>>>", req.body, "<<<<LOGIN")
   const { username, password } = req.body;
   const user = users.find(
     (u) => u.username == username && u.password == password
@@ -43,9 +45,7 @@ controller.loginUser = (req, res) => {
       msg: "Username and/or password are incorrect",
     });
   // req.session.username = username;
-  console.log(user)
   res.status(200).render("index", { user: user });
-  // res.send({ error: false, message: `Bienvenido ${req.session.username}` });
 };
 
 //! PROFILE

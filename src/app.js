@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import bodyParser from "body-parser";
 import passport from "passport";
 import localStrategy, { Strategy } from "passport-local";
 import multer from "multer";
@@ -29,7 +30,7 @@ app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
 //! MIDDLEWARES
-
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
@@ -50,23 +51,20 @@ app.use(
 
 //! MULTER
 
-const storage = multer.diskStorage({
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname);
-  },
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-});
-
-const upload = multer({ storage });
+const upload = multer({ dest: "./public/uploads/" });
 
 app.get("/prueba", (req, res) => {
   res.render("prueba");
 });
-app.post("/prueba", upload.single("myFile"), (req, res) => {
-  const { file } = req.file;
-  res.send(file);
+app.post("/prueba", upload.single("avatar"), (req, res) => {
+  const file = req.file;
+  res.send({
+    error: false,
+    msg: "File upload succesfully!!!",
+    "original name": file.originalname,
+    destination: file.destination,
+    filename: file.filename,
+  });
 });
 
 //! ROUTES
