@@ -1,6 +1,8 @@
 //? completedFields revisará si el input del formulario o la query recibe todos los parámetros solicitados // Método POST
 
-const completedFields = (req, res, next) => {
+export const MW = {};
+
+MW.completedFields = (req, res, next) => {
   const { title, price, thumbnail, description, code, stock } = req.body;
   title && price && thumbnail && description && code && stock
     ? next()
@@ -11,7 +13,7 @@ const completedFields = (req, res, next) => {
 
 //TODO implementar otros roles
 
-const adminAuth = (permissions) => {
+MW.adminAuth = (permissions) => {
   return (req, res, next) => {
     permissions === true
       ? next()
@@ -20,4 +22,3 @@ const adminAuth = (permissions) => {
           .json({ error: -1, description: "unauthorized permission" });
   };
 };
-export { adminAuth, completedFields };
