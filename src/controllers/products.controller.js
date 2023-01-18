@@ -1,5 +1,5 @@
 //! DAOS /////////////////////////////////
-import { DAOProducts } from "../daos/index.js";
+import { DAOProducts } from "../daos";
 //! DAOS /////////////////////////////////
 const controller = {};
 

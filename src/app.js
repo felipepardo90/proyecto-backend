@@ -2,7 +2,8 @@ import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
 import passport from "passport";
-import localStrategy, { Strategy } from "passport-local";
+import { Strategy as localStrategy } from "passport-local";
+import indexRoute from "./routes/index.routes.js";
 import multer from "multer";
 // const upload = multer()
 import morgan from "morgan";
@@ -30,10 +31,10 @@ app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
 //! MIDDLEWARES
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
 app.use(
   session({
@@ -45,6 +46,8 @@ app.use(
     },
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 // passport.use("signup", new Strategy({
 
 // }(req, username, password, done)))
@@ -69,7 +72,6 @@ app.post("/prueba", upload.single("avatar"), (req, res) => {
 
 //! ROUTES
 
-import indexRoute from "./routes/index.routes.js";
 app.use("/", indexRoute); //
 
 //! 404 - Not Found
