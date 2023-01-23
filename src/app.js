@@ -3,7 +3,7 @@ import session from "express-session";
 import bodyParser from "body-parser";
 import passport from "passport";
 import indexRoute from "./routes/index.routes.js";
-import multer from "multer";
+// import multer from "multer";
 // const upload = multer({ dest: "./public/uploads/" });
 import morgan from "morgan";
 //! __DIRNAME PATH
@@ -45,7 +45,7 @@ app.use(
     },
   })
 );
-import "../passport/auth.js";
+import "./passport/auth.js"; //! CONFIG PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
 

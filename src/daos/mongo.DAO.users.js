@@ -12,13 +12,13 @@ const userSchema = new Schema({
   password: String,
 });
 
-userSchema.methods.encryptPass = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-};
+// userSchema.methods.encryptPass = (password) => {
+//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+// };
 
-userSchema.methods.validatePass = (password) => {
-  return bcrypt.compareSync(password, this.password);
-};
+// userSchema.methods.validatePass = (password) => {
+//   return bcrypt.compareSync(password, this.password);
+// };
 
 class DAOUsersMongo extends User {
   constructor() {
