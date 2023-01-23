@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 import config from "../../config.js";
 
-await mongoose.connect(
-  `${config.mongodb.url}/sessions`,
-  config.mongodb.options
-);
+await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
 export default class User {
   constructor(coll, schema) {
@@ -18,10 +15,9 @@ export default class User {
     }
   }
 
-
-  async getUserById(id) {
+  async getUserByUsername(username) {
     try {
-      return await this.db.findOne({ _id: id });
+      return await this.db.findOne({ "username": username });
     } catch (err) {
       throw new Error(err);
     }

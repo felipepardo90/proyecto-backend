@@ -1,17 +1,29 @@
 import { Router } from "express";
+import passport from "passport";
 import controller from "../controllers/user.controller.js";
 const router = Router();
-
 
 //! Register
 
 router.get("/register", controller.renderRegistryView);
-router.post("/register", controller.registerUser);
+router.post(
+  "/register",
+  passport.authenticate("signup", {
+    successRedirect: "/login",
+    failureRedirect: "/error",
+  })
+);
 
 //! Login
 
 router.get("/login", controller.renderLoginView);
-router.post("/login", controller.loginUser);
+router.post(
+  "/login",
+  passport.authenticate("login", {
+    successRedirect: "/",
+    failureRedirect: "/error",
+  })
+);
 
 //! Logout
 

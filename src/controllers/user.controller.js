@@ -1,5 +1,5 @@
 //! DAOS /////////////////////////////////
-import { DAOUsers } from "../daos";
+// import { DAOUsers } from "../daos/index.js";
 //! DAOS /////////////////////////////////
 const controller = {};
 
@@ -12,7 +12,6 @@ controller.renderRegistryView = (req, res) => {
 };
 
 controller.registerUser = (req, res) => {
-  // console.log("REGISTER>>>>", req.body, "<<<<REGISTER");
   const { username, password } = req.body; //TODO fix on form
   const user = users.find((u) => u.username == username);
   if (user) return res.send({ error: true, msg: "Username already exists" });
@@ -52,7 +51,6 @@ controller.renderProfileView = (req, res) => {
 
 controller.logoutUser = (req, res) => {
   req.session.destroy((err) => {
-    // res.send({ error: false, msg: "¡Bye!" });
     //TODO devolver a LOGIN
     res.redirect("login");
   });
