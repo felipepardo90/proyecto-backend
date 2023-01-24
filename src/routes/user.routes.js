@@ -8,10 +8,16 @@ const router = Router();
 router.get("/register", controller.renderRegistryView);
 router.post(
   "/register",
-  passport.authenticate("signup", {
-    successRedirect: "/login",
-    failureRedirect: "/error",
-  })
+  passport.authenticate(
+    "signup",
+    {
+      failureRedirect: "/error",
+      passReqToCallback: true,
+    },
+    (req, res) => {
+      res.send({ error: false });
+    }
+  )
 );
 
 //! Login
@@ -19,10 +25,15 @@ router.post(
 router.get("/login", controller.renderLoginView);
 router.post(
   "/login",
-  passport.authenticate("login", {
-    successRedirect: "/",
-    failureRedirect: "/error",
-  })
+  passport.authenticate(
+    "login",
+    {
+      failureRedirect: "/error",
+    },
+    (req, res) => {
+      res.send({ error: false });
+    }
+  )
 );
 
 //! Logout

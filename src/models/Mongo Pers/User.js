@@ -17,7 +17,10 @@ export default class User {
 
   async getUserByUsername(username) {
     try {
-      return await this.db.findOne({ username: username });
+      await this.db.findOne({ username }, (err, user) => {
+        console.log(err);
+        return user;
+      });
     } catch (err) {
       throw new Error(err);
     }
@@ -25,7 +28,7 @@ export default class User {
 
   async findById(id) {
     try {
-      return await this.db.findOne({ _id: id });
+      return await this.db.findById({ _id: id });
     } catch (err) {
       throw new Error(err);
     }

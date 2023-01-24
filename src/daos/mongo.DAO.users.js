@@ -1,6 +1,7 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../models/Mongo Pers/User.js";
+
 
 const userSchema = new Schema({
   username: String,
@@ -12,18 +13,20 @@ const userSchema = new Schema({
   password: String,
 });
 
-// userSchema.methods.encryptPass = (password) => {
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-// };
+userSchema.methods.encryptPass = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
 
-// userSchema.methods.validatePass = (password) => {
-//   return bcrypt.compareSync(password, this.password);
-// };
+userSchema.methods.validatePass = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
-class DAOUsersMongo extends User {
-  constructor() {
-    super("users", userSchema);
-  }
-}
+const DAOUsersMongo = mongoose.model("users", userSchema)
+
+// class DAOUsersMongo extends User {
+//   constructor() {
+//     super("users", userSchema);
+//   }
+// }
 
 export default DAOUsersMongo;
