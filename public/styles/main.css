@@ -44,7 +44,6 @@ body {
 .form-container {
   margin-top: 3em;
   display: grid;
-  gap: 2.5em;
 }
 .form-container .form-group {
   position: relative;
@@ -61,13 +60,35 @@ body {
   border-bottom: 1px solid yellow;
   font-family: "Roboto", sans-serif;
 }
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) + .form-label {
+  transform: translateY(-12px) scale(0.7);
+  transform-origin: left top;
+  color: lightblue;
+}
+.form-container .form-group .form-input:not(:-ms-input-placeholder) + .form-label {
+  transform: translateY(-12px) scale(0.7);
+  transform-origin: left top;
+  color: lightblue;
+}
 .form-container .form-group .form-input:focus + .form-label, .form-container .form-group .form-input:not(:placeholder-shown) + .form-label {
   transform: translateY(-12px) scale(0.7);
   transform-origin: left top;
   color: lightblue;
 }
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) ~ .form-line {
+  transform: scale(1);
+}
+.form-container .form-group .form-input:not(:-ms-input-placeholder) ~ .form-line {
+  transform: scale(1);
+}
 .form-container .form-group .form-input:focus ~ .form-line, .form-container .form-group .form-input:not(:placeholder-shown) ~ .form-line {
   transform: scale(1);
+}
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) {
+  color: lightblue;
+}
+.form-container .form-group .form-input:not(:-ms-input-placeholder) {
+  color: lightblue;
 }
 .form-container .form-group .form-input:focus, .form-container .form-group .form-input:not(:placeholder-shown) {
   color: lightblue;
@@ -169,7 +190,8 @@ table td:nth-child(4), table td:nth-child(5), table td:nth-child(6) {
 table tbody img {
   width: 120px;
   height: 120px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   box-shadow: 1px 2px 4px black;
   border-radius: 50%;
 }
@@ -248,4 +270,4 @@ table tbody img {
   border: 1px solid green;
   border-radius: 5px;
   box-shadow: 2px 2px 5px green;
-}
+}/*# sourceMappingURL=main.css.map */

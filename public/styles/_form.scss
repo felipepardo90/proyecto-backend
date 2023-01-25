@@ -31,7 +31,6 @@
   &-container {
     margin-top: 3em;
     display: grid;
-    gap: 2.5em;
     .form-group {
       position: relative;
       color: purple;
@@ -78,7 +77,7 @@
         background-color: lightblue;
         transform: scale(0);
         transform: left bottom;
-        transition: transform .4s;
+        transition: transform 0.4s;
       }
     }
     .form-submit {
@@ -91,8 +90,8 @@
       border: none;
       border-radius: 0.5em;
       cursor: pointer;
-      transition: .3s all;
-      &:hover{
+      transition: 0.3s all;
+      &:hover {
         background-color: blue;
         color: yellow;
       }
@@ -100,8 +99,8 @@
   }
 }
 
-@media (max-width: 425px){
-    .form-title{
-        font-size: 1.8rem;
-    }
+@media (max-width: 425px) {
+  .form-title {
+    font-size: 1.8rem;
+  }
 }
