@@ -10,7 +10,7 @@ router.post(
   "/register",
   passport.authenticate("signup", {
     successRedirect: "/login",
-    failureRedirect: "/error",
+    failureRedirect: "/register",
     passReqToCallback: true,
   }),
   (req, res) => {
@@ -23,15 +23,11 @@ router.post(
 router.get("/login", controller.renderLoginView);
 router.post(
   "/login",
-  passport.authenticate(
-    "login",
-    {
-      failureRedirect: "/error",
-    },
-    (req, res) => {
-      res.send({ error: false });
-    }
-  )
+  passport.authenticate("login", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    passReqToCallback: true,
+  })
 );
 
 //! Logout
