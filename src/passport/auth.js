@@ -1,22 +1,22 @@
 import passport from "passport";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import { Strategy } from "passport-local";
 import { DAOUsers } from "../daos/index.js";
 
-// const encryptPass = (password) => {
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-// };
+const encryptPass = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
 
-// const validatePass = (password, hashedPassword) => {
-//   return bcrypt.compareSync(password, hashedPassword);
-// };
+const validatePass = (password, hashedPassword) => {
+  return bcrypt.compareSync(password, hashedPassword);
+};
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
 passport.deserializeUser((_id, done) => {
-  Users.findById(_id, done);
+  DAOUsers.findById(_id, done);
 });
 
 //! SIGNUP
@@ -28,18 +28,22 @@ passport.use(
     async (req, username, password, done) => {
       console.log("passport AUTH", username, "PASS", password, ">>>>>>");
       const { email } = req.body;
-      await DAOUsers.findOne({ username }, (err, user) => {
-        console.log(err);
-        if (user) return done(null, false);
+      const userFound = await DAOUsers.findOne(username);
+      // , (err, user) => {
+      console.log(userFound);
+      if (userFound) {
+        console.log("Usuario ya existe");
+        return done(null, false);
+      } else {
+        const userCreated = DAOUsers.create({
+          username,
+          password: encryptPass(password),
+          email,
+        });
 
-        DAOUsers.create(
-          { username, password: encryptPass(password), email },
-          (err, user) => {
-            if (err) return done(err);
-            return done(null, user);
-          }
-        );
-      });
+        return done(null, userCreated);
+      }
+      // });
     }
   )
 );
