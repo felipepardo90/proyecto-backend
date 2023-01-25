@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
 import passport from "passport";
+import flash from "connect-flash";
 import indexRoute from "./routes/index.routes.js";
 // import multer from "multer";
 // const upload = multer({ dest: "./public/uploads/" });
@@ -45,9 +46,15 @@ app.use(
     },
   })
 );
+app.use(flash());
 import "./passport/auth.js"; //! CONFIG PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  app.locals.signupMsg = req.flash("signup message");
+  next();
+});
 
 //! MULTER
 
