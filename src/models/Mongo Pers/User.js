@@ -7,7 +7,7 @@ export default class User {
   constructor(coll, schema) {
     this.db = mongoose.model(coll, schema);
   }
-  async createUser(newUser) {
+  async create(newUser) {
     try {
       return await this.db.create(newUser);
     } catch (err) {
@@ -15,12 +15,9 @@ export default class User {
     }
   }
 
-  async getUserByUsername(username) {
+  async findOne(username) {
     try {
-      await this.db.findOne({ username }, (err, user) => {
-        console.log(err);
-        return user;
-      });
+      return await this.db.findOne({ username });
     } catch (err) {
       throw new Error(err);
     }

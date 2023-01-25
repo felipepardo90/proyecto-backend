@@ -13,20 +13,19 @@ const userSchema = new Schema({
   password: String,
 });
 
-userSchema.methods.encryptPass = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-};
+// userSchema.methods.encryptPass = (password) => {
+//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+// };
 
-userSchema.methods.validatePass = function (password) {
-  return bcrypt.compareSync(password, this.password);
-};
+// userSchema.methods.validatePass = function (password) {
+//   return bcrypt.compareSync(password, this.password);
+// };
 
-const DAOUsersMongo = mongoose.model("users", userSchema)
+// const DAOUsersMongo = mongoose.model("users", userSchema)
 
-// class DAOUsersMongo extends User {
-//   constructor() {
-//     super("users", userSchema);
-//   }
-// }
+export default class DAOUsersMongo extends User {
+  constructor() {
+    super("users", userSchema);
+  }
+}
 
-export default DAOUsersMongo;
