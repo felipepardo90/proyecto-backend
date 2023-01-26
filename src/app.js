@@ -47,12 +47,14 @@ app.use(
   })
 );
 app.use(flash());
-import "./passport/auth.js"; //! CONFIG PASSPORT
+import "./libs/passport-auth.js"; //! CONFIG PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
   app.locals.signupMsg = req.flash("signup message");
+  app.locals.signinMsg = req.flash("signin message");
+  app.locals.user = req.user;
   next();
 });
 

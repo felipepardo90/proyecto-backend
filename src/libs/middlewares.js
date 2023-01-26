@@ -11,14 +11,13 @@ MW.completedFields = (req, res, next) => {
 
 //? Permisos de administrador
 
-//TODO implementar otros roles
+MW.isAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+};
 
-MW.adminAuth = (permissions) => {
-  return (req, res, next) => {
-    permissions === true
-      ? next()
-      : res
-          .status(401)
-          .json({ error: -1, description: "unauthorized permission" });
-  };
+MW.isNotAuth = (req, res, next) => {
+  req.isAuthenticated() || next();
 };

@@ -34,7 +34,7 @@ passport.use(
       } else {
         const user = await DAOUsers.create({
           username,
-          password: await DAOUsers.validatePass(password),
+          password: DAOUsers.encryptPass(password),
           email,
         });
         done(null, user);
@@ -53,12 +53,12 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true,
     },
-    async (req, email, password, done) => {
-      const userFound = await DAOUsers.findOne(email);
+    async (req, username, password, done) => {
+      const userFound = await DAOUsers.findOne(username);
       if (!userFound) {
         return done(null, false, req.flash("signin message", "User not found"));
       }
-      if (await !userFound.validatePass(password)) {
+      if (!DAOUsers.validatePass(password, userFound.password)) {
         return done(
           null,
           false,
