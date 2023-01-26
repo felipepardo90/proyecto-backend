@@ -4,8 +4,10 @@
 <body>
   <main>
     <div>
+      <% if(user) { %>
       <h1>Bienvenida/o <%= user.username %></h1>
       <br />
+      <%}%>
     </div>
     <form class="form" id="products-form" action="api/products" method="POST">
       <h2 class="form-title">Ingresar productos</h2>
@@ -20,14 +22,7 @@
       </p>
       <div class="form-container">
         <div class="form-group">
-          <input
-            type="text"
-            name="title"
-            
-            class="form-input"
-            placeholder=" "
-            
-          />
+          <input type="text" name="title" class="form-input" placeholder=" " />
           <label for="title" class="form-label">Title:</label>
           <span class="form-line"></span>
         </div>
@@ -47,19 +42,12 @@
             name="thumbnail"
             class="form-input"
             placeholder=" "
-            
           />
           <label for="thumbnail" class="form-label">Thumbnail:</label>
           <span class="form-line"></span>
         </div>
         <div class="form-group">
-          <input
-            type="text"
-            name="code"
-            class="form-input"
-            placeholder=" "
-            
-          />
+          <input type="text" name="code" class="form-input" placeholder=" " />
           <label for="code" class="form-label">Code:</label>
           <span class="form-line"></span>
         </div>
@@ -69,7 +57,6 @@
             name="stock"
             class="form-input"
             placeholder=" "
-            
           />
           <label for="stock" class="form-label">Stock:</label>
           <span class="form-line"></span>
@@ -85,11 +72,18 @@
           <label for="description" class="form-label">Description:</label>
           <span class="form-line"></span>
         </textarea> -->
-        <textarea name="description" id="description" cols="30" rows="10" class="form-input" placeholder=" "></textarea>
+        <textarea
+          name="description"
+          id="description"
+          cols="30"
+          rows="10"
+          class="form-input"
+          placeholder=" "
+        ></textarea>
 
         <input type="submit" class="form-submit" value="Ingresar" />
       </div>
     </form>
   </main>
 </body>
-</html>
+<!-- </html> -->
