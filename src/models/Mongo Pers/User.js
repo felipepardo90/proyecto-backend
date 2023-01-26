@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import config from "../../config.js";
+import bcrypt from "bcrypt";
+import config from "../../libs/config.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
@@ -15,9 +16,9 @@ export default class User {
     }
   }
 
-  async findOne(email) {
+  async findOne(username) {
     try {
-      return await this.db.findOne({ email: email });
+      return await this.db.findOne({ username: username });
     } catch (err) {
       throw new Error(err);
     }
@@ -29,5 +30,13 @@ export default class User {
     } catch (err) {
       throw new Error(err);
     }
+  }
+
+  encryptPass(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  }
+
+  validatePass(password, hashPassword) {
+    return bcrypt.compareSync(password, hashPassword);
   }
 }
