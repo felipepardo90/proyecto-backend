@@ -1,3 +1,3 @@
 export const renderIndexView = (req, res) => {
-  res.redirect("login")
+  res.render("index")
 };
