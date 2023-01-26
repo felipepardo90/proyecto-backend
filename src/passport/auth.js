@@ -6,8 +6,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  const user = DAOUsers.findById(id);
+passport.deserializeUser(async (id, done) => {
+  const user = await DAOUsers.findById(id);
   done(null, user);
 });
 
@@ -34,7 +34,7 @@ passport.use(
       } else {
         const user = await DAOUsers.create({
           username,
-          password: await DAOUsers.encryptPass(password),
+          password: await DAOUsers.validatePass(password),
           email,
         });
         done(null, user);
@@ -58,7 +58,7 @@ passport.use(
       if (!userFound) {
         return done(null, false, req.flash("signin message", "User not found"));
       }
-      if (!userFound.comparePass(password)) {
+      if (await !userFound.validatePass(password)) {
         return done(
           null,
           false,

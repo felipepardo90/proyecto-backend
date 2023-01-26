@@ -9,13 +9,10 @@ router.get("/register", controller.renderRegistryView);
 router.post(
   "/register",
   passport.authenticate("signup", {
-    successRedirect: "/login",
-    failureRedirect: "/register",
+    successRedirect: "/",
+    failureRedirect: "/login",
     passReqToCallback: true,
-  }),
-  (req, res) => {
-    res.json({ error: false });
-  }
+  })
 );
 
 //! Login
