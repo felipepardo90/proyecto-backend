@@ -24,6 +24,14 @@ export default class User {
     }
   }
 
+  async findByEmail(email) {
+    try {
+      return await this.db.findOne({ email: email });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   async findById(id) {
     try {
       return await this.db.findById({ _id: id });

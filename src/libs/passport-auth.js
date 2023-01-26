@@ -24,7 +24,7 @@ passport.use(
     async (req, username, password, done) => {
       const { email } = req.body;
 
-      const userFound = await DAOUsers.findOne(email);
+      const userFound = await DAOUsers.findByEmail(email);
       if (userFound) {
         return done(
           null,

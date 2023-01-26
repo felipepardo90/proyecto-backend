@@ -1,9 +1,4 @@
-//! DAOS /////////////////////////////////
-// import { DAOUsers } from "../daos/index.js";
-//! DAOS /////////////////////////////////
 const controller = {};
-
-const users = []; //TODO Temporal
 
 //! REGISTER
 
@@ -20,14 +15,13 @@ controller.renderLoginView = (req, res) => {
 //! PROFILE
 
 controller.renderProfileView = (req, res) => {
-  res.render("profile")
+  res.render("profile");
 };
 
 //! LOGOUT
 
 controller.logoutUser = (req, res) => {
   req.session.destroy((err) => {
-    //TODO devolver a LOGIN
     res.redirect("login");
   });
 };

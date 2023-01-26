@@ -6,7 +6,7 @@ const router = Router();
 
 //! Register
 
-router.get("/register",  MW.isNotAuth, controller.renderRegistryView);
+router.get("/register", MW.isNotAuth, controller.renderRegistryView);
 router.post(
   "/register",
   passport.authenticate("signup", {
@@ -18,7 +18,7 @@ router.post(
 
 //! Login
 
-router.get("/login", MW.isNotAuth, controller.renderLoginView);
+router.get("/login", controller.renderLoginView);
 router.post(
   "/login",
   passport.authenticate("login", {
