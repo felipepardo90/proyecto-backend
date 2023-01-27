@@ -1,10 +1,13 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 const Config = {
   mongodb: {
-    url: "mongodb://localhost:27017/ecommerce",
+    url: process.env.MONGODB_URI,
     options: {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000,
     },
-  }
+  },
 };
 
-export default Config
+export default Config;
