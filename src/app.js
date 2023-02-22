@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import bodyParser from "body-parser";
 import passport from "passport";
 import flash from "connect-flash";
@@ -42,8 +43,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60000,
+      maxAge: 600000,
     },
+    store: MongoStore.create({
+      mongoUrl: `mongodb+srv://${process.env.USER}:${process.env.PASS}@codercluster.exshfro.mongodb.net/sessions`,
+    }),
   })
 );
 app.use(flash());
