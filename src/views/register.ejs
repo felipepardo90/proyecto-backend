@@ -1,22 +1,15 @@
 <%- include("layout/main", {title: "Register"}) %>
 
 <body>
-  <form
-    action="/register"
-    method="POST"
-    class="form-container"
-    style="
-      min-width: 50px;
-      margin: 60px auto;
-      padding: 40px 60px;
-      border: 1px solid green;
-      box-shadow: 6px 6px 15px darkgreen;
-      border-radius: 12px;
-      background-color: lightgreen;
-    "
-  >
+  <form action="/register" method="POST" class="register-form">
     <!-- enctype="multipart/form-data" -->
     <!-- <input type="text" name="username" placeholder="Insert Email" required /> -->
+
+    <div class="col">
+      <% if(signupMsg) { %>
+      <h4><%= signupMsg %></h4>
+      <% } %>
+    </div>
 
     <div class="form-outline mb-4">
       <input
@@ -30,32 +23,33 @@
     <div class="form-outline mb-4">
       <input
         type="email"
-        id="form2Example1"
+        id="form2Example2"
         class="form-control"
         name="email"
       />
-      <label class="form-label" for="form2Example1">Insert email</label>
-      <% if(signupMsg) { %>
-      <label> <%= signupMsg %> </label>
-      <% } %>
+      <label class="form-label" for="form2Example2">Insert email</label>
     </div>
-    <!-- <input type="email" name="email" placeholder="Insert Email" />
-      <input type="number" name="age" placeholder="Insert age" />
+    <!-- <input type="number" name="age" placeholder="Age" />
       <input type="number" name="phone" placeholder="Insert phone number" /> -->
     <div class="form-outline mb-4">
       <input
         type="password"
-        id="form2Example2"
+        id="form3Example3"
         class="form-control"
         name="password"
       />
-      <label class="form-label" for="form2Example2">Password</label>
+      <label class="form-label" for="form3Example3">Password</label>
     </div>
     <!-- <input type="password" name="password" placeholder="Insert Password" required/> -->
     <!-- Sube tu imagen/avatar -->
     <!-- <input type="file" name="avatar"/> -->
-
-    <button type="submit">Signup</button>
+    <!-- Submit button -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-success btn-block mb-4">
+        Sign up
+      </button>
+      <a href="/login" class="btn btn-light btn-block mb-4">Log in </a>
+    </div>
   </form>
 </body>
-<!-- </html> -->
+</html>
