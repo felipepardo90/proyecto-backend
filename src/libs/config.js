@@ -3,7 +3,7 @@ dotenv.config();
 
 const Config = {
   mongodb: {
-    url: process.env.MONGODB_URI,
+    url: `mongodb+srv://${process.env.USER}:${process.env.PASS}@codercluster.exshfro.mongodb.net/ecommerce` || process.env.MONGODB_URI,
     options: {
       serverSelectionTimeoutMS: 10000,
     },
