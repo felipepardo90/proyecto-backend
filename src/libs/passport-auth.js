@@ -29,13 +29,13 @@ passport.use(
         return done(
           null,
           false,
-          req.flash("signup message", "Already registered")
+          req.flash("signup message", "Email already registered")
         );
       } else {
         const user = await DAOUsers.create({
-          username,
-          password: DAOUsers.encryptPass(password),
           email,
+          password: DAOUsers.encryptPass(password),
+          username
         });
         done(null, user);
       }
@@ -53,8 +53,8 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true,
     },
-    async (req, username, password, done) => {
-      const userFound = await DAOUsers.findOne(username);
+    async (req, email, password, done) => {
+      const userFound = await DAOUsers.findByEmail(email);
       if (!userFound) {
         return done(null, false, req.flash("signin message", "User not found"));
       }
@@ -62,7 +62,7 @@ passport.use(
         return done(
           null,
           false,
-          req.flash("signin message", "Incorrect Password")
+          req.flash("signin message", "Wrong Password")
         );
       }
       done(null, userFound);
