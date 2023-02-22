@@ -244,14 +244,10 @@ table tbody img {
 }
 
 @media (max-width: 600px) {
-  body,
   #message {
     margin-top: 0;
     background: white;
     box-shadow: none;
-  }
-  body {
-    border-top: 16px solid #ffa100;
   }
 }
 .login-form {
