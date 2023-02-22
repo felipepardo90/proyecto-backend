@@ -6,7 +6,7 @@
   background-color: green;
   margin: 30px auto;
   width: 90%;
-  max-width: 800px;
+  max-width: 500px;
   padding: 4.5em 3em;
   border-radius: 10px;
   box-shadow: 0 5px 10px -5px rgb(0, 0, 0, 30%);
@@ -31,6 +31,7 @@
   &-container {
     margin-top: 3em;
     display: grid;
+    gap: 20px;
     .form-group {
       position: relative;
       color: purple;
@@ -96,6 +97,22 @@
         color: yellow;
       }
     }
+    textarea {
+      padding: 10px;
+      font-size: medium;
+      color: white;
+      background-color: forestgreen;
+      border: none;
+      border-radius: 8px;
+  }
+  }
+
+  .textarea {
+    padding: 10px;
+    color: white;
+    background-color: forestgreen;
+    border: none;
+    border-radius: 12px;
   }
 }
 

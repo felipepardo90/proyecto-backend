@@ -1,10 +1,17 @@
 .login-form {
-    background-color: rgba(3, 17, 6, 0.815);
-    color: white;
-    padding: 100px 50px;
-    margin: auto;
-    max-width: 500px;
-    border: 1px solid green;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px green;
-  }
+  background-color: lightgreen;
+  color: black;
+  padding: 200px 50px;
+  margin: auto;
+  max-width: 450px;
+}
+
+.col h4 {
+  color: red;
+  padding: 20px 0px;
+}
+
+.register-link {
+  text-decoration: none;
+  color: green;
+}
