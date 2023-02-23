@@ -2,6 +2,9 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import { DAOUsers } from "../daos/index.js";
 
+import { Strategy as JWTStrategy } from "passport-jwt";
+import { ExtractJwt } from "passport-jwt";
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -69,3 +72,14 @@ passport.use(
     }
   )
 );
+
+passport.use(new JWTStrategy({
+  secretOrKey: 'top_secret',
+  jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+}, async (token, done) => {
+  try {
+      return done(null, token.user)
+  } catch (e) {
+      done(error)
+  }
+}))
