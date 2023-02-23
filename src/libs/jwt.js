@@ -1,6 +1,6 @@
 import JWT from "jsonwebtoken";
 
-const PRIVATE_KEY = "cambiooo";
+const PRIVATE_KEY = "top_secret";
 const data = { username: "HOLA" };
 const token = JWT.sign({ data: data }, PRIVATE_KEY, { expiresIn: "24h" });
 

@@ -1,4 +1,5 @@
 import passport from "passport";
+import JWT from "jsonwebtoken";
 
 const controller = {};
 
