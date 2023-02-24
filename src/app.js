@@ -52,6 +52,7 @@ app.use(
 );
 app.use(flash());
 import "./libs/passport-auth.js"; //! CONFIG PASSPORT
+// import "./libs/jwt.js"; //! CONFIG PASSPORT-JWT
 app.use(passport.initialize());
 app.use(passport.session());
 
