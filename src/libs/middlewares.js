@@ -1,5 +1,6 @@
-//? completedFields revisará si el input del formulario o la query recibe todos los parámetros solicitados // Método POST
+import passport from "passport";
 
+//? completedFields revisará si el input del formulario o la query recibe todos los parámetros solicitados // Método POST
 
 export const MW = {};
 
@@ -23,4 +24,4 @@ MW.isNotAuth = (req, res, next) => {
   req.isAuthenticated() || next();
 };
 
-
+MW.AuthJWT = passport.authenticate("jwt", { session: false });

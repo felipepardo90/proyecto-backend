@@ -1,4 +1,5 @@
 import { Router } from "express";
+import passport from "passport";
 import controller from "../controllers/user.controller.js";
 import { MW } from "../libs/middlewares.js";
 const router = Router();
@@ -12,6 +13,6 @@ router.post("/login", controller.logInUser);
 //! Logout
 router.get("/logout", controller.logoutUser);
 //! Profile
-router.get("/profile", controller.renderProfileView);
+router.get("/profile", MW.AuthJWT, controller.renderProfileView);
 
 export default router;

@@ -5,7 +5,6 @@ import { DAOUsers } from "../daos/index.js";
 import { Strategy as JWTStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJWT } from "passport-jwt";
 
-
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
@@ -39,7 +38,7 @@ passport.use(
         const user = await DAOUsers.create({
           email,
           password: DAOUsers.encryptPass(password),
-          username
+          username,
         });
         done(null, user);
       }
@@ -63,22 +62,18 @@ passport.use(
         return done(null, false, req.flash("signin message", "User not found"));
       }
       if (!DAOUsers.validatePass(password, userFound.password)) {
-        return done(
-          null,
-          false,
-          req.flash("signin message", "Wrong Password")
-        );
+        return done(null, false, req.flash("signin message", "Wrong Password"));
       }
       done(null, userFound);
     }
   )
 );
 
-passport.use("jwt",
+passport.use(
   new JWTStrategy(
     {
       secretOrKey: "top_secret",
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter("secret_token"),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {
