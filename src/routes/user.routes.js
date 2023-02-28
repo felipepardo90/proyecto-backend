@@ -12,6 +12,6 @@ router.post("/login", controller.logInUser);
 //! Logout
 router.get("/logout", controller.logoutUser);
 //! Profile
-router.get("/profile", MW.isAuth, controller.renderProfileView);
+router.get("/profile", controller.renderProfileView);
 
 export default router;

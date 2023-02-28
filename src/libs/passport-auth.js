@@ -7,7 +7,7 @@ import { ExtractJwt as ExtractJWT } from "passport-jwt";
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -74,7 +74,7 @@ passport.use(
   )
 );
 
-passport.use(
+passport.use("jwt",
   new JWTStrategy(
     {
       secretOrKey: "top_secret",
@@ -83,7 +83,7 @@ passport.use(
     async (token, done) => {
       try {
         return done(null, token.user);
-      } catch (e) {
+      } catch (error) {
         done(error);
       }
     }
