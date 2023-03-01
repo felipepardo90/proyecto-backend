@@ -24,4 +24,4 @@ MW.isNotAuth = (req, res, next) => {
   req.isAuthenticated() || next();
 };
 
-MW.AuthJWT = passport.authenticate("jwt", { session: false });
+MW.AuthJWT = passport.authenticate("jwt");

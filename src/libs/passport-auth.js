@@ -4,6 +4,8 @@ import { DAOUsers } from "../daos/index.js";
 
 import { Strategy as JWTStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJWT } from "passport-jwt";
+import { verify } from "jsonwebtoken";
+import { saveLocal } from "../utils/utils.js";
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
@@ -69,18 +71,20 @@ passport.use(
   )
 );
 
+const options = {
+  secretOrKey: "top_secret",
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+}
+const JWTverify = async (token, done) => {
+  try {
+    console.log(token)
+    saveLocal("token", token)
+    return done(null, token.user);
+  } catch (error) {
+    done(error);
+  }
+}
+
 passport.use(
-  new JWTStrategy(
-    {
-      secretOrKey: "top_secret",
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    },
-    async (token, done) => {
-      try {
-        return done(null, token.user);
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
+  new JWTStrategy(options, JWTverify)
+)

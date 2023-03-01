@@ -24,7 +24,6 @@ controller.logInUser = async (req, res, next) => {
   passport.authenticate(
     "login",
     {
-      successRedirect: "/profile",
       failureRedirect: "/login",
       passReqToCallback: true,
     },
@@ -45,8 +44,8 @@ controller.logInUser = async (req, res, next) => {
           };
 
           const token = JWT.sign({ user: body }, "top_secret");
-          return res.status(200).send({ token: token });
-          // res.status(200).redirect("profile");
+          return res.status(200).send({ token: token })
+          // return res.status(200).render("profile");
         });
       } catch (e) {
         return next(e);
@@ -57,13 +56,7 @@ controller.logInUser = async (req, res, next) => {
 
 //! PROFILE
 
-// controller.renderProfileView = (req, res) => {
-//   const { token } = req.headers.authorization
-//   console.log(token)
-//   res.render("profile");
-// };
-
-controller.renderProfileView = (req, res, next) => {
+controller.renderProfileView = (req, res) => {
   res.render("profile");
 };
 
