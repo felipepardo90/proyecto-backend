@@ -44,8 +44,9 @@ controller.logInUser = async (req, res, next) => {
           };
 
           const token = JWT.sign({ user: body }, "top_secret");
-          return res.status(200).send({ token: token })
-          // return res.status(200).render("profile");
+
+          return res.status(200).render("profile", { token: token });
+
         });
       } catch (e) {
         return next(e);

@@ -73,18 +73,19 @@ passport.use(
 
 const options = {
   secretOrKey: "top_secret",
-  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-}
-const JWTverify = async (token, done) => {
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+};
+async function JWTverify(payload, done) {
   try {
-    console.log(token)
-    saveLocal("token", token)
-    return done(null, token.user);
+    // console.log(payload)
+    const user = await DAOUsers.findById(payload.user._id);
+    console.log("A", user, "A");
+    // saveLocal("token", user);
+    return done(null, user);
   } catch (error) {
     done(error);
   }
 }
 
-passport.use(
-  new JWTStrategy(options, JWTverify)
-)
+const strategy = new JWTStrategy(options, JWTverify);
+passport.use(strategy);
