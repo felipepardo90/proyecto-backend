@@ -82,6 +82,8 @@ passport.use(
  * 
  * 
  *  */
+
+
 const options = {
   secretOrKey: "top_secret",
   jwtFromRequest: ExtractJWT.fromExtractors(
@@ -100,6 +102,7 @@ const JWTverify = (payload, done) => {
 }
 
 // JWT Strategy
+
 passport.use(
   new JWTStrategy(options, JWTverify)
 )
