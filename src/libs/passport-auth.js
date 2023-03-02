@@ -1,10 +1,10 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { DAOUsers } from "../daos/index.js";
-import JWT from "jsonwebtoken";
 
 import { Strategy as JWTStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJWT } from "passport-jwt";
+import { generateToken } from "../utils/utils.js";
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
@@ -72,7 +72,7 @@ passport.use(
         email: userFound.email,
       };
 
-      const token = JWT.sign({ user: body }, "top_secret");
+      generateToken(body)
 
       done(null, userFound);
     }
@@ -83,7 +83,8 @@ const options = {
   secretOrKey: "top_secret",
   jwtFromRequest: ExtractJWT.fromExtractors([
     ExtractJWT.fromAuthHeaderAsBearerToken(),
-    ExtractJWT.fromUrlQueryParameter("secret_token"),
+    ExtractJWT.fromUrlQueryParameter("auth_token"),
+    ExtractJWT.fromAuthHeaderWithScheme("Bearer")
   ]),
 };
 async function JWTverify(payload, done) {
