@@ -1,5 +1,4 @@
 import passport from "passport";
-import JWT from "jsonwebtoken";
 
 const controller = {};
 
@@ -20,38 +19,11 @@ controller.renderLoginView = (req, res) => {
   res.render("login");
 };
 
-controller.logInUser = async (req, res, next) => {
-  passport.authenticate(
-    "login",
-    {
-      failureRedirect: "/login",
-      passReqToCallback: true,
-    },
-    async (err, user, info) => {
-      try {
-        if (err || !user) {
-          console.log(err);
-          const error = new Error("new Error");
-          return next(error);
-        }
-
-        req.login(user, async (err) => {
-          if (err) return next(err);
-          const body = {
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-          };
-
-          const token = JWT.sign({ user: body }, "top_secret", );
-          return res.status(200).json({ token: token })
-        });
-      } catch (error) {
-        return next(error);
-      }
-    }
-  )(req, res, next);
-};
+controller.logInUser = passport.authenticate("login", {
+  successRedirect: "/profile",
+  failureRedirect: "/login",
+  passReqToCallback: true,
+});
 
 //! PROFILE
 
