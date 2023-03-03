@@ -9,7 +9,7 @@ import { MW } from "../libs/middlewares.js";
 //? INDEX
 router.get("/", MW.isAuth, renderIndexView);
 router.use("/", usersRoute);
-router.use("/products",MW.isAuth,  productsRoute);
+router.use("/products", MW.isAuth, productsRoute);
 router.use("/cart", MW.isAuth, cartRoute);
 
 export default router;

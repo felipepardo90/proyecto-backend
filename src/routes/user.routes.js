@@ -1,5 +1,4 @@
 import { Router } from "express";
-import passport from "passport";
 import controller from "../controllers/user.controller.js";
 import { MW } from "../libs/middlewares.js";
 const router = Router();
@@ -14,5 +13,13 @@ router.post("/login", controller.logInUser);
 router.get("/logout", controller.logoutUser);
 //! Profile
 router.get("/profile", MW.AuthJWT, controller.renderProfileView);
+
+router.get("/with_permissions", (req, res) => {
+  res.send({
+    error: false,
+    message: "authenticated",
+    token: req.headers.authorization,
+  });
+});
 
 export default router;
