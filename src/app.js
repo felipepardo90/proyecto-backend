@@ -5,25 +5,23 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import flash from "connect-flash";
 import indexRoute from "./routes/index.routes.js";
+import { PORT, SECRET, MONGO_SESSION } from "./libs/keys.js";
 // import multer from "multer";
 // const upload = multer({ dest: "./public/uploads/" });
 import morgan from "morgan";
-//! __DIRNAME PATH
+
+//! PATH
+
 import path from "path";
 import { fileURLToPath } from "url";
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
-//! DOTENV
-import * as dotenv from "dotenv";
-process.env.NODE_ENV
-  ? dotenv.config(`${__dirname}/.env.${process.env.NODE_ENV}`)
-  : dotenv.config();
 
 const app = express();
 
 //! SETTINGS
 
-app.set("port", process.env.PORT); //! CONFIG port
+app.set("port", PORT); //! CONFIG port
 app.set("json spaces", 2); //! JSON formatter
 
 //! VIEW ENGINES
@@ -32,6 +30,7 @@ app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
 //! MIDDLEWARES
+
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,15 +38,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
 app.use(
   session({
-    secret: "secret",
+    secret: SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 600000,
     },
-    store: MongoStore.create({
-      mongoUrl: `mongodb+srv://${process.env.USER}:${process.env.PASS}@codercluster.exshfro.mongodb.net/sessions`,
-    }),
+    store: MongoStore.create({ mongoUrl: MONGO_SESSION }),
   })
 );
 app.use(flash());

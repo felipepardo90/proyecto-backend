@@ -1,13 +1,10 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import { MONGODB_URI } from "./keys.js";
 
-const Config = {
+export default {
   mongodb: {
-    url: `mongodb+srv://${process.env.USER}:${process.env.PASS}@codercluster.exshfro.mongodb.net/ecommerce` || process.env.MONGODB_URI,
+    url: MONGODB_URI,
     options: {
       serverSelectionTimeoutMS: 10000,
     },
   },
 };
-
-export default Config;
