@@ -73,8 +73,7 @@ passport.use(
         email: userFound.email,
       };
 
-     const token = generateToken(body);
-     console.log(token)
+      generateToken(body);
 
       done(null, userFound);
     }
@@ -85,8 +84,8 @@ const options = {
   secretOrKey: SECRET,
   jwtFromRequest: ExtractJWT.fromExtractors([
     ExtractJWT.fromAuthHeaderAsBearerToken(),
-    // ExtractJWT.fromUrlQueryParameter("auth_token"),
-    // ExtractJWT.fromAuthHeaderWithScheme("Bearer"),
+    ExtractJWT.fromUrlQueryParameter("auth_token"),
+    ExtractJWT.fromAuthHeaderWithScheme("Bearer"),
   ]),
 };
 async function JWTverify(payload, done) {

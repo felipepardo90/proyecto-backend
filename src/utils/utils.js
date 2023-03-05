@@ -2,6 +2,9 @@ import JWT from "jsonwebtoken";
 import { SECRET } from "../libs/keys.js";
 
 export function generateToken(data) {
-  return JWT.sign({ user: data }, SECRET);
+  const token = JWT.sign({ user: data }, SECRET);
+  token.split(" ")[1]
+
+  return token
 }
 

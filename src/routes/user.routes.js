@@ -12,9 +12,10 @@ router.post("/login", controller.logInUser);
 //! Logout
 router.get("/logout", controller.logoutUser);
 //! Profile
-router.get("/profile", MW.AuthJWT, controller.renderProfileView);
+router.get("/profile", MW.isAuth, controller.renderProfileView);
 
-router.get("/with_permissions", (req, res) => {
+router.get("/auth_jwt", MW.AuthJWT, (req, res) => {
+
   res.send({
     error: false,
     message: "authenticated",

@@ -1,0 +1,16 @@
+<%- include("layout/main", {title: "Chat"}) %> <%- include("partials/nav.ejs")
+%>
+
+<body>
+  <main>
+    <div id="chat-container">
+      <div id="chat-window">
+        <div id="output"></div>
+        <div id="actions"></div>
+      </div>
+      <input type="email" id="username" placeholder="user@email.com" required />
+      <input type="text" id="message-chat" placeholder="Message" required />
+      <button id="send">Enviar</button>
+    </div>
+  </main>
+</body>
