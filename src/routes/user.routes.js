@@ -14,7 +14,7 @@ router.get("/logout", controller.logoutUser);
 //! Profile
 router.get("/profile", MW.isAuth, controller.renderProfileView);
 
-router.get("/auth_jwt", MW.AuthJWT, (req, res) => {
+router.get("/protected", MW.AuthJWT, (req, res) => {
 
   res.send({
     error: false,
