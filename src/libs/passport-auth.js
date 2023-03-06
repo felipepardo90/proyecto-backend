@@ -3,8 +3,8 @@ import { Strategy } from "passport-local";
 import { DAOUsers } from "../daos/index.js";
 
 import { Strategy as JWTStrategy } from "passport-jwt";
-import { ExtractJwt as ExtractJWT } from "passport-jwt";
-import { generateToken } from "../utils/utils.js";
+import { ExtractJwt } from "passport-jwt";
+import { generateToken } from "./utils.js";
 import { SECRET } from "./keys.js";
 
 passport.serializeUser((user, done) => {
@@ -82,10 +82,10 @@ passport.use(
 
 const options = {
   secretOrKey: SECRET,
-  jwtFromRequest: ExtractJWT.fromExtractors([
-    ExtractJWT.fromAuthHeaderAsBearerToken(),
-    ExtractJWT.fromUrlQueryParameter("auth_token"),
-    ExtractJWT.fromAuthHeaderWithScheme("Bearer"),
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    ExtractJwt.fromAuthHeaderAsBearerToken(),
+    ExtractJwt.fromUrlQueryParameter("auth_token"),
+    ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
   ]),
 };
 async function JWTverify(payload, done) {
