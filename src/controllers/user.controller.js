@@ -28,7 +28,6 @@ controller.logInUser = passport.authenticate("login", {
 //! PROFILE
 
 controller.renderProfileView = (req, res) => {
-  console.log(req.session)
   res.render("profile");
 };
 
