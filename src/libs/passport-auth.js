@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { DAOUsers } from "../daos/index.js";
+import { DAOCarts, DAOUsers } from "../daos/index.js";
 
 import { Strategy as JWTStrategy } from "passport-jwt";
 import { ExtractJwt } from "passport-jwt";
@@ -42,6 +42,7 @@ passport.use(
           password: DAOUsers.encryptPass(password),
           username,
         });
+        await DAOCarts.newCart(user._id)
         done(null, user);
       }
     }

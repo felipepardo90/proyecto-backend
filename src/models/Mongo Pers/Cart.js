@@ -7,17 +7,14 @@ export default class Cart {
   constructor(coll, schema) {
     this.db = mongoose.model(coll, schema);
     this.date = new Date().toLocaleString();
-    this.total = 0;
     this.products = Array;
   }
 
-  async newCart() {
+  async newCart(userID) {
     try {
       const newCart = await this.db.create({
         // TODO OPTIMIZAR
-        timestamp: this.date,
-        products: this.products,
-        total: this.total,
+        timestamp: this.date, user_id: userID
       });
       return newCart;
     } catch (error) {
@@ -45,38 +42,38 @@ export default class Cart {
     }
   }
 
-  async addProductToCart(idEntered, object) {
-    // TODO OPTIMIZAR
+  async addProductToCart(cartId, productId) {
+
     try {
       await this.db.updateMany(
-        { _id: idEntered },
+        { _id: cartId },
         {
           $push: {
-            products: object[0],
+            products: productId,
           },
         }
       );
 
-      return await this.db.findOne({ _id: idEntered });
+      return await this.db.findOne({ _id: cartId });
     } catch (error) {
       console.error(`Se produjo un error en addProductToCart:${error}`);
     }
   }
 
-  async deleteProductInCartById(idCart, idProduct) {
+  async deleteProductInCartById(cartId, productId) {
     try {
       await this.db.updateOne(
-        { _id: idCart },
+        { _id: cartId },
         {
           $pull: {
-            products: { _id: idProduct },
+            products: { _id: productId },
           },
         }
       );
 
-      const data = await this.db.find({ _id: idCart }, { products: 1 });
+      const data = await this.db.find({ _id: cartId }, { products: 1 });
       const productsInData = data[0].products;
-      const productFound = productsInData.find(({ _id }) => (_id == idProduct));
+      const productFound = productsInData.find(({ _id }) => (_id == productId));
 
       // console.log("|Í", data, "|Í");
       // console.log("|Í", productsInData, "|Í");
