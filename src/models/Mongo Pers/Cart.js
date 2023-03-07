@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { DAOCarts } from "../../daos/index.js";
 import config from "../../libs/config.js";
+// import { DAOCarts } from "../../daos/index.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
@@ -45,12 +45,12 @@ export default class Cart {
   }
 
   async addProductToCart(cartId, newProduct) {
-    // const cart = DAOCarts.getCartById(cartId);
-    // console.log("CART >>>>>>>>>>>>>>", cart);
-    // const productIndex = cart.products.findIndex(
-    //   ({ _id }) => _id === newProduct._id
-    // );
-    // console.log("productIndex", productIndex);
+    const cart = await this.getCartById(cartId);
+    const productIndex = cart.products.findIndex(
+      ({title}) => title === newProduct.title
+    );
+    console.log("productIndex", productIndex);
+
     try {
       await this.db.updateOne(
         { _id: cartId },
