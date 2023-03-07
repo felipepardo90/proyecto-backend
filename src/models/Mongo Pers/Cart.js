@@ -47,20 +47,20 @@ export default class Cart {
   async addProductToCart(cartId, newProduct) {
     const cart = await this.getCartById(cartId);
     const productIndex = cart.products.findIndex(
-      ({title}) => title === newProduct.title
+      ({ title }) => title === newProduct.title
     );
     console.log("productIndex", productIndex);
+    if (productIndex !== -1)
+      try {
+        await this.db.updateOne(
+          { _id: cartId },
+          { $push: { products: newProduct } }
+        );
 
-    try {
-      await this.db.updateOne(
-        { _id: cartId },
-        { $push: { products: newProduct } }
-      );
-
-      return await this.db.findOne({ _id: cartId });
-    } catch (error) {
-      console.error(`Se produjo un error en addProductToCart:${error}`);
-    }
+        return await this.db.findOne({ _id: cartId });
+      } catch (error) {
+        console.error(`Se produjo un error en addProductToCart:${error}`);
+      }
   }
 
   async deleteProductInCartById(cartId, product) {
