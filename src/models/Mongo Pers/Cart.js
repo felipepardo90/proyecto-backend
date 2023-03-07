@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { DAOCarts } from "../../daos/index.js";
 import config from "../../libs/config.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
@@ -14,7 +15,8 @@ export default class Cart {
     try {
       const newCart = await this.db.create({
         // TODO OPTIMIZAR
-        timestamp: this.date, user_id: userID
+        timestamp: this.date,
+        user_id: userID,
       });
       return newCart;
     } catch (error) {
@@ -42,16 +44,17 @@ export default class Cart {
     }
   }
 
-  async addProductToCart(cartId, productId) {
-
+  async addProductToCart(cartId, newProduct) {
+    // const cart = DAOCarts.getCartById(cartId);
+    // console.log("CART >>>>>>>>>>>>>>", cart);
+    // const productIndex = cart.products.findIndex(
+    //   ({ _id }) => _id === newProduct._id
+    // );
+    // console.log("productIndex", productIndex);
     try {
-      await this.db.updateMany(
+      await this.db.updateOne(
         { _id: cartId },
-        {
-          $push: {
-            products: productId,
-          },
-        }
+        { $push: { products: newProduct } }
       );
 
       return await this.db.findOne({ _id: cartId });
@@ -60,30 +63,13 @@ export default class Cart {
     }
   }
 
-  async deleteProductInCartById(cartId, productId) {
+  async deleteProductInCartById(cartId, product) {
     try {
       await this.db.updateOne(
         { _id: cartId },
-        {
-          $pull: {
-            products: { _id: productId },
-          },
-        }
+        { $pull: { products: { _id: product._id } } }
       );
-
-      const data = await this.db.find({ _id: cartId }, { products: 1 });
-      const productsInData = data[0].products;
-      const productFound = productsInData.find(({ _id }) => (_id == productId));
-
-      // console.log("|Í", data, "|Í");
-      // console.log("|Í", productsInData, "|Í");
-      // console.log(
-      //   "|Í",
-      //   productsInData.find(({ _id }) => _id = idProduct),
-      //   "|Í"
-      // );
-
-      return productFound;
+      return product;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById: ${error}`);
     }
