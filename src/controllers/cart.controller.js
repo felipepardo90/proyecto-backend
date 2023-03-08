@@ -18,12 +18,12 @@ controller.deleteCart = async (req, res) => {
   const data = await DAOCarts.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
-        message: "Se ha eliminado el carrito",
-        "cart deleted": `${req.params.id}`,
-      })
+      message: "Se ha eliminado el carrito",
+      "cart deleted": `${req.params.id}`,
+    })
     : res
-        .status(404)
-        .json({ message: "No se ha encontrado el carrito. No existe" });
+      .status(404)
+      .json({ message: "No se ha encontrado el carrito. No existe" });
 };
 
 controller.getProductsInCart = async (req, res) => {
@@ -50,19 +50,18 @@ controller.getProductsInCart = async (req, res) => {
 
 controller.saveProductInCart = async (req, res) => {
   const productToAdd = await DAOProducts.getById(req.body._id);
-
   const data = await DAOCarts.addProductToCart(req.params.id, productToAdd[0]);
 
   data != null
     ? res.status(200).json({
-        "cart owner": req.user.username,
-        message: "Se añadió un producto al carrito",
-        "products in cart": data,
-      })
+      "cart owner": req.user.username,
+      message: "Se añadió un producto al carrito",
+      "products in cart": data,
+    })
     : res.status(200).json({
-        error: "No se puede añadir el producto",
-        message: "El carrito no existe",
-      });
+      error: "No se puede añadir el producto",
+      message: "El carrito no existe",
+    });
 };
 
 controller.deleteProductInCart = async (req, res) => {
@@ -71,8 +70,8 @@ controller.deleteProductInCart = async (req, res) => {
   const data = await DAOCarts.deleteProductInCartById(id, product[0]);
   data !== undefined
     ? res.status(200).json({
-        message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,
-      })
+      message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,
+    })
     : res.status(200).json({ error: "No existe el producto en el carrito" });
 };
 

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import config from "../../libs/config.js";
-// import { DAOCarts } from "../../daos/index.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
@@ -8,7 +7,7 @@ export default class Cart {
   constructor(coll, schema) {
     this.db = mongoose.model(coll, schema);
     this.date = new Date().toLocaleString();
-    this.products = Array;
+    this.qty = 1
   }
 
   async newCart(userID) {
@@ -45,22 +44,28 @@ export default class Cart {
   }
 
   async addProductToCart(cartId, newProduct) {
+    console.log(newProduct)
     const cart = await this.getCartById(cartId);
     const productIndex = cart.products.findIndex(
       ({ title }) => title === newProduct.title
     );
-    console.log("productIndex", productIndex);
-    if (productIndex !== -1)
-      try {
+    try {
+      if (productIndex !== -1) {
+        await this.db.updateOne(
+          { _id: cartId, "products._id": newProduct._id },
+          { $set: { "products.$.quantity": this.qty++ } }
+        )
+      } else {
         await this.db.updateOne(
           { _id: cartId },
-          { $push: { products: newProduct } }
+          { $push: { products: { ...newProduct, quantity: this.qty } } },
         );
-
-        return await this.db.findOne({ _id: cartId });
-      } catch (error) {
-        console.error(`Se produjo un error en addProductToCart:${error}`);
       }
+
+      return await this.db.findOne({ _id: cartId });
+    } catch (error) {
+      console.error(`Se produjo un error en addProductToCart:${error}`);
+    }
   }
 
   async deleteProductInCartById(cartId, product) {
