@@ -29,6 +29,12 @@
                     <td>
                       <a href="/products/<%= item.id %>">Ver</a>
                     </td>
+                    <td>
+                      <form action=/api/cart/ method="POST" > <button type="submit"
+                          class="add_product">
+                          +
+                        </button></form>
+                    </td>
                   </tr>
                   <% }) %>
               </tbody>
