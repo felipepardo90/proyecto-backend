@@ -7,7 +7,6 @@ export default class Cart {
   constructor(coll, schema) {
     this.db = mongoose.model(coll, schema);
     this.date = new Date().toLocaleString();
-    this.qty = 1
   }
 
   async newCart(userID) {
@@ -44,21 +43,22 @@ export default class Cart {
   }
 
   async addProductToCart(cartId, newProduct) {
-    console.log(newProduct)
     const cart = await this.getCartById(cartId);
-    const productIndex = cart.products.findIndex(
-      ({ title }) => title === newProduct.title
-    );
+
     try {
-      if (productIndex !== -1) {
+      if (cart.products.some(({ title }) => title === newProduct.title)) {
         await this.db.updateOne(
           { _id: cartId, "products._id": newProduct._id },
-          { $set: { "products.$.quantity": this.qty++ } }
-        )
+          { $inc: { "products.$.quantity": +1 } }
+        );
       } else {
         await this.db.updateOne(
           { _id: cartId },
-          { $push: { products: { ...newProduct, quantity: this.qty } } },
+          { $push: { products: newProduct } }
+        );
+        await this.db.updateOne(
+          { _id: cartId, "products._id": newProduct._id },
+          { $set: { "products.$.quantity": 1 } }
         );
       }
 
@@ -69,12 +69,24 @@ export default class Cart {
   }
 
   async deleteProductInCartById(cartId, product) {
+    const cart = await this.getCartById(cartId);
+    const productFound = cart.products.find(
+      ({ title }) => title === product.title
+    );
     try {
-      await this.db.updateOne(
-        { _id: cartId },
-        { $pull: { products: { _id: product._id } } }
-      );
-      return product;
+      if (productFound.quantity <= 1) {
+        await this.db.updateOne(
+          { _id: cartId },
+          { $pull: { products: { _id: product._id } } }
+        );
+        return null;
+      } else {
+        await this.db.updateOne(
+          { _id: cartId, "products._id": product._id },
+          { $inc: { "products.$.quantity": -1 } }
+        );
+        return await this.db.findOne({ _id: cartId });
+      }
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById: ${error}`);
     }

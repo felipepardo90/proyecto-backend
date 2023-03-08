@@ -11,7 +11,7 @@ import renderChat from "../controllers/chat.controller.js";
 router.get("/", MW.isAuth, renderIndex);
 router.use("/", usersRoute);
 router.use("/products", MW.isAuth, productsRoute);
-router.use("/cart", MW.isAuth, cartRoute);
+router.use("/api/cart", MW.isAuth, cartRoute);
 router.use("/chat", MW.isAuth, renderChat);
 
 export default router;

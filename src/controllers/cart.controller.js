@@ -18,12 +18,12 @@ controller.deleteCart = async (req, res) => {
   const data = await DAOCarts.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
-      message: "Se ha eliminado el carrito",
-      "cart deleted": `${req.params.id}`,
-    })
+        message: "Se ha eliminado el carrito",
+        "cart deleted": `${req.params.id}`,
+      })
     : res
-      .status(404)
-      .json({ message: "No se ha encontrado el carrito. No existe" });
+        .status(404)
+        .json({ message: "No se ha encontrado el carrito. No existe" });
 };
 
 controller.getProductsInCart = async (req, res) => {
@@ -50,29 +50,37 @@ controller.getProductsInCart = async (req, res) => {
 
 controller.saveProductInCart = async (req, res) => {
   const productToAdd = await DAOProducts.getById(req.body._id);
-  const data = await DAOCarts.addProductToCart(req.params.id, productToAdd[0]);
+  const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd[0]);
 
-  data != null
+  cart != null
     ? res.status(200).json({
-      "cart owner": req.user.username,
-      message: "Se añadió un producto al carrito",
-      "products in cart": data,
-    })
+        "cart owner": req.user.username,
+        message: "Se añadió un producto al carrito",
+        "products in cart": cart.products,
+      })
     : res.status(200).json({
-      error: "No se puede añadir el producto",
-      message: "El carrito no existe",
-    });
+        error: "No se puede añadir el producto",
+        message: "El carrito no existe",
+      });
 };
 
 controller.deleteProductInCart = async (req, res) => {
   const { id, id_prod } = req.params;
-  const product = await DAOProducts.getById(id_prod);
-  const data = await DAOCarts.deleteProductInCartById(id, product[0]);
-  data !== undefined
+  const productToRemove = await DAOProducts.getById(id_prod);
+  const cart = await DAOCarts.deleteProductInCartById(id, productToRemove[0]);
+  cart !== null
     ? res.status(200).json({
-      message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,
-    })
-    : res.status(200).json({ error: "No existe el producto en el carrito" });
+        message: `Quitando ${productToRemove[0].title} del carrito de ${id}`,
+        "cart owner": req.user.username,
+        "cart id": cart.id,
+        "products in cart": cart.products,
+      })
+    : res
+        .status(200)
+        .json({
+          message: "No existe el producto en el carrito",
+          "cart owner": req.user.username,
+        });
 };
 
 export default controller;
