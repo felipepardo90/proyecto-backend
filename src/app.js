@@ -6,8 +6,6 @@ import passport from "passport";
 import flash from "connect-flash";
 import indexRoute from "./routes/index.routes.js";
 import { PORT, SECRET, MONGO_SESSION } from "./libs/keys.js";
-// import multer from "multer";
-// const upload = multer({ dest: "./public/uploads/" });
 import morgan from "morgan";
 
 //! PATH
@@ -58,22 +56,6 @@ app.use((req, res, next) => {
   app.locals.user = req.user;
   next();
 });
-
-//! MULTER
-
-// app.get("/prueba", (req, res) => {
-//   res.render("prueba");
-// });
-// app.post("/prueba", upload.single("avatar"), (req, res) => {
-//   const file = req.file;
-//   res.send({
-//     error: false,
-//     msg: "File upload succesfully!!!",
-//     "original name": file.originalname,
-//     destination: file.destination,
-//     filename: file.filename,
-//   });
-// });
 
 //! ROUTES
 
