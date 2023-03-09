@@ -5,20 +5,20 @@
   <main>
     <div>
       <% if(user) { %>
-      <h3>Hola <%= user.username %>!!!</h3>
+      <h3>Hi <%= user.username %>!!!</h3>
       <a href="/logout" class="btn btn-secondary btn-block mb-4">Log out </a>
-      <br />
+      <a href="/info" class="btn btn-info btn-block mb-4">Server Info </a>
       <%}%>
     </div>
     <form class="form" id="products-form" action="/products" method="POST">
-      <h2 class="form-title">Ingresar productos</h2>
+      <h2 class="form-title">Add Products</h2>
       <p class="form-paragraph">
-        Websockets
+        Backend - Express - Javascript
         <a
           href="https://github.com/felipepardo90/new-Backend.git"
           target="_blank"
           class="form-link"
-          >Ver repo</a
+          >Repository</a
         >
       </p>
       <div class="form-container">

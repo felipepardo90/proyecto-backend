@@ -2,13 +2,24 @@
 
 <body>
   <form action="/register" method="POST" class="register-form">
-    <!-- enctype="multipart/form-data" -->
-    <!-- <input type="text" name="username" placeholder="Insert Email" required /> -->
-
     <div class="col">
       <% if(signupMsg) { %>
       <h4><%= signupMsg %></h4>
       <% } %>
+    </div>
+    <div class="col">
+      <% if(passwordMsg) { %>
+      <h4><%= passwordMsg %></h4>
+      <% } %>
+    </div>
+    <div class="form-outline mb-4">
+      <input
+        type="text"
+        id="form2Example1"
+        class="form-control"
+        name="fullname"
+      />
+      <label class="form-label" for="form2Example1">Insert fullname</label>
     </div>
 
     <div class="form-outline mb-4">
@@ -29,21 +40,32 @@
       />
       <label class="form-label" for="form2Example2">Insert email</label>
     </div>
-    <!-- <input type="number" name="age" placeholder="Age" />
-      <input type="number" name="phone" placeholder="Insert phone number" /> -->
+
+    <div class="form-outline mb-4">
+      <input type="number" name="phone" />
+      <label class="form-label" for="form3Example3">Insert phone number</label>
+    </div>
+
     <div class="form-outline mb-4">
       <input
         type="password"
-        id="form3Example3"
+        id="form4example4"
         class="form-control"
         name="password"
       />
-      <label class="form-label" for="form3Example3">Password</label>
+      <label class="form-label" for="form4example4">Password</label>
     </div>
-    <!-- <input type="password" name="password" placeholder="Insert Password" required/> -->
-    <!-- Sube tu imagen/avatar -->
-    <!-- <input type="file" name="avatar"/> -->
-    <!-- Submit button -->
+
+    <div class="form-outline mb-4">
+      <input
+        type="password"
+        id="form4example4"
+        class="form-control"
+        name="repeat_pass"
+      />
+      <label class="form-label" for="form4example4">Repeat password</label>
+    </div>
+
     <div class="text-center">
       <button type="submit" class="btn btn-success btn-block mb-4">
         Sign up
@@ -52,4 +74,4 @@
     </div>
   </form>
 </body>
-</html>
+<!-- </html> -->

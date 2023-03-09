@@ -5,12 +5,28 @@
   <main>
     <div id="chat-container">
       <div id="chat-window">
-        <div id="output"></div>
-        <div id="actions"></div>
+        <% messages.forEach((msg)=>{ %>
+        <p>
+          <strong class="message-user"
+            ><%= msg.username %>
+            <span class="message-date">[ <%=msg.date%> ]</span></strong
+          >: <span class="message-txt"><%= msg.message %></span>
+        </p>
+        <!-- <p></em><%=msg.username%> Está escribiendo... </p> -->
+        <% }) %>
       </div>
-      <input type="email" id="username" placeholder="user@email.com" required />
-      <input type="text" id="message-chat" placeholder="Message" required />
-      <button id="send" class="button-chat">Enviar</button>
+      <form action="/chat" method="POST">
+        <p id="username">YOOOO</p>
+        <input
+          type="text"
+          id="message-chat"
+          name="message"
+          placeholder="Message"
+          required
+        />
+        <button id="send" class="button-chat" type="submit">Enviar</button>
+      </form>
     </div>
   </main>
 </body>
+<!-- </html> -->
