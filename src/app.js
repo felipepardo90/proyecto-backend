@@ -53,6 +53,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
   app.locals.signupMsg = req.flash("signup message");
   app.locals.signinMsg = req.flash("signin message");
+  app.locals.passwordMsg = req.flash("password message");
   app.locals.user = req.user;
   next();
 });
