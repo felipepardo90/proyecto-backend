@@ -27,7 +27,9 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, username, password, done) => {
-      const { email } = req.body;
+      const { email, repeat_pass, phone, fullname } = req.body;
+
+
 
       const userFound = await DAOUsers.findByEmail(email);
       if (userFound) {
@@ -36,11 +38,18 @@ passport.use(
           false,
           req.flash("signup message", "Email already registered")
         );
+      } else if (password !== repeat_pass) {
+        return done(
+          null,
+          false,
+          req.flash("password message", "Passwords do not match"))
       } else {
         const user = await DAOUsers.create({
+          fullname,
           email,
-          password: DAOUsers.encryptPass(password),
+          phone,
           username,
+          password: DAOUsers.encryptPass(password)
         });
         await DAOCarts.newCart(user._id)
         done(null, user);
