@@ -2,12 +2,10 @@ import { Schema } from "mongoose";
 import User from "../models/Mongo Pers/User.js";
 
 const userSchema = new Schema({
-  username: { type: String },
-  //   address: String,
-  //   age: Number,
-  //   phone: Number,
-  //   avatar: String,
+  fullname: { type: String },
+  phone: { type: Number },
   email: { type: String },
+  username: { type: String },
   password: { type: String },
 });
 
