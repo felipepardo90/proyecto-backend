@@ -6,7 +6,7 @@ import { DAOChats } from "./daos/index.js";
 import { Server as WebSocketServer } from "socket.io";
 import http from "http";
 const server = http.createServer(app);
-const io = new WebSocketServer(server);
+export const io = new WebSocketServer(server);
 
 //! STARTING SERVER
 
@@ -44,4 +44,4 @@ io.on("connection", async (socket) => {
   });
 });
 
-export default io
+// export default io
