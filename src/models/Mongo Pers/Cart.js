@@ -33,10 +33,9 @@ export default class Cart {
   }
 
   async getCartById(idEntered) {
-    // TODO OPTIMIZAR
     try {
-      const data = await this.db.find({ _id: idEntered });
-      return data[0];
+      const cart = await this.db.find({ _id: idEntered });
+      return cart[0];
     } catch (error) {
       console.error(`Se produjo un error en getCartById: ${error}`);
     }

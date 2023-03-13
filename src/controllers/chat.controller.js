@@ -1,25 +1,14 @@
-//! WEBSOCKETS
-import io from "../server.js";
 
-let controller = {}
+let controller = {};
 
-// io.emit("connection", socket => {
-    controller.renderChat = async (req, res) => {
-        io.on("chat:history", messages => {
-            res.render("chat", { messages: messages })
-        })
-    };
+controller.renderChat = async (req, res) => {
+  res.render("chat");
+};
 
-    controller.sendMessage = async (req, res) => {
-        const { message } = req.body
-        const username = req.user.email
-
-        io.emit("chat:message", {
-            username,
-            message,
-            date: new Date().toLocaleString()
-        });
-    };
+controller.sendMessage = async (req, res) => {
+  const { message } = req.body;
+  const username = req.user.email;
+};
 // })
 
-export default controller
+export default controller;

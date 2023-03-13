@@ -16,7 +16,6 @@ controller.newCart = async (req, res) => {
 
 controller.getCartById = async (req, res) => {
   const { id } = req.params;
-  console.log("ID", id);
   const cart = await DAOCarts.getCartById(id);
   console.log(cart);
   res.status(200).json({

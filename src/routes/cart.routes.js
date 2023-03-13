@@ -5,6 +5,7 @@ import controller from "../controllers/cart.controller.js";
 //? CART
 
 router.post("/", controller.newCart);
+router.get("/:id", controller.getCartById);
 router.delete("/:id", controller.deleteCart);
 router.get("/:id/products", controller.getProductsInCart);
 router.post("/:id/products", controller.saveProductInCart);

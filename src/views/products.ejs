@@ -4,6 +4,14 @@ include("partials/nav.ejs") %>
 <body>
   <main>
     <div class="section-products">
+      <!-- <form action="/products" method="POST" id="select-form">
+        <select class="form-select select-products" name="selecter">
+          <option selected>Choose a category</option>
+          <option value="#" onclick="window.location.href='/products/A100'">All</option>
+          <option name="A100" value="A100">Heineken</option>
+          <option value="A200">Imperial</option>
+        </select>
+      </form> -->
       <% if(products) { %>
       <table width="60%">
         <thead>
