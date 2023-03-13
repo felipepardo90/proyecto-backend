@@ -46,7 +46,7 @@ export default class Cart {
     const cart = await this.getCartById(cartId);
 
     try {
-      if (cart.products.some(({ title }) => title === newProduct.title)) {
+      if (cart.products.some(({ _id }) => _id === mongoose.Types.ObjectId(newProduct._id))) {
         await this.db.updateOne(
           { _id: cartId, "products._id": newProduct._id },
           { $inc: { "products.$.quantity": +1 } }
@@ -71,7 +71,7 @@ export default class Cart {
   async deleteProductInCartById(cartId, product) {
     const cart = await this.getCartById(cartId);
     const productFound = cart.products.find(
-      ({ title }) => title === product.title
+      ({ _id }) => _id === mongoose.Types.ObjectId(product._id)
     );
     try {
       if (productFound.quantity <= 1) {
