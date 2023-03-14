@@ -9,5 +9,5 @@ export async function generateToken(data) {
 }
 
 export function subtotalCart(products) {
-  // return products.reduce((prev, curr) => prev + curr["price"], 0)
+  return products.reduce((prev, curr) => prev + curr["price"] * curr["quantity"], 0)
 }

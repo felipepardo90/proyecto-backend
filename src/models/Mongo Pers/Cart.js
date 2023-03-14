@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo, Mongoose } from "mongoose";
 import config from "../../libs/config.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
@@ -12,8 +12,6 @@ export default class Cart {
   async newCart(userID) {
     try {
       const newCart = await this.db.create({
-        // TODO OPTIMIZAR
-        timestamp: this.date,
         user_id: userID,
       });
       return newCart;
@@ -22,19 +20,18 @@ export default class Cart {
     }
   }
 
-  async deleteCartById(idEntered) {
-    // TODO OPTIMIZAR
+  async deleteCartById(id) {
     try {
-      await this.db.deleteOne({ _id: idEntered });
-      return idEntered;
+      await this.db.deleteOne({ _id: id });
+      return id;
     } catch (error) {
       console.error(`Se ha producido un error en deleteCartById: ${error}`);
     }
   }
 
-  async getCartById(idEntered) {
+  async getCartById(id) {
     try {
-      const cart = await this.db.find({ _id: idEntered });
+      const cart = await this.db.find({ _id: id });
       return cart[0];
     } catch (error) {
       console.error(`Se produjo un error en getCartById: ${error}`);
@@ -45,7 +42,7 @@ export default class Cart {
     const cart = await this.getCartById(cartId);
 
     try {
-      if (cart.products.some(({ _id }) => _id === mongoose.Types.ObjectId(newProduct._id))) {
+      if (cart.products.some(({ _id }) => _id.toString() === newProduct.id)) {
         await this.db.updateOne(
           { _id: cartId, "products._id": newProduct._id },
           { $inc: { "products.$.quantity": +1 } }
@@ -70,13 +67,13 @@ export default class Cart {
   async deleteProductInCartById(cartId, product) {
     const cart = await this.getCartById(cartId);
     const productFound = cart.products.find(
-      ({ _id }) => _id === mongoose.Types.ObjectId(product._id)
+      ({ _id }) => _id.toString() === product.id
     );
     try {
       if (productFound.quantity <= 1) {
         await this.db.updateOne(
           { _id: cartId },
-          { $pull: { products: { _id: product._id } } }
+          { $pull: { products: { _id: mongoose.Types.ObjectId(product._id) } } }
         );
         return null;
       } else {

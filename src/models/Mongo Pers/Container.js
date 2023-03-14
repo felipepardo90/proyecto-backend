@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ProductDTO from "../../dto/DTO.products.js";
 import config from "../../libs/config.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
@@ -31,10 +32,12 @@ export default class Container {
     }
   }
 
-  async getById(idEntered) {
+  async getById(id) {
     try {
-      const data = this.db.find({ _id: idEntered });
-      return data;
+      if (!mongoose.isValidObjectId(id)) return null
+
+      
+      return this.db.find({ _id: id })
     } catch (error) {
       console.error(`Se produjo un error en getByID: ${error}`);
     }
@@ -49,10 +52,10 @@ export default class Container {
     }
   }
 
-  async deleteById(idEntered) {
+  async deleteById(id) {
     try {
-      await this.db.deleteOne({ _id: idEntered });
-      return idEntered;
+      await this.db.deleteOne({ _id: id });
+      return id;
     } catch (error) {
       console.error(`Se ha producido un error en deleteById: ${error}`);
     }
