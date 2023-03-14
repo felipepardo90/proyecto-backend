@@ -11,7 +11,7 @@ import renderServerInfo from "../controllers/info.controller.js";
 //? INDEX
 router.get("/", MW.isAuth, renderIndex);
 router.use("/", usersRoute);
-router.use("/products", MW.isAuth, productsRoute);
+router.use("/products",  productsRoute);
 router.use("/api/cart", MW.isAuth, cartRoute);
 router.use("/chat", MW.isAuth, chatRoute);
 router.use("/info", MW.isAuth, renderServerInfo);

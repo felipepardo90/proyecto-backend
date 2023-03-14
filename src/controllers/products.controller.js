@@ -1,5 +1,6 @@
 //! DAOS /////////////////////////////////
 import { DAOProducts } from "../daos/index.js";
+import ProductDTO from "../dto/DTO.products.js"
 //! DAOS /////////////////////////////////
 const controller = {};
 
@@ -13,12 +14,12 @@ controller.getAll = async (req, res) => {
 //? DEVUELVE UN PRODUCTO SEGÚN SU ID
 
 controller.getById = async (req, res) => {
-  const data = await DAOProducts.getById(req.params.id);
+  const product = await DAOProducts.getById(req.params.id);
 
   //! Si el id generado no coincide con ningún producto, devuelve null; de lo contrario, envía la información solicitada
-  data
-    ? res.status(200).json(data)
-    : res.status(404).json({ error: "Producto no encontrado" });
+  product
+    ? res.status(200).json(product)
+    : res.status(404).json({ message: "Product not found" });
 };
 
 //? RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
