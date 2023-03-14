@@ -40,7 +40,6 @@ export default class Cart {
 
   async addProductToCart(cartId, newProduct) {
     const cart = await this.getCartById(cartId);
-
     try {
       if (cart.products.some(({ _id }) => _id.toString() === newProduct.id)) {
         await this.db.updateOne(
@@ -64,7 +63,17 @@ export default class Cart {
     }
   }
 
-  async deleteProductInCartById(cartId, product) {
+  async removeProductFromCart(cartId, product) {
+    if (!mongoose.isValidObjectId(product._id)) return null;
+
+    await this.db.updateOne(
+      { _id: cartId },
+      { $pull: { products: { _id: mongoose.Types.ObjectId(product._id) } } }
+    );
+    return product;
+  }
+
+  async subtractProductFromCart(cartId, product) {
     const cart = await this.getCartById(cartId);
     const productFound = cart.products.find(
       ({ _id }) => _id.toString() === product.id

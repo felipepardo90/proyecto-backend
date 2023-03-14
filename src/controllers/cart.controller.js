@@ -14,8 +14,8 @@ controller.newCart = async (req, res) => {
 
 controller.getCartById = async (req, res) => {
   const { id } = req.params;
-  const data = await DAOCarts.getCartById(id)
-  const cart = new CartDTO(req.user.id, data.products)
+  const data = await DAOCarts.getCartById(id);
+  const cart = new CartDTO(req.user.id, data.products);
   res.status(200).json({
     message: "Carrito obtenido",
     "cart owner": req.user.username,
@@ -27,12 +27,12 @@ controller.deleteCart = async (req, res) => {
   const data = await DAOCarts.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
-      message: "Se ha eliminado el carrito",
-      "cart deleted": `${req.params.id}`,
-    })
+        message: "Se ha eliminado el carrito",
+        "cart deleted": `${req.params.id}`,
+      })
     : res
-      .status(404)
-      .json({ message: "No se ha encontrado el carrito. No existe" });
+        .status(404)
+        .json({ message: "No se ha encontrado el carrito. No existe" });
 };
 
 controller.getProductsInCart = async (req, res) => {
@@ -59,34 +59,44 @@ controller.getProductsInCart = async (req, res) => {
 
 controller.saveProductInCart = async (req, res) => {
   const productToAdd = await DAOProducts.getById(req.body._id);
-  const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd[0]);
+  const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd);
 
   cart != null
     ? res.status(200).json({
-      "cart owner": req.user.username,
-      message: "Se añadió un producto al carrito",
-      "products in cart": cart.products,
-    })
+        "cart owner": req.user.username,
+        message: "Se añadió un producto al carrito",
+        "products in cart": cart.products,
+      })
     : res.status(200).json({
-      error: "No se puede añadir el producto",
-      message: "El carrito no existe",
-    });
+        error: "No se puede añadir el producto",
+        message: "El producto no se ha encontrado o el carrito no existe",
+      });
 };
 
-controller.deleteProductInCart = async (req, res) => {
+controller.removeProductFromCart = async (req, res) => {
+  const { id } = req.params;
+  const product = await DAOProducts.getById(req.body._id);
+  const productToRemove = await DAOCarts.removeProductFromCart(id, product);
+
+  productToRemove
+    ? res
+        .status(200)
+        .json({ message: "Se ha eliminado el producto del carrito" })
+    : res.json({ message: "Product not found" });
+};
+
+controller.subtractProductFromCart = async (req, res) => {
   const { id, id_prod } = req.params;
   const productToRemove = await DAOProducts.getById(id_prod);
-  const cart = await DAOCarts.deleteProductInCartById(id, productToRemove[0]);
+  const cart = await DAOCarts.subtractProductFromCart(id, productToRemove);
   cart !== null
     ? res.status(200).json({
-      message: `Quitando ${productToRemove[0].title} del carrito de ${id}`,
-      "cart owner": req.user.username,
-      "cart id": cart.id,
-      "products in cart": cart.products,
-    })
-    : res
-      .status(200)
-      .json({
+        message: `Quitando ${productToRemove.title} del carrito de ${id}`,
+        "cart owner": req.user.username,
+        "cart id": cart.id,
+        "products in cart": cart.products,
+      })
+    : res.status(200).json({
         message: "No existe el producto en el carrito",
         "cart owner": req.user.username,
       });
