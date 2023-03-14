@@ -1,6 +1,5 @@
 export default class ProductDTO {
-    constructor(id, title, price, thumbnail, description, code, stock) {
-        this.id = id
+    constructor({title, price, thumbnail, description, code, stock}) {
         this.title = title
         this.price = price
         this.thumbnail = thumbnail
