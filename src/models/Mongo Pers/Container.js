@@ -34,10 +34,10 @@ export default class Container {
 
   async getById(id) {
     try {
-      if (!mongoose.isValidObjectId(id)) return null
+      if (!mongoose.isValidObjectId(id)) return null;
 
-      
-      return this.db.find({ _id: id })
+      const product = await this.db.find({ _id: id });
+      return product[0];
     } catch (error) {
       console.error(`Se produjo un error en getByID: ${error}`);
     }

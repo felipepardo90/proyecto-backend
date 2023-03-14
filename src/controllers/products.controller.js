@@ -1,6 +1,6 @@
 //! DAOS /////////////////////////////////
 import { DAOProducts } from "../daos/index.js";
-import ProductDTO from "../dto/DTO.products.js"
+import ProductDTO from "../dto/DTO.products.js";
 //! DAOS /////////////////////////////////
 const controller = {};
 
@@ -17,9 +17,9 @@ controller.getById = async (req, res) => {
   const product = await DAOProducts.getById(req.params.id);
 
   //! Si el id generado no coincide con ningún producto, devuelve null; de lo contrario, envía la información solicitada
-  product
-    ? res.status(200).json(product)
-    : res.status(404).json({ message: "Product not found" });
+  if (!product) return res.status(404).json({ message: "Product not found" });
+
+  res.status(200).json({ message: "Product obtained", product });
 };
 
 //? RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
@@ -54,7 +54,7 @@ controller.delete = async (req, res) => {
   const data = await DAOProducts.deleteById(req.params.id);
   data
     ? res.status(200).send({
-        message: `Se ha eliminado el producto`,
+        message: "Se ha eliminado el producto",
         "product deleted": data,
       })
     : res.status(404).send({ message: "No se ha encontrado el producto" });
