@@ -14,12 +14,12 @@ router.get("/logout", controller.logoutUser);
 //! Profile
 router.get("/profile", MW.isAuth, controller.renderProfileView);
 
-router.get("/protected", MW.AuthJWT, (req, res) => {
+router.get("/protected", (req, res) => {
 
   res.send({
     error: false,
     message: "authenticated",
-    token: req.headers.authorization,
+    user:req.user
   });
 });
 

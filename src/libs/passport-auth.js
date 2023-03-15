@@ -6,9 +6,10 @@ import { Strategy as JWTStrategy } from "passport-jwt";
 import { ExtractJwt } from "passport-jwt";
 import { generateToken } from "./utils.js";
 import { SECRET } from "./keys.js";
+import UserDTO from "../dto/DTO.user.js";
 
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -44,14 +45,17 @@ passport.use(
           false,
           req.flash("password message", "Passwords do not match"))
       } else {
-        const user = await DAOUsers.create({
+        const newUser = await DAOUsers.create({
           fullname,
           email,
           phone,
           username,
           password: DAOUsers.encryptPass(password)
         });
-        await DAOCarts.newCart(user._id)
+        const newCart = await DAOCarts.newCart()
+
+        const user = new UserDTO(newUser, newCart)
+
         done(null, user);
       }
     }
