@@ -3,8 +3,8 @@ import CartDTO from "../dto/DTO.cart.js";
 const controller = {};
 
 controller.newCart = async (req, res) => {
-  const userID = req.user._id;
-  const newCart = await DAOCarts.newCart(userID);
+  const newCart = await DAOCarts.newCart();
+  console.log(newCart)
   res.status(200).json({
     message: "Se ha creado un nuevo carrito",
     id: newCart.id,
