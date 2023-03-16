@@ -7,6 +7,8 @@ import { ExtractJwt } from "passport-jwt";
 import { generateToken } from "./utils.js";
 import { SECRET } from "./keys.js";
 import UserDTO from "../dto/DTO.user.js";
+import sendMailEth from "./nodemailer.js";
+import mongoose from "mongoose";
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -30,8 +32,6 @@ passport.use(
     async (req, username, password, done) => {
       const { email, repeat_pass, phone, fullname } = req.body;
 
-
-
       const userFound = await DAOUsers.findByEmail(email);
       if (userFound) {
         return done(
@@ -45,17 +45,33 @@ passport.use(
           false,
           req.flash("password message", "Passwords do not match"))
       } else {
-        const newUser = await DAOUsers.create({
+        //! NEW CART WHEN REGISTERING/
+        const newCart = await DAOCarts.newCart()  //! COMPACTING USER INFO IN DTO/
+        //! NEW USER/
+        let newUser = await DAOUsers.create({
           fullname,
           email,
           phone,
           username,
           password: DAOUsers.encryptPass(password)
         });
-        const newCart = await DAOCarts.newCart()
+        //! COMPACT USER DATA/
 
-        const user = new UserDTO(newUser, newCart)
-
+        newUser = { ...newUser._doc, cartId: newCart._id, role: "user" }
+        const user = new UserDTO(newUser)
+        req.session.user = user
+        //! MESSAGE FOR NODEMAILER/
+        const messageHTML = `
+        <h1>NEW REGISTER</h1>
+        <div>
+        <h3>EMAIL: ${email}</h1>
+        <h3>USERNAME: ${username}</h3>
+        <h3>FULLNAME: ${fullname}</h3>
+        <h6>Phone: ${phone}</h6>
+        </div>`
+        //! SENDING E-MAIL/
+        sendMailEth(email, "New Register", messageHTML)
+        //! RETURN USER ON REQ.USER/
         done(null, user);
       }
     }
@@ -83,8 +99,10 @@ passport.use(
 
       const body = {
         _id: userFound._id,
+        fullname: userFound.fullname,
         username: userFound.username,
         email: userFound.email,
+        phone: userFound.phone
       };
 
       generateToken(body);
