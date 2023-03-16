@@ -9,6 +9,7 @@ import { SECRET } from "./keys.js";
 import UserDTO from "../dto/DTO.user.js";
 import sendMailEth from "./nodemailer.js";
 import mongoose from "mongoose";
+import User from "../models/Mongo Pers/User.js";
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -45,21 +46,34 @@ passport.use(
           false,
           req.flash("password message", "Passwords do not match"))
       } else {
-        //! NEW CART WHEN REGISTERING/
-        const newCart = await DAOCarts.newCart()  //! COMPACTING USER INFO IN DTO/
-        //! NEW USER/
-        let newUser = await DAOUsers.create({
+
+
+        //! COMPACTING USER INFO IN DTO/
+
+
+        const newUser = new UserDTO({
           fullname,
           email,
           phone,
           username,
+          role: "user",
           password: DAOUsers.encryptPass(password)
-        });
-        //! COMPACT USER DATA/
+        })
 
-        newUser = { ...newUser._doc, cartId: newCart._id, role: "user" }
-        const user = new UserDTO(newUser)
-        req.session.user = user
+        //! NEW USER/
+
+        const user = await DAOUsers.create(newUser);
+
+        console.log("user", user)
+
+        //! NEW CART WHEN REGISTERING/
+
+
+        const newCart = await DAOCarts.newCart(user._id)
+        console.log("req user before", req.user)
+        req.user = { ...req.user, current_cart: newCart._id }
+        console.log("req user after", req.user)
+
         //! MESSAGE FOR NODEMAILER/
         const messageHTML = `
         <h1>NEW REGISTER</h1>

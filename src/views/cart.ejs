@@ -1,6 +1,19 @@
 <%- include("layout/main", {title: "CART"}) %>
 <%- include("partials/nav.ejs") %>
 
-<h1>CARRITO</h1>
 
+<div>
+
+  <% if(!user.currentCart) { %>
+    <form action="/api/cart" method="POST">
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-block mb-4">
+          New Cart
+        </button>
+      </div>
+    </form>
+    <% } else { %>
+      <h1>CARRITO CREADO</h1>
+      <% } %>
+    </div>
 </html>

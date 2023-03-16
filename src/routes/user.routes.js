@@ -19,8 +19,8 @@ router.get("/protected", (req, res) => {
   res.send({
     error: false,
     message: "authenticated",
-    user:req.session,
-    other:req.user
+    session:req.session,
+    user:req.user
   });
 });
 
