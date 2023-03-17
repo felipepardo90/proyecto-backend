@@ -1,19 +1,77 @@
-<%- include("layout/main", {title: "CART"}) %>
-<%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "CART" }) %>
+  <%- include("partials/nav.ejs") %>
 
 
-<div>
-
-  <% if(!user.currentCart) { %>
-    <form action="/api/cart" method="POST">
-      <div class="text-center">
-        <button type="submit" class="btn btn-success btn-block mb-4">
-          New Cart
-        </button>
+    <main>
+      <div class="section-products">
+        <!-- <form action="/products" method="POST" id="select-form">
+      <select class="form-select select-products" name="selecter">
+        <option selected>Choose a category</option>
+        <option value="#" onclick="window.location.href='/products/A100'">All</option>
+        <option name="A100" value="A100">Heineken</option>
+        <option value="A200">Imperial</option>
+      </select>
+    </form> -->
+        <% if(cart===null || cart.products.length==0) { %>
+          <div>
+            <h1 style="color:white">Tu carrito está vacío</h1>
+          </div>
+          <% } else { %>
+            <table width="60%">
+              <thead>
+                <tr>
+                  <td>Nombre</td>
+                  <td>Precio</td>
+                  <td>Producto</td>
+                  <td>Cantidad</td>
+                  <td>Ver</td>
+                  <td>Quitar Producto</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% cart.products.forEach((item)=>{ %>
+                  <tr key="<%= item.id %>">
+                    <td>
+                      <%= item.title %>
+                    </td>
+                    <td>$AR <%= item.price %>
+                    </td>
+                    <td>
+                      <img alt="<%= item.title %>" src="<%= item.thumbnail %>" width="40px" height="40px" />
+                    </td>
+                    <td style="display:inline-block; background-color:yellow">
+                      <div>
+                        <form action="/cart/641464e5acf866b22f960684/products/<%-item._id%>?_method=DELETE"
+                          method="POST">
+                          <button type="submit" class="btn btn-secondary">-</button>
+                        </form>
+                        <h3>
+                          <%= item.quantity %>
+                        </h3>
+                        <form action="/cart/641464e5acf866b22f960684/products" method="POST">
+                          <input type="hidden" name="_id" value="<%= item._id %>">
+                          <button type="submit" class="btn btn-primary">+</button>
+                        </form>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="/products/<%- item._id %>">Ver</a>
+                    </td>
+                    <td>
+                      <form action="/cart/641464e5acf866b22f960684/products?_method=DELETE" method="POST">
+                        <input type="hidden" name="_id" value="<%= item._id %>">
+                        <button type="submit" class="btn btn-primary">-</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+            <h1>
+              Subtotal: <%= cart.subtotal %>
+            </h1>
+            <% } %>
       </div>
-    </form>
-    <% } else { %>
-      <h1>CARRITO CREADO</h1>
-      <% } %>
-    </div>
-</html>
+    </main>
+
+    </html>

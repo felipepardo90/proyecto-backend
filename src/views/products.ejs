@@ -1,10 +1,9 @@
-<%- include("layout/main", {title: "Productos" }) %> <%-
-include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Productos" }) %> <%- include("partials/nav.ejs") %>
 
-<body>
-  <main>
-    <div class="section-products">
-      <!-- <form action="/products" method="POST" id="select-form">
+    <body>
+      <main>
+        <div class="section-products">
+          <!-- <form action="/products" method="POST" id="select-form">
         <select class="form-select select-products" name="selecter">
           <option selected>Choose a category</option>
           <option value="#" onclick="window.location.href='/products/A100'">All</option>
@@ -12,45 +11,47 @@ include("partials/nav.ejs") %>
           <option value="A200">Imperial</option>
         </select>
       </form> -->
-      <% if(products) { %>
-      <table width="60%">
-        <thead>
-          <tr>
-            <td>Nombre</td>
-            <td>Precio</td>
-            <td>Producto</td>
-            <td>Ver</td>
-            <td>Agregar al carrito</td>
-          </tr>
-        </thead>
-        <tbody>
-          <% products.forEach((item)=>{ %>
-          <tr key="<%= item.id %>">
-            <td><%= item.title %></td>
-            <td>$AR <%= item.price %></td>
-            <td>
-              <img
-                alt="<%= item.title %>"
-                src="<%= item.thumbnail %>"
-                width="40px"
-                height="40px"
-              />
-            </td>
-            <td>
-              <a href="/products/<%= item.id %>">Ver</a>
-            </td>
-            <td>
-              <h3 class="add_product">+</h3>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-      <% } else { %>
-      <h1>There are no products here</h1>
-      <% } %>
-    </div>
-  </main>
-</body>
+          <% if(products) { %>
+            <table width="60%">
+              <thead>
+                <tr>
+                  <td>Nombre</td>
+                  <td>Precio</td>
+                  <td>Producto</td>
+                  <td>Ver</td>
+                  <td>Agregar al carrito</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach((item)=>{ %>
+                  <tr key="<%= item.id %>">
+                    <td>
+                      <%= item.title %>
+                    </td>
+                    <td>$AR <%= item.price %>
+                    </td>
+                    <td>
+                      <img alt="<%= item.title %>" src="<%= item.thumbnail %>" width="40px" height="40px" />
+                    </td>
+                    <td>
+                      <a href="/products/<%= item.id %>">Ver</a>
+                    </td>
+                    <td>
+                      <form action="/cart/641464e5acf866b22f960684/products" method="POST">
 
-</html>
+                        <input type="hidden" name="_id" value="<%= item._id %>">
+                        <button type="submit" class="btn btn-primary">+</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+            <% } else { %>
+              <h1>There are no products here</h1>
+              <% } %>
+        </div>
+      </main>
+    </body>
+
+    </html>
