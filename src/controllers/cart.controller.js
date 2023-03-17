@@ -64,10 +64,22 @@ controller.saveProductInCart = async (req, res) => {
 
   try {
     await DAOCarts.addProductToCart(req.params.id, productToAdd);
-    res.status(200)
+    res.status(200).render("cart");
   } catch (error) {
     console.log(error);
   }
+  // const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd);
+
+  // cart != null
+  //   ? res.status(200).json({
+  //       "cart owner": req.user.username,
+  //       message: "Se añadió un producto al carrito",
+  //       "products in cart": cart.products,
+  //     })
+  //   : res.status(200).json({
+  //       error: "No se puede añadir el producto",
+  //       message: "El producto no se ha encontrado o el carrito no existe",
+  //     });
 };
 
 controller.removeProductFromCart = async (req, res) => {

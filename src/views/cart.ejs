@@ -41,16 +41,16 @@
                     </td>
                     <td style="display:inline-block; background-color:yellow">
                       <div>
-                        <form action="/cart/641464e5acf866b22f960684/products/<%-item._id%>?_method=DELETE"
-                          method="POST">
-                          <button type="submit" class="btn btn-secondary">-</button>
+                        <form action="/cart/641464e5acf866b22f960684/products" method="POST">
+                          <input type="hidden" name="_id" value="<%= item._id %>">
+                          <button type="submit" class="btn btn-primary">+</button>
                         </form>
                         <h3>
                           <%= item.quantity %>
                         </h3>
-                        <form action="/cart/641464e5acf866b22f960684/products" method="POST">
-                          <input type="hidden" name="_id" value="<%= item._id %>">
-                          <button type="submit" class="btn btn-primary">+</button>
+                        <form action="/cart/641464e5acf866b22f960684/products/<%-item._id%>?_method=DELETE"
+                          method="POST">
+                          <button type="submit" class="btn btn-secondary">-</button>
                         </form>
                       </div>
                     </td>
