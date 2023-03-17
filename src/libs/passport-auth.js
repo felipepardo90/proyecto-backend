@@ -60,9 +60,6 @@ passport.use(
 
         const user = await DAOUsers.create(newUser);
 
-        //! NEW CART WHEN REGISTERING/
-
-        await DAOCarts.newCart(user._id)
 
         //! MESSAGE FOR NODEMAILER/
         const messageHTML = `
