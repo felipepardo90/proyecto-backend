@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import flash from "connect-flash";
 import indexRoute from "./routes/index.routes.js";
+import methodOverride from 'method-override'
 import { PORT, SECRET, MONGO_SESSION } from "./libs/keys.js";
 import morgan from "morgan";
 
@@ -30,6 +31,7 @@ app.set("view engine", "ejs");
 //! MIDDLEWARES
 
 app.use(morgan("dev"));
+app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
