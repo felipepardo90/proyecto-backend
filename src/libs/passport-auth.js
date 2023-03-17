@@ -8,8 +8,6 @@ import { generateToken } from "./utils.js";
 import { SECRET } from "./keys.js";
 import UserDTO from "../dto/DTO.user.js";
 import sendMailEth from "./nodemailer.js";
-import mongoose from "mongoose";
-import User from "../models/Mongo Pers/User.js";
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -47,9 +45,7 @@ passport.use(
           req.flash("password message", "Passwords do not match"))
       } else {
 
-
         //! COMPACTING USER INFO IN DTO/
-
 
         const newUser = new UserDTO({
           fullname,
@@ -64,15 +60,9 @@ passport.use(
 
         const user = await DAOUsers.create(newUser);
 
-        console.log("user", user)
-
         //! NEW CART WHEN REGISTERING/
 
-
-        const newCart = await DAOCarts.newCart(user._id)
-        console.log("req user before", req.user)
-        req.user = { ...req.user, current_cart: newCart._id }
-        console.log("req user after", req.user)
+        await DAOCarts.newCart(user._id)
 
         //! MESSAGE FOR NODEMAILER/
         const messageHTML = `
@@ -86,6 +76,7 @@ passport.use(
         //! SENDING E-MAIL/
         sendMailEth(email, "New Register", messageHTML)
         //! RETURN USER ON REQ.USER/
+        done()
         done(null, user);
       }
     }

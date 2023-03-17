@@ -35,6 +35,15 @@ export default class Cart {
     }
   }
 
+  async getCartByIdUser(id) {
+    try {
+      const cart = await this.db.find({ owner_id: id });
+      return cart[0]._id;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async addProductToCart(cartId, newProduct) {
     const cart = await this.getCartById(cartId);
     try {
