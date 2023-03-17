@@ -4,7 +4,7 @@ const controller = {};
 
 controller.newCart = async (req, res) => {
   const newCart = await DAOCarts.newCart();
-  console.log(newCart)
+  console.log(newCart);
   res.status(200).json({
     message: "Se ha creado un nuevo carrito",
     id: newCart.id,
@@ -15,12 +15,14 @@ controller.newCart = async (req, res) => {
 controller.getCartById = async (req, res) => {
   const { id } = req.params;
   const data = await DAOCarts.getCartById(id);
-  const cart = new CartDTO(req.user.id, data.products);
-  res.status(200).json({
-    message: "Carrito obtenido",
-    "cart owner": req.user.username,
-    cart,
-  });
+  const cart = new CartDTO(data.products);
+  // res.status(200).json({
+  //   message: "Carrito obtenido",
+  //   "cart owner": req.user.username,
+  //   cart,
+  // });
+
+  res.render("cart", { cart: cart });
 };
 
 controller.deleteCart = async (req, res) => {
@@ -59,30 +61,25 @@ controller.getProductsInCart = async (req, res) => {
 
 controller.saveProductInCart = async (req, res) => {
   const productToAdd = await DAOProducts.getById(req.body._id);
-  const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd);
 
-  cart != null
-    ? res.status(200).json({
-        "cart owner": req.user.username,
-        message: "Se añadió un producto al carrito",
-        "products in cart": cart.products,
-      })
-    : res.status(200).json({
-        error: "No se puede añadir el producto",
-        message: "El producto no se ha encontrado o el carrito no existe",
-      });
+  try {
+    await DAOCarts.addProductToCart(req.params.id, productToAdd);
+    res.status(200)
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 controller.removeProductFromCart = async (req, res) => {
   const { id } = req.params;
   const product = await DAOProducts.getById(req.body._id);
-  const productToRemove = await DAOCarts.removeProductFromCart(id, product);
 
-  productToRemove
-    ? res
-        .status(200)
-        .json({ message: "Se ha eliminado el producto del carrito" })
-    : res.json({ message: "Product not found" });
+  try {
+    await DAOCarts.removeProductFromCart(id, product);
+    res.status(200).redirect(`/cart/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 controller.subtractProductFromCart = async (req, res) => {
