@@ -16,11 +16,6 @@ controller.getCartById = async (req, res) => {
   const { id } = req.params;
   const data = await DAOCarts.getCartById(id);
   const cart = new CartDTO(data.products);
-  // res.status(200).json({
-  //   message: "Carrito obtenido",
-  //   "cart owner": req.user.username,
-  //   cart,
-  // });
 
   res.render("cart", { cart: cart });
 };
@@ -64,22 +59,10 @@ controller.saveProductInCart = async (req, res) => {
 
   try {
     await DAOCarts.addProductToCart(req.params.id, productToAdd);
-    res.status(200).render("cart");
+    res.status(200).redirect(`/cart/${req.params.id}`)
   } catch (error) {
     console.log(error);
   }
-  // const cart = await DAOCarts.addProductToCart(req.params.id, productToAdd);
-
-  // cart != null
-  //   ? res.status(200).json({
-  //       "cart owner": req.user.username,
-  //       message: "Se añadió un producto al carrito",
-  //       "products in cart": cart.products,
-  //     })
-  //   : res.status(200).json({
-  //       error: "No se puede añadir el producto",
-  //       message: "El producto no se ha encontrado o el carrito no existe",
-  //     });
 };
 
 controller.removeProductFromCart = async (req, res) => {
@@ -98,17 +81,13 @@ controller.subtractProductFromCart = async (req, res) => {
   const { id, id_prod } = req.params;
   const productToRemove = await DAOProducts.getById(id_prod);
   const cart = await DAOCarts.subtractProductFromCart(id, productToRemove);
-  cart !== null
-    ? res.status(200).json({
-        message: `Quitando ${productToRemove.title} del carrito de ${id}`,
-        "cart owner": req.user.username,
-        "cart id": cart.id,
-        "products in cart": cart.products,
-      })
-    : res.status(200).json({
-        message: "No existe el producto en el carrito",
-        "cart owner": req.user.username,
-      });
+
+
+  try {
+    res.status(200).redirect(`/cart/${id}`)
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 export default controller;
