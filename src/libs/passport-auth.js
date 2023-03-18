@@ -45,6 +45,11 @@ passport.use(
           req.flash("password message", "Passwords do not match"))
       } else {
 
+        //! CREATE NEW CART 
+
+        const cart = await DAOCarts.newCart()
+        console.log("cart", cart)
+
         //! COMPACTING USER INFO IN DTO/
 
         const newUser = new UserDTO({
@@ -53,8 +58,11 @@ passport.use(
           phone,
           username,
           role: "user",
-          password: DAOUsers.encryptPass(password)
+          password: DAOUsers.encryptPass(password),
+          cart_id: cart._id
         })
+
+        console.log("newUSer", newUser)
 
         //! NEW USER/
 
