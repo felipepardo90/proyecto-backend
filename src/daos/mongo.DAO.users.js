@@ -1,13 +1,14 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import User from "../models/Mongo Pers/User.js";
 
 const userSchema = new Schema({
   fullname: { type: String, required: true },
-  phone: { type: Number, required: true },
   email: { type: String, required: true },
+  phone: { type: Number, required: true },
   username: { type: String, required: true },
+  role: { type: String },
   password: { type: String, required: true },
-  role: { type: String }
+  cart_id:{type:mongoose.Schema.Types.ObjectId, ref:"carts"}
 });
 
 
