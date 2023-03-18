@@ -9,9 +9,9 @@ export default class Cart {
     this.date = new Date().toLocaleString();
   }
 
-  async newCart(id) {
+  async newCart() {
     try {
-      return await this.db.create({ owner_id: id, timestamp: this.date })
+      return await this.db.create({ timestamp: this.date })
     } catch (error) {
       console.error(`Se produjo un error en save:${error}`);
     }
