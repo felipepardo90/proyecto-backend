@@ -48,7 +48,6 @@ passport.use(
         //! CREATE NEW CART 
 
         const cart = await DAOCarts.newCart()
-        console.log("cart", cart)
 
         //! COMPACTING USER INFO IN DTO/
 
@@ -58,11 +57,10 @@ passport.use(
           phone,
           username,
           role: "user",
-          password: DAOUsers.encryptPass(password),
+          password: await DAOUsers.encryptPass(password),
           cart_id: cart._id
         })
 
-        console.log("newUSer", newUser)
 
         //! NEW USER/
 
@@ -81,7 +79,6 @@ passport.use(
         //! SENDING E-MAIL/
         sendMailEth(email, "New Register", messageHTML)
         //! RETURN USER ON REQ.USER/
-        done()
         done(null, user);
       }
     }

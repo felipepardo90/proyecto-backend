@@ -7,8 +7,7 @@ controller.newCart = async (req, res) => {
   console.log(newCart);
   res.status(200).json({
     message: "Se ha creado un nuevo carrito",
-    id: newCart.id,
-    user_id: newCart.user_id,
+    id: newCart.id
   });
 };
 
