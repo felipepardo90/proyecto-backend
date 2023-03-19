@@ -7,11 +7,12 @@ include("partials/nav.ejs") %>
       <form action="/products" method="POST" id="select-form">
         <select class="form-select select-products" name="selecter">
           <option selected>Choose a category</option>
-          <option value="#" onclick="window.location.href='/products/A100'">
+          <option value="#">
             All
           </option>
-          <option name="A100" value="A100">Heineken</option>
-          <option value="A200">Imperial</option>
+          <option name="alimentos" value="alimentos">Alimentos</option>
+          <option name="bebidas" value="bebidas">Bebidas</option>
+          <option name="lácteos" value="lácteos">Lácteos</option>
         </select>
       </form>
       <% if(products) { %>
