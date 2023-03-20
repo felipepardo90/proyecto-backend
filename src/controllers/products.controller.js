@@ -17,15 +17,6 @@ controller.getAll = async (req, res) => {
   }
 };
 
-// // //? DEVUELVE PRODUCTOS POR CATEGORíA
-
-// controller.getAll = async (req, res) => {
-//   const { category } = req.query;
-//   console.log(category);
-//   const products = await DAOProducts.filterByCategory(category);
-//   res.render("products", { products });
-// };
-
 //? DEVUELVE UN PRODUCTO SEGÚN SU ID
 
 controller.getById = async (req, res) => {
