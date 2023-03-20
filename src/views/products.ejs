@@ -1,63 +1,60 @@
-<%- include("layout/main", {title: "Productos" }) %> <%-
-include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Productos" }) %> <%- include("partials/nav.ejs") %>
 
-<body>
-  <main>
-    <div class="section-products">
-      <form action="/products" method="POST" id="select-form">
-        <select class="form-select select-products" name="selecter">
-          <option selected>Choose a category</option>
-          <option value="#">
-            All
-          </option>
-          <option name="alimentos" value="alimentos">Alimentos</option>
-          <option name="bebidas" value="bebidas">Bebidas</option>
-          <option name="lácteos" value="lácteos">Lácteos</option>
-        </select>
-      </form>
-      <% if(products) { %>
-      <table width="60%">
-        <thead>
-          <tr>
-            <td>Nombre</td>
-            <td>Precio</td>
-            <td>Producto</td>
-            <td>Ver</td>
-            <td>Agregar al carrito</td>
-          </tr>
-        </thead>
-        <tbody>
-          <% products.forEach((item)=>{ %>
-          <tr key="<%= item.id %>">
-            <td><%= item.title %></td>
-            <td>$AR <%= item.price %></td>
-            <td>
-              <img
-                alt="<%= item.title %>"
-                src="<%= item.thumbnail %>"
-                width="40px"
-                height="40px"
-              />
-            </td>
-            <td>
-              <a href="/products/<%= item.id %>">Ver</a>
-            </td>
-            <td>
-              <form action="/cart/<%= user.cart_id %>/products" method="POST">
-                <input type="hidden" name="_id" value="<%= item._id %>" />
-                <button type="submit" class="btn btn-primary">
-                  Add to shopcart
-                </button>
-              </form>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-      <% } else { %>
-      <h1>There are no products here</h1>
-      <% } %>
-    </div>
-  </main>
-</body>
-
+    <body>
+      <main>
+        <div class="section-products">
+          <form action="/products" id="select-form">
+            <select class="form-select select-products" name="categories">
+              <option selected disabled>Choose a category</option>
+              <option value="/products">All</option>
+              <option value="?category=food">Alimentos</option>
+              <option value="?category=drinks">Bebidas</option>
+              <option value="?category=dairy">Lácteos</option>
+              <option value="?category=cleaning">Limpieza</option>
+            </select>
+            <input type="button" name="Submit" value="Filter" onClick="top.location.href = this.form.categories.options[this.form.categories.selectedIndex].value;
+            return false;">
+          </form>
+          <% if(products) { %>
+            <table width="60%">
+              <thead>
+                <tr>
+                  <td>Nombre</td>
+                  <td>Precio</td>
+                  <td>Producto</td>
+                  <td>Ver</td>
+                  <td>Agregar al carrito</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach((item)=>{ %>
+                  <tr key="<%= item.id %>">
+                    <td style="white-space: normal">
+                      <%= item.title %>
+                    </td>
+                    <td>$AR <%= item.price %>
+                    </td>
+                    <td>
+                      <img alt="<%= item.title %>" src="<%= item.thumbnail %>" width="40px" height="40px" />
+                    </td>
+                    <td>
+                      <a href="/products/<%= item.id %>">Ver</a>
+                    </td>
+                    <td>
+                      <form action="/cart/<%= user.cart_id %>/products" method="POST">
+                        <input type="hidden" name="_id" value="<%= item._id %>" />
+                        <button type="submit" class="btn btn-primary">
+                          Add to shopcart
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+            <% } else { %>
+              <h1>There are no products here</h1>
+              <% } %>
+        </div>
+      </main>
+    </body>
