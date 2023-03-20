@@ -5,8 +5,8 @@ import passport from "passport";
 export const MW = {};
 
 MW.completedFields = (req, res, next) => {
-  const { title, price, thumbnail, description, code, stock } = req.body;
-  title && price && thumbnail && description && code && stock
+  const { title, price, thumbnail, description, category, stock } = req.body;
+  title && price && thumbnail && description && category && stock
     ? next()
     : res.status(300).send({ message: "Debe completar todos los campos" });
 };

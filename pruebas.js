@@ -1,21 +1,16 @@
-const array = [
-  {
-    id: 1,
-    productos: [
-      { tipo: "banana", precio: 3 },
-      { tipo: "pera", precio: 2 },
-    ],
-  },
-  {
-    id: 2,
-    productos: [
-      { tipo: "manzana", precio: 4 },
-      { tipo: "banana", precio: 3 },
-    ],
-  },
-];
+function generarRandom() {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  let result = "";
+  let ch;
+  while (result.length < 12) {
+    ch = characters.charAt(Math.floor(Math.random() * charactersLength));
+    if (!result.includes(ch)) {
+      result += ch;
+    }
+  }
+  return result;
+}
 
-const newArray = array[1].productos.map(({ precio }) => precio);
-const total = newArray.reduce((acc, act) => acc + act, 0);
-
-console.log(total);
+console.log(generarRandom());
