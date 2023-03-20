@@ -33,7 +33,7 @@ app.set("view engine", "ejs");
 app.use(morgan("dev"));
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public"))); //! STATIC FILES
 app.use(
