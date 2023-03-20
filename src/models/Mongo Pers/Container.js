@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import ProductDTO from "../../dto/DTO.products.js";
 import config from "../../libs/config.js";
+import { randomCode } from "../../libs/utils.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
 
@@ -8,12 +8,12 @@ export default class Container {
   constructor(coll, schema) {
     this.db = mongoose.model(coll, schema);
     this.date = new Date().toLocaleString();
+    this.code = randomCode()
   }
 
   async save(object) {
     try {
-      await this.db.create({ ...object, timestamp: this.date });
-      return object;
+      return await this.db.create({ ...object, timestamp: this.date, code: this.code });
     } catch (error) {
       console.error(`Se produjo un error en save:${error}`);
     }
