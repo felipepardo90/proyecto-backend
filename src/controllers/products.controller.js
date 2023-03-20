@@ -1,15 +1,30 @@
 //! DAOS /////////////////////////////////
 import { DAOProducts } from "../daos/index.js";
-import ProductDTO from "../dto/DTO.products.js";
 //! DAOS /////////////////////////////////
 const controller = {};
 
 //? DEVUELVE TODOS LOS PRODUCTOS
 
 controller.getAll = async (req, res) => {
-  const data = await DAOProducts.getAll();
-  res.render("products", { products: data });
+  const { category } = req.query;
+  console.log(category);
+  if (!category) {
+    const products = await DAOProducts.getAll();
+    res.render("products", { products });
+  } else {
+    const products = await DAOProducts.filterByCategory(category);
+    res.render("products", { products });
+  }
 };
+
+// // //? DEVUELVE PRODUCTOS POR CATEGORíA
+
+// controller.getAll = async (req, res) => {
+//   const { category } = req.query;
+//   console.log(category);
+//   const products = await DAOProducts.filterByCategory(category);
+//   res.render("products", { products });
+// };
 
 //? DEVUELVE UN PRODUCTO SEGÚN SU ID
 
@@ -25,12 +40,10 @@ controller.getById = async (req, res) => {
 //? RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
 
 controller.post = async (req, res) => {
-  const data = await DAOProducts.save(req.body);
-  data == null
-    ? res
-        .status(500)
-        .json({ message: `[[${req.body.title}]] ya existe en el archivo` })
-    : res.status(200).render("index");
+  const product = await DAOProducts.save(req.body);
+  if (!product) throw new Error(error);
+
+  res.status(200).redirect("/products");
 };
 
 //? RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID
