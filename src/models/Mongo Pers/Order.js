@@ -1,0 +1,26 @@
+import mongoose from "mongoose";
+import config from "../../libs/config.js";
+
+await mongoose.connect(config.mongodb.url, config.mongodb.options);
+
+export default class Order {
+  constructor(coll, schema) {
+    this.db = mongoose.model(coll, schema);
+  }
+
+  async newOrder(order) {
+    try {
+      return await this.db.create(order);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getOrders(user_id) {
+    try {
+      return await this.db.find({ _id: user_id });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+}

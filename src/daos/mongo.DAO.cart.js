@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Cart from "../models/Mongo Pers/Cart.js";
 
 class DAOCartsMongo extends Cart {
