@@ -15,13 +15,22 @@
       <p class="form-paragraph">
         Backend - Express - Javascript
         <a
-          href="https://github.com/felipepardo90/new-Backend.git"
-          target="_blank"
-          class="form-link"
-          >Repository</a
+        href="https://github.com/felipepardo90/new-Backend.git"
+        target="_blank"
+        class="form-link"
+        >Repository</a
         >
       </p>
       <div class="form-container">
+        <div class="form-group">
+          <select name="category" id="category" class="form-select">
+            <option selected disabled>Choose a category</option>
+            <option value="dairy">Lácteos</option>
+            <option value="food">Alimentos</option>
+            <option value="drinks">Bebidas</option>
+            <option value="cleaning">Limpieza</option>
+          </select>
+        </div>
         <div class="form-group">
           <input type="text" name="title" class="form-input" placeholder=" " />
           <label for="title" class="form-label">Title:</label>
@@ -46,17 +55,6 @@
           />
           <label for="thumbnail" class="form-label">Thumbnail:</label>
           <span class="form-line"></span>
-        </div>
-        <div class="form-group">
-          <select name="category" id="category">
-            <option value="dairy">Lácteos</option>
-            <option value="food">Alimentos</option>
-            <option value="drinks">Bebidas</option>
-            <option value="cleaning">Limpieza</option>
-          </select>
-          <!-- <input type="text" name="category" class="form-input" placeholder=" " />
-          <label for="category" class="form-label">Category:</label>
-          <span class="form-line"></span> -->
         </div>
         <div class="form-group">
           <input

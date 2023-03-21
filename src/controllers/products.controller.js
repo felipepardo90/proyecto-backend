@@ -25,7 +25,7 @@ controller.getById = async (req, res) => {
   //! Si el id generado no coincide con ningún producto, devuelve null; de lo contrario, envía la información solicitada
   if (!product) return res.status(404).json({ message: "Product not found" });
 
-  res.status(200).json({ message: "Product obtained", product });
+  res.status(200).render("single_product", { product });
 };
 
 //? RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
@@ -46,9 +46,9 @@ controller.put = async (req, res) => {
 
   data != null
     ? res.status(200).json({
-        message: `Producto ${id} modificado con éxito`,
-        "new product": newObject,
-      })
+      message: `Producto ${id} modificado con éxito`,
+      "new product": newObject,
+    })
     : res.status(404).json({ error: "Producto no encontrado" });
 };
 
@@ -58,9 +58,9 @@ controller.delete = async (req, res) => {
   const data = await DAOProducts.deleteById(req.params.id);
   data
     ? res.status(200).send({
-        message: "Se ha eliminado el producto",
-        "product deleted": data,
-      })
+      message: "Se ha eliminado el producto",
+      "product deleted": data,
+    })
     : res.status(404).send({ message: "No se ha encontrado el producto" });
 };
 
