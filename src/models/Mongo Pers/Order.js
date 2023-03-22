@@ -8,7 +8,7 @@ export default class Order {
     this.db = mongoose.model(coll, schema);
   }
 
-  async newOrder(order) {
+  async saveOrder(order) {
     try {
       return await this.db.create(order);
     } catch (error) {
@@ -22,5 +22,13 @@ export default class Order {
     } catch (error) {
       throw new Error(error);
     }
+  }
+  async getOrderById(id) {
+    try {
+        if(!mongoose.isValidObjectId(id)) return false
+        return await this.db.find({ _id: id });
+      } catch (error) {
+        throw new Error(error);
+      }
   }
 }
