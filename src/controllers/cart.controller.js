@@ -14,6 +14,10 @@ controller.newCart = async (req, res) => {
 controller.getCartById = async (req, res) => {
   const { id } = req.params;
   const data = await DAOCarts.getCartById(id);
+
+  if (data === null) return res.status(404).json({ error: "Bad request" })
+
+
   const cart = new CartDTO(data.products);
 
   res.render("cart", { cart: cart });
@@ -23,12 +27,12 @@ controller.deleteCart = async (req, res) => {
   const data = await DAOCarts.deleteCartById(req.params.id);
   data
     ? res.status(200).json({
-        message: "Se ha eliminado el carrito",
-        "cart deleted": `${req.params.id}`,
-      })
+      message: "Se ha eliminado el carrito",
+      "cart deleted": `${req.params.id}`,
+    })
     : res
-        .status(404)
-        .json({ message: "No se ha encontrado el carrito. No existe" });
+      .status(404)
+      .json({ message: "No se ha encontrado el carrito. No existe" });
 };
 
 controller.getProductsInCart = async (req, res) => {
