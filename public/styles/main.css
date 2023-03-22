@@ -61,24 +61,13 @@ body {
   border-bottom: 1px solid yellow;
   font-family: "Roboto", sans-serif;
 }
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) + .form-label {
-  transform: translateY(-12px) scale(0.7);
-  transform-origin: left top;
-  color: lightblue;
-}
 .form-container .form-group .form-input:focus + .form-label, .form-container .form-group .form-input:not(:placeholder-shown) + .form-label {
   transform: translateY(-12px) scale(0.7);
   transform-origin: left top;
   color: lightblue;
 }
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) ~ .form-line {
-  transform: scale(1);
-}
 .form-container .form-group .form-input:focus ~ .form-line, .form-container .form-group .form-input:not(:placeholder-shown) ~ .form-line {
   transform: scale(1);
-}
-.form-container .form-group .form-input:not(:-moz-placeholder-shown) {
-  color: lightblue;
 }
 .form-container .form-group .form-input:focus, .form-container .form-group .form-input:not(:placeholder-shown) {
   color: lightblue;
@@ -219,8 +208,7 @@ table td:nth-child(4), table td:nth-child(5), table td:nth-child(6) {
 table tbody img {
   width: 120px;
   height: 120px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   box-shadow: 1px 2px 4px black;
   border-radius: 50%;
 }
@@ -379,4 +367,4 @@ input {
   padding: 12px 0;
   width: 100%;
   border-radius: 0 0 2px 2px;
-}/*# sourceMappingURL=main.css.map */
+}

@@ -1,70 +1,85 @@
-<%- include("layout/main", {title: "CART" }) %> <%- include("partials/nav.ejs")%>
+<%- include("layout/main", {title: "CART" }) %> <%-
+include("partials/nav.ejs")%>
 
-    <main>
-      <% if( cart===null || cart.products.length==0) { %>
-        <div class="section-products nothing_here">
-          <h1>Tu carrito está vacío</h1>
-        </div>
-        <% } else { %>
-          <div class="section-products">
-            <table width="60%">
-              <thead>
-                <tr>
-                  <td>Nombre</td>
-                  <td>Precio</td>
-                  <td>Producto</td>
-                  <td>Cantidad</td>
-                  <td>Ver</td>
-                  <td>Quitar Producto</td>
-                </tr>
-              </thead>
-              <tbody>
-                <% cart.products.forEach((item)=>{ %>
-                  <tr key="<%= item.id %>">
-                    <td style="white-space: normal">
-                      <%= item.title %>
-                    </td>
-                    <td>$AR <%= item.price %>
-                    </td>
-                    <td>
-                      <img alt="<%= item.title %>" src="<%= item.thumbnail %>" width="40px" height="40px" />
-                    </td>
-                    <td style="background-color: yellow">
-                      <div>
-                        <form action="/cart/<%= user.cart_id %>/products" method="POST">
-                          <input type="hidden" name="_id" value="<%= item._id %>" />
-                          <button type="submit" class="btn btn-primary">+</button>
-                        </form>
-                        <h3>
-                          <%= item.quantity %>
-                        </h3>
-                        <form action="/cart/<%= user.cart_id %>/products/<%-item._id%>?_method=DELETE" method="POST">
-                          <button type="submit" class="btn btn-secondary">-</button>
-                        </form>
-                      </div>
-                    </td>
-                    <td>
-                      <a href="/products/<%- item._id %>">Ver</a>
-                    </td>
-                    <td>
-                      <form action="/cart/<%= user.cart_id %>/products?_method=DELETE" method="POST">
-                        <input type="hidden" name="_id" value="<%= item._id %>" />
-                        <button type="submit" class="btn btn-primary">-</button>
-                      </form>
-                    </td>
-                  </tr>
-                  <% }) %>
-              </tbody>
-            </table>
-            <% } %>
-          </div>
-          <div class="pre_order">
-            <form action="/order" method="POST">
-              <p>Subtotal:<%= cart.subtotal %>
-              </p>
+<body>
+  <% if( cart===null || cart.products.length==0) { %>
+  <div class="section-products nothing_here">
+    <h1>Tu carrito está vacío</h1>
+  </div>
+  <% } else { %>
+  <div class="section-products">
+    <table width="60%">
+      <thead>
+        <tr>
+          <td>Nombre</td>
+          <td>Precio</td>
+          <td>Producto</td>
+          <td>Cantidad</td>
+          <td>Ver</td>
+          <td>Quitar Producto</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% cart.products.forEach((item)=>{ %>
+        <tr key="<%= item.id %>">
+          <td style="white-space: normal"><%= item.title %></td>
+          <td>$AR <%= item.price %></td>
+          <td>
+            <img
+              alt="<%= item.title %>"
+              src="<%= item.thumbnail %>"
+              width="40px"
+              height="40px"
+            />
+          </td>
+          <td style="background-color: yellow">
+            <div>
+              <form action="/cart/<%= user.cart_id %>/products" method="POST">
+                <input type="hidden" name="_id" value="<%= item._id %>" />
+                <button type="submit" class="btn btn-primary">+</button>
+              </form>
+              <h3><%= item.quantity %></h3>
+              <form
+                action="/cart/<%= user.cart_id %>/products/<%-item._id%>?_method=DELETE"
+                method="POST"
+              >
+                <button type="submit" class="btn btn-secondary">-</button>
+              </form>
+            </div>
+          </td>
+          <td>
+            <a href="/products/<%- item._id %>">Ver</a>
+          </td>
+          <td>
+            <form
+              action="/cart/<%= user.cart_id %>/products?_method=DELETE"
+              method="POST"
+            >
+              <input type="hidden" name="_id" value="<%= item._id %>" />
+              <button type="submit" class="btn btn-primary">-</button>
             </form>
-          </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+  <div class="pre_order">
+    <form action="/cart/<%= user.cart_id %>/order" method="POST">
+      <p>Subtotal:<%= cart.subtotal %></p>
+      <div class="form-outline mb-4">
+        <input
+          type="text"
+          id="address"
+          class="form-control"
+          name="address"
+        />
+        <label class="form-label" for="address">Address</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Get order</button>
+    </form>
+  </div>
 
-
-
-    </main>
+  
+</body>
