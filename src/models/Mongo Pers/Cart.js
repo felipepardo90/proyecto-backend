@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import config from "../../libs/config.js";
 
 await mongoose.connect(config.mongodb.url, config.mongodb.options);
@@ -28,6 +28,8 @@ export default class Cart {
 
   async getCartById(id) {
     try {
+      if (!isValidObjectId(id)) return null
+
       const cart = await this.db.find({ _id: id });
       return cart[0];
     } catch (error) {
