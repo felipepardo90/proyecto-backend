@@ -77,7 +77,7 @@ passport.use(
         <h6>Phone: ${phone}</h6>
         </div>`
         //! SENDING E-MAIL/
-        sendMailEth(email, "New Register", messageHTML)
+        await sendMailEth(email, "New Register", messageHTML)
         //! RETURN USER ON REQ.USER/
         done(null, user);
       }

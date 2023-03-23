@@ -31,7 +31,7 @@ export function randomCode() {
 }
 
 export function shippingCost(subtotal) {
-  return subtotal >= 7000 ? subtotal : (subtotal * 0.15).toFixed(2);
+  return subtotal >= 7000 ? 0 : (subtotal * 0.15).toFixed(2);
 }
 
 export function productOverview(arrayProducts) {
