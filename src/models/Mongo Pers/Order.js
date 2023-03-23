@@ -25,10 +25,11 @@ export default class Order {
   }
   async getOrderById(id) {
     try {
-        if(!mongoose.isValidObjectId(id)) return false
-        return await this.db.find({ _id: id });
-      } catch (error) {
-        throw new Error(error);
-      }
+      if (!mongoose.isValidObjectId(id)) return false;
+      const order = await this.db.find({ _id: id });
+      return order[0];
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

@@ -11,52 +11,80 @@ controller.getOrders = async (req, res, next) => {
 };
 
 controller.getOrderById = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const order = await DAOOrders.getOrderById(id);
-
   res.status(200).render("order", { order });
 };
 
 controller.newOrder = async (req, res) => {
-  const { cart_id, fullname, email } = req.user;
+  const { cart_id, fullname, email, _id } = req.user;
   const addressData = req.body;
   const cart = await DAOCarts.getCartById(cart_id);
   const dtoCart = new CartDTO(cart.products);
-  const dtoOrder = new OrderDTO(dtoCart, addressData, fullname, email);
-  console.log(dtoOrder);
+  const dtoOrder = new OrderDTO(dtoCart, addressData, fullname, email, _id);
 
   try {
     const order = await DAOOrders.saveOrder(dtoOrder);
+    console.log("ORDER HTML", order);
+    await DAOCarts.emptyCart(cart._id);
 
-    const html = `<div class="container mt-5 d-flex justify-content-center">
-    <div class="card p-4 mt-3">
-       <div class="first d-flex justify-content-between align-items-center mb-3">
-         <div class="info">
-             <span class="d-block name">Thank you, ${order.owner}</span>
-             <span class="order">Order - ${order._id}</span>
-         </div>
-       </div>
-           <div class="detail">
-       <span class="d-block summery">Your order has been dispatched. we are delivering you order.</span>
-       <span class="d-block summery">${order.date}</span>
-           </div>
-       <hr>
-       <div class="text">
-     <span class="d-block new mb-1" >${order.owner}</span>
-     <span class="d-block new mb-1" >${order.owner_email}</span>
-      </div>
-     <span class="d-block address mb-3">${order.address}</span>
-       <div class="money d-flex flex-row mt-2 align-items-center">
-         <span class="ml-2">Cash on Delivery:$ ${order.shipment}</span> 
+    const html = `<div id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <div class="text-right"> <i class="fa fa-close close" data-dismiss="modal"></i> </div>
+                    <div class="px-4 py-5">
+                        <small class="theme-color" style="color: rgba(25, 25, 25, .3)">order id ${
+                          order._id
+                        }
+                        </small>
+                        <h5 class="text-uppercase">
+                        ${order.owner}
+                        </h5>
+                        <h4 class="mt-5 theme-color mb-5">Thanks for your order</h4>
+                        <div>
+                            <small class="theme-color">Date: ${
+                              order.date
+                            }</small>
+                        </div>
+                        <span class="theme-color">Payment Summary</span>
+                        <div class="mb-3">
+                            <hr class="new1">
+                        </div>
+                        //! MAPPING PRODUCTS
+                        ${order.products.map((item) => {
+                          return `<div class="d-flex justify-content-between">
+                                <span class="font-weight-bold">
+                                    ${item.title} (Qty: ${item.qty} )
+                                </span>
+                                <span class="text-muted">$ ${
+                                  item.price * item.qty
+                                } </span>
+                            </div>`;
+                        })}
+                        //! MAPPING PRODUCTS 
+                                <div class="d-flex justify-content-between">
+                                    <small>Shipping <span style="color: rgba(25, 25, 25, .3)">(Free for purchases over
+                                            7000)
+                                        </span>
+                                    </small>
+                                    <small>$${order.shipment}</small>
+                                </div>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <span class="font-weight-bold">Total</span>
+                                    <span class="font-weight-bold theme-color">$${
+                                      order.total
+                                    }</span>
+                                </div>
+                    </div>
+                </div>
             </div>
-            <div class="last d-flex align-items-center mt-3">
-             <span class="address-line">CHANGE MY DELIVERY ADDRESS</span>
-            </div>
-     </div>
- </div>`;
+        </div>
+    </div>`;
 
-    sendMailEth(email, "Your order", html);
-    res.render("order", { order: dtoOrder });
+    await sendMailEth(email, "Your order", html);
+    res.render("succes_order", { order: order });
   } catch (error) {
     throw new Error(error);
   }
