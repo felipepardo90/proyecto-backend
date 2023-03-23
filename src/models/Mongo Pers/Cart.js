@@ -11,7 +11,7 @@ export default class Cart {
 
   async newCart() {
     try {
-      return await this.db.create({ timestamp: this.date })
+      return await this.db.create({ timestamp: this.date });
     } catch (error) {
       console.error(`Se produjo un error en save:${error}`);
     }
@@ -28,7 +28,7 @@ export default class Cart {
 
   async getCartById(id) {
     try {
-      if (!isValidObjectId(id)) return null
+      if (!isValidObjectId(id)) return null;
 
       const cart = await this.db.find({ _id: id });
       return cart[0];
@@ -42,7 +42,7 @@ export default class Cart {
       const cart = await this.db.find({ owner_id: id });
       return cart[0]._id;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -68,6 +68,14 @@ export default class Cart {
       return await this.db.findOne({ _id: cartId });
     } catch (error) {
       console.error(`Se produjo un error en addProductToCart:${error}`);
+    }
+  }
+
+  async emptyCart(cartId) {
+    try {
+      await this.db.updateOne({ _id: cartId }, { $pull: { products: {} } });
+    } catch (error) {
+      throw new Error(error);
     }
   }
 
