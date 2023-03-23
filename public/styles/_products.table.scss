@@ -27,9 +27,14 @@
 }
 
 .nothing_here {
-  background-color: lightgoldenrodyellow;
+  margin: 10px auto;
+  width: 90%;
+  height: 600px;
+  background-color: rgba(50, 130, 120, .1);
+  border-style: none;
   & h1 {
-    color: mediumblue;
+    font-family: "Poppins", sans-serif;
+    color: white;
     text-align: center;
     padding: 100px 50px;
   }
