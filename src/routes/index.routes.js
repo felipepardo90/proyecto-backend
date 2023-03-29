@@ -15,7 +15,7 @@ router.use("/", usersRoute);
 router.use("/products", MW.isAuth, productsRoute);
 router.use("/cart", MW.isAuth, cartRoute);
 router.use("/chat", MW.isAuth, chatRoute);
-router.use("/order", MW.isAuth, orderRoute);
+router.use("/orders", MW.isAuth, orderRoute);
 router.use("/info", MW.isAuth, renderServerInfo);
 
 export default router;

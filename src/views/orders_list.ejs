@@ -1,0 +1,33 @@
+<%- include("layout/main", {title: "My shopping" }) %> <%- include("partials/nav.ejs") %>
+
+
+
+        <table width="60%" class="table table-striped" style="overflow:auto;">
+            <thead>
+                <tr>
+                    <td>See order</td>
+                    <td>ID</td>
+                    <td>Date</td>
+                    <td>Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach((order)=>{ %>
+                    <tr key="<%= order.id %>">
+                        <td>
+                            <a href="/orders/<%= order.id %>">See order</a>
+                        </td>
+                        <td>
+                            <%= order.id %>
+                        </td>
+                        <td>
+                            <%= order.date %>
+                        </td>
+                        <td>
+                            $AR <%= order.total %>
+                        </td>
+
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
