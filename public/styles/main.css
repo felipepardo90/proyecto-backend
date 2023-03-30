@@ -167,17 +167,12 @@ body {
 }
 
 .nothing_here {
-  margin: 10px auto;
-  width: 90%;
-  height: 600px;
-  background-color: rgba(50, 130, 120, 0.1);
-  border-style: none;
-}
-.nothing_here h1 {
-  font-family: "Poppins", sans-serif;
-  color: white;
   text-align: center;
-  padding: 100px 50px;
+  background-color: rgba(255, 255, 255, 0.466);
+  padding: 10px 25px;
+  margin: 10px auto;
+  width: 70%;
+  max-height: 400px;
 }
 
 .add_product {
@@ -384,4 +379,18 @@ input {
   padding: 12px 0;
   width: 100%;
   border-radius: 0 0 2px 2px;
+}
+
+.successful {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.466);
+  padding: 10px 25px;
+  margin: 5px auto;
+}
+
+.orders_list {
+  width: 70%;
+  height: 600px;
+  overflow-x: auto;
+  margin: 10px auto;
 }/*# sourceMappingURL=main.css.map */
