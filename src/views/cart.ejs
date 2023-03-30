@@ -1,4 +1,4 @@
-<%- include("layout/main", {title: "CART" }) %> <%- include("partials/nav.ejs")%>
+<%- include("layout/main", {title: "My shopcart" }) %> <%- include("partials/nav.ejs")%>
 
     <body>
       <% if( cart===null || cart.products.length==0) { %>
@@ -61,7 +61,7 @@
             <h2>Datos para el envío</h1>
               <h3>Subtotal: $ <%= cart.subtotal %>
               </h3>
-              <form action="/order" method="POST">
+              <form action="/orders" method="POST">
                 <div class="form-outline mb-2">
                   <input type="text" id="city" class="form-control" name="city" />
                   <label class="form-label" for="city">City</label>

@@ -6,8 +6,8 @@ import sendMailEth from "../libs/nodemailer.js";
 const controller = {};
 
 controller.getOrders = async (req, res, next) => {
-  const { email } = req.user;
-  const orders = await DAOOrders.getOrders(email);
+  const { id } = req.user;
+  const orders = await DAOOrders.getOrders(id);
   res.status(200).render("orders_list", { orders: orders });
 };
 

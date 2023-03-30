@@ -16,9 +16,9 @@ export default class Order {
     }
   }
 
-  async getOrders(email) {
+  async getOrders(id) {
     try {
-      return await this.db.find({ email: email });
+      return await this.db.find({ owner_id: id });
     } catch (error) {
       throw new Error(error);
     }
