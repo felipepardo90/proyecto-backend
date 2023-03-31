@@ -1,6 +1,7 @@
-<%- include("layout/main", {title: "My shopping" }) %> <%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "My shopping" }) %>
 
-        <body>
+    <body>
+        <%- include("partials/nav.ejs") %>
             <% if( orders===null || orders.length==0) { %>
                 <div class="nothing_here">
                     <h1>No has realizado ninguna compra</h1>
@@ -37,4 +38,4 @@
                         </table>
                     </div>
                     <% } %>
-        </body>
+    </body>

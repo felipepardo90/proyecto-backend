@@ -1,6 +1,7 @@
-<%- include("layout/main", {title: "Products" }) %> <%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Products" }) %>
 
-    <body>
+  <body>
+    <%- include("partials/nav.ejs") %>
       <main>
         <% if(!products) { %>
           <div class="nothing_here">
@@ -60,4 +61,4 @@
               <% } %>
             </div>
       </main>
-    </body>
+  </body>

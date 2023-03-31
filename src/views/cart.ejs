@@ -1,6 +1,7 @@
-<%- include("layout/main", {title: "My shopcart" }) %> <%- include("partials/nav.ejs")%>
+<%- include("layout/main", {title: "My shopcart" }) %>
 
-    <body>
+  <body>
+    <%- include("partials/nav.ejs")%>
       <% if( cart===null || cart.products.length==0) { %>
         <div class=" nothing_here">
           <h1>Tu carrito está vacío</h1>
@@ -78,4 +79,4 @@
               </form>
           </div>
           <% } %>
-    </body>
+  </body>

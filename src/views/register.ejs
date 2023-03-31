@@ -1,76 +1,55 @@
-<%- include("layout/main", {title: "Register"}) %>
+<%- include("layout/main", {title: "Register" }) %>
 
-<body>
-  <form action="/register" method="POST" class="register-form">
-    <div class="col">
-      <% if(signupMsg) { %>
-      <h4><%= signupMsg %></h4>
-      <% } %>
-    </div>
-    <div class="col">
-      <% if(passwordMsg) { %>
-      <h4><%= passwordMsg %></h4>
-      <% } %>
-    </div>
-    <div class="form-outline mb-4">
-      <input
-        type="text"
-        id="form2Example1"
-        class="form-control"
-        name="fullname"
-      />
-      <label class="form-label" for="form2Example1">Insert fullname</label>
-    </div>
+  <body>
+    <form action="/register" method="POST" class="register-form">
+      <div class="col">
+        <% if(signupMsg) { %>
+          <h4>
+            <%= signupMsg %>
+          </h4>
+          <% } %>
+      </div>
+      <div class="col">
+        <% if(passwordMsg) { %>
+          <h4>
+            <%= passwordMsg %>
+          </h4>
+          <% } %>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="text" id="form2Example1" class="form-control" name="fullname" />
+        <label class="form-label" for="form2Example1">Insert fullname</label>
+      </div>
 
-    <div class="form-outline mb-4">
-      <input
-        type="text"
-        id="form2Example1"
-        class="form-control"
-        name="username"
-      />
-      <label class="form-label" for="form2Example1">Insert username</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input
-        type="email"
-        id="form2Example2"
-        class="form-control"
-        name="email"
-      />
-      <label class="form-label" for="form2Example2">Insert email</label>
-    </div>
+      <div class="form-outline mb-4">
+        <input type="text" id="form2Example1" class="form-control" name="username" />
+        <label class="form-label" for="form2Example1">Insert username</label>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="email" id="form2Example2" class="form-control" name="email" />
+        <label class="form-label" for="form2Example2">Insert email</label>
+      </div>
 
-    <div class="form-outline mb-4">
-      <input type="number" name="phone" />
-      <label class="form-label" for="form3Example3">Insert phone number</label>
-    </div>
+      <div class="form-outline mb-4">
+        <input type="number" name="phone" />
+        <label class="form-label" for="form3Example3">Insert phone number</label>
+      </div>
 
-    <div class="form-outline mb-4">
-      <input
-        type="password"
-        id="form4example4"
-        class="form-control"
-        name="password"
-      />
-      <label class="form-label" for="form4example4">Password</label>
-    </div>
+      <div class="form-outline mb-4">
+        <input type="password" id="form4example4" class="form-control" name="password" />
+        <label class="form-label" for="form4example4">Password</label>
+      </div>
 
-    <div class="form-outline mb-4">
-      <input
-        type="password"
-        id="form4example4"
-        class="form-control"
-        name="repeat_pass"
-      />
-      <label class="form-label" for="form4example4">Repeat password</label>
-    </div>
+      <div class="form-outline mb-4">
+        <input type="password" id="form4example4" class="form-control" name="repeat_pass" />
+        <label class="form-label" for="form4example4">Repeat password</label>
+      </div>
 
-    <div class="text-center">
-      <button type="submit" class="btn btn-success btn-block mb-4">
-        Sign up
-      </button>
-      <a href="/login" class="btn btn-light btn-block mb-4">Log in </a>
-    </div>
-  </form>
-</body>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-block mb-4">
+          Sign up
+        </button>
+        <a href="/login" class="btn btn-light btn-block mb-4">Log in </a>
+      </div>
+    </form>
+  </body>

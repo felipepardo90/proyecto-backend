@@ -1,16 +1,33 @@
-<%- include("layout/main", {title: "Server Info"}) %> <%-
-include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Server Info" }) %>
 
-<main style="background-color: lightgoldenrodyellow; padding: 10px 20px; margin:10px auto">
-  <h1>SERVER INFO</h1>
-  <p><b>Input arguments: </b> <%=info["Input Arguments"]%></p>
-  <p><b>OS: </b><%=info.OS%></p>
-  <p><b>Node version: </b><%= info["Node Version"]%></p>
-  <p><b>Memory usage: </b><%= info["Memory Usage"]%></p>
-  <p><b>Execution path: </b><%= info["Execution Path"]%></p>
-  <p><b>Process ID: </b><%=info["Process ID"]%></p>
-  <p>
-    <b>Current working directory: </b><%=info["Current Working Directory"]%>
-  </p>
-  <p><b>Active processor: </b><%= info["active processors"]%></p>
-</main>
+  <body>
+    <%- include("partials/nav.ejs") %>
+      <main style="background-color: lightgoldenrodyellow; padding: 10px 20px; margin:10px auto">
+        <h1>SERVER INFO</h1>
+        <p><b>Input arguments: </b>
+          <%= info["Input Arguments"]%>
+        </p>
+        <p><b>OS: </b>
+          <%= info.OS%>
+        </p>
+        <p><b>Node version: </b>
+          <%= info["Node Version"]%>
+        </p>
+        <p><b>Memory usage: </b>
+          <%= info["Memory Usage"]%>
+        </p>
+        <p><b>Execution path: </b>
+          <%= info["Execution Path"]%>
+        </p>
+        <p><b>Process ID: </b>
+          <%= info["Process ID"]%>
+        </p>
+        <p>
+          <b>Current working directory: </b>
+          <%= info["Current Working Directory"]%>
+        </p>
+        <p><b>Active processor: </b>
+          <%= info["active processors"]%>
+        </p>
+      </main>
+  </body>

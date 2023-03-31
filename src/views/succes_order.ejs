@@ -1,6 +1,7 @@
-<%- include("layout/main", {title: "Successful" }) %> <%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Successful" }) %>
 
-        <body>
+    <body>
+        <%- include("partials/nav.ejs") %>
             <div class="successful">
                 <h1>
                     Dear <%= order.owner %>
@@ -13,4 +14,4 @@
                     <a href="/orders/<%= order._id%>" class="btn btn-light btn-block mb-4">See your order</a>
                 </div>
             </div>
-        </body>
+    </body>
