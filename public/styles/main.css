@@ -362,7 +362,7 @@ table tbody img {
   color: #555;
 }
 
-input {
+.input_message {
   padding: 10px 20px;
   box-sizing: border-box;
   border: 0;
@@ -371,7 +371,7 @@ input {
   width: 100%;
 }
 
-.button-chat {
+.button_chat {
   background-color: green;
   color: #fff;
   font-size: 18px;

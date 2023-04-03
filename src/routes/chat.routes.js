@@ -5,6 +5,6 @@ import controller from "../controllers/chat.controller.js";
 //? CART
 
 router.get("/", controller.renderChat);
-router.post("/", controller.sendMessage);
+// router.post("/", controller.sendMessage);
 
 export default router;

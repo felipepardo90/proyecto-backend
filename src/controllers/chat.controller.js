@@ -1,14 +1,6 @@
 
-let controller = {};
+const controller = {};
 
-controller.renderChat = async (req, res) => {
-  res.render("chat");
-};
-
-controller.sendMessage = async (req, res) => {
-  const { message } = req.body;
-  const username = req.user.email;
-};
-// })
+controller.renderChat = async (req, res) => res.status(200).render("chat")
 
 export default controller;
