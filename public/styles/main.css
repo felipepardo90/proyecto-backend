@@ -61,13 +61,24 @@ body {
   border-bottom: 1px solid yellow;
   font-family: "Roboto", sans-serif;
 }
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) + .form-label {
+  transform: translateY(-12px) scale(0.7);
+  transform-origin: left top;
+  color: lightblue;
+}
 .form-container .form-group .form-input:focus + .form-label, .form-container .form-group .form-input:not(:placeholder-shown) + .form-label {
   transform: translateY(-12px) scale(0.7);
   transform-origin: left top;
   color: lightblue;
 }
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) ~ .form-line {
+  transform: scale(1);
+}
 .form-container .form-group .form-input:focus ~ .form-line, .form-container .form-group .form-input:not(:placeholder-shown) ~ .form-line {
   transform: scale(1);
+}
+.form-container .form-group .form-input:not(:-moz-placeholder-shown) {
+  color: lightblue;
 }
 .form-container .form-group .form-input:focus, .form-container .form-group .form-input:not(:placeholder-shown) {
   color: lightblue;
@@ -156,12 +167,12 @@ body {
 }
 
 .nothing_here {
-  background-color: lightgoldenrodyellow;
-}
-.nothing_here h1 {
-  color: mediumblue;
   text-align: center;
-  padding: 100px 50px;
+  background-color: rgba(255, 255, 255, 0.466);
+  padding: 10px 25px;
+  margin: 10px auto;
+  width: 70%;
+  max-height: 400px;
 }
 
 .add_product {
@@ -208,7 +219,8 @@ table td:nth-child(4), table td:nth-child(5), table td:nth-child(6) {
 table tbody img {
   width: 120px;
   height: 120px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   box-shadow: 1px 2px 4px black;
   border-radius: 50%;
 }
@@ -368,3 +380,17 @@ input {
   width: 100%;
   border-radius: 0 0 2px 2px;
 }
+
+.successful {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.466);
+  padding: 10px 25px;
+  margin: 5px auto;
+}
+
+.orders_list {
+  width: 70%;
+  height: 600px;
+  overflow-x: auto;
+  margin: 10px auto;
+}/*# sourceMappingURL=main.css.map */

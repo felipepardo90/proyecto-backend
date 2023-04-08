@@ -1,13 +1,14 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
+
 export let PORT;
 export let MONGODB_URI
 export let MONGO_SESSION
 export let ENV
-export let USER_EMAIL = process.env.USER_EMAIL
-export let PASS_EMAIL = process.env.PASS_EMAIL
-export let SECRET = process.env.SECRET;
+export const USER_EMAIL = process.env.USER_EMAIL
+export const PASS_EMAIL = process.env.PASS_EMAIL
+export const SECRET = process.env.SECRET;
 switch (process.env.NODE_ENV) {
   case "prod":
     PORT = process.env.PORT;

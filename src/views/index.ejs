@@ -1,82 +1,56 @@
-<%- include("layout/main", {title: "Inicio"}) %> <%- include("partials/nav.ejs")
-%>
+<%- include("layout/main", {title: "Home" }) %>
 
-<body>
-  <main>
-    <div>
-      <% if(user) { %>
-      <h3>Hi <%= user.username %>!!!</h3>
-      <a href="/logout" class="btn btn-secondary btn-block mb-4">Log out </a>
-      <a href="/info" class="btn btn-info btn-block mb-4">Server Info </a>
-      <%}%>
-    </div>
-    <form class="form" id="products-form" action="/products" method="POST">
-      <h2 class="form-title">Add Products</h2>
-      <p class="form-paragraph">
-        Backend - Express - Javascript
-        <a
-        href="https://github.com/felipepardo90/new-Backend.git"
-        target="_blank"
-        class="form-link"
-        >Repository</a
-        >
-      </p>
-      <div class="form-container">
-        <div class="form-group">
-          <select name="category" id="category" class="form-select">
-            <option selected disabled>Choose a category</option>
-            <option value="dairy">Lácteos</option>
-            <option value="food">Alimentos</option>
-            <option value="drinks">Bebidas</option>
-            <option value="cleaning">Limpieza</option>
-          </select>
+  <body>
+    <%- include("partials/nav.ejs") %>
+      <main>
+        <div>
+          <% if(user) { %>
+            <h3>Hi <%= user.username %>!!!</h3>
+            <a href="/logout" class="btn btn-secondary btn-block mb-4">Log out </a>
+            <a href="/info" class="btn btn-info btn-block mb-4">Server Info </a>
+            <%}%>
         </div>
-        <div class="form-group">
-          <input type="text" name="title" class="form-input" placeholder=" " />
-          <label for="title" class="form-label">Title:</label>
-          <span class="form-line"></span>
-        </div>
-        <div class="form-group">
-          <input
-            type="number"
-            name="price"
-            class="form-input"
-            placeholder=" "
-          />
-          <label for="price" class="form-label">Price:</label>
-          <span class="form-line"></span>
-        </div>
-        <div class="form-group">
-          <input
-            type="text"
-            name="thumbnail"
-            class="form-input"
-            placeholder=" "
-          />
-          <label for="thumbnail" class="form-label">Thumbnail:</label>
-          <span class="form-line"></span>
-        </div>
-        <div class="form-group">
-          <input
-            type="number"
-            name="stock"
-            class="form-input"
-            placeholder=" "
-          />
-          <label for="stock" class="form-label">Stock:</label>
-          <span class="form-line"></span>
-        </div>
-        <textarea
-          name="description"
-          id="description"
-          cols="30"
-          rows="10"
-          class="form-input"
-          placeholder=" "
-        ></textarea>
+        <form class="form" id="products-form" action="/products" method="POST">
+          <h2 class="form-title">Add Products</h2>
+          <p class="form-paragraph">
+            Backend - Express - Javascript
+            <a href="https://github.com/felipepardo90/new-Backend.git" target="_blank" class="form-link">Repository</a>
+          </p>
+          <div class="form-container">
+            <div class="form-group">
+              <select name="category" id="category" class="form-select">
+                <option selected disabled>Choose a category</option>
+                <option value="dairy">Lácteos</option>
+                <option value="food">Alimentos</option>
+                <option value="drinks">Bebidas</option>
+                <option value="cleaning">Limpieza</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" name="title" class="form-input" placeholder=" " />
+              <label for="title" class="form-label">Title:</label>
+              <span class="form-line"></span>
+            </div>
+            <div class="form-group">
+              <input type="number" name="price" class="form-input" placeholder=" " />
+              <label for="price" class="form-label">Price:</label>
+              <span class="form-line"></span>
+            </div>
+            <div class="form-group">
+              <input type="text" name="thumbnail" class="form-input" placeholder=" " />
+              <label for="thumbnail" class="form-label">Thumbnail:</label>
+              <span class="form-line"></span>
+            </div>
+            <div class="form-group">
+              <input type="number" name="stock" class="form-input" placeholder=" " />
+              <label for="stock" class="form-label">Stock:</label>
+              <span class="form-line"></span>
+            </div>
+            <textarea name="description" id="description" cols="30" rows="10" class="form-input"
+              placeholder=" "></textarea>
 
-        <input type="submit" class="form-submit" value="Ingresar" />
-      </div>
-    </form>
-  </main>
-</body>
+            <input type="submit" class="form-submit" value="Ingresar" />
+          </div>
+        </form>
+      </main>
+  </body>

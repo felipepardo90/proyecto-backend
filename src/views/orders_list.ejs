@@ -1,0 +1,41 @@
+<%- include("layout/main", {title: "My shopping" }) %>
+
+    <body>
+        <%- include("partials/nav.ejs") %>
+            <% if( orders===null || orders.length==0) { %>
+                <div class="nothing_here">
+                    <h1>No has realizado ninguna compra</h1>
+                </div>
+                <% } else { %>
+                    <div class="orders_list">
+                        <table width="60%" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Order</td>
+                                    <td>ID</td>
+                                    <td>Date</td>
+                                    <td>Total</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% orders.forEach((order)=>{ %>
+                                    <tr key="<%= order.id %>">
+                                        <td>
+                                            <a href="/orders/<%= order.id %>">See order</a>
+                                        </td>
+                                        <td>
+                                            <%= order.id %>
+                                        </td>
+                                        <td>
+                                            <%= order.date %>
+                                        </td>
+                                        <td>
+                                            $AR <%= order.total %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+    </body>

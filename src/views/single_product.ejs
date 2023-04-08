@@ -1,32 +1,29 @@
-<%- include("layout/main", {title: product.title }) %> <%-
-include("partials/nav.ejs") %>
+<%- include("layout/main", {title: product.title }) %>
 
-<body>
-  <div
-    class="card"
-    style="width: 25rem; background-color: lightslategrey; margin: 50px auto"
-  >
-    <img
-      src="<%= product.thumbnail %>"
-      class="card-img-top"
-      alt="<%= product.title %>"
-    />
-    <div class="card-body" key="<%=product._id%>">
-      <h5 class="card-title"><%= product.title %></h5>
-      <p class="card-text"><%= product.description%></p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">$ <%= product.price %></li>
-      <li class="list-group-item">stock: <%= product.stock %></li>
-    </ul>
-    <div class="card-body">
-      <a href="/products" class="btn btn-warning btn-block mb-4"
-        >Back to products</a
-      >
-      <form action="/cart/<%= user.cart_id %>/products" method="POST">
-        <input type="hidden" name="_id" value="<%= product._id %>" />
-        <button type="submit" class="btn btn-primary">Add to shopcart</button>
-      </form>
-    </div>
-  </div>
-</body>
+  <body>
+    <%- include("partials/nav.ejs") %>
+      <div class="card" style="width: 25rem; background-color: lightslategrey; margin: 50px auto">
+        <img src="<%= product.thumbnail %>" class="card-img-top" alt="<%= product.title %>" />
+        <div class="card-body" key="<%=product._id%>">
+          <h5 class="card-title">
+            <%= product.title %>
+          </h5>
+          <p class="card-text">
+            <%= product.description%>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">$ <%= product.price %>
+          </li>
+          <li class="list-group-item">stock: <%= product.stock %>
+          </li>
+        </ul>
+        <div class="card-body">
+          <a href="/products" class="btn btn-warning btn-block mb-4">Back to products</a>
+          <form action="/cart/<%= user.cart_id %>/products" method="POST">
+            <input type="hidden" name="_id" value="<%= product._id %>" />
+            <button type="submit" class="btn btn-primary">Add to shopcart</button>
+          </form>
+        </div>
+      </div>
+  </body>

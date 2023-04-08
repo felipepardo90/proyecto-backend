@@ -1,16 +1,49 @@
-<%- include("layout/main", {title: "Order" }) %> <%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "order " + order._id}) %>
 
-        <body>
-            <div style="text-align: center; background-color: rgba(255, 255, 255, 0.466); padding: 10px 25px; margin: 5px auto;">
-                <h1>
-                   Dear <%= user.username %>
-                </h1>
-                <h4>Thanks for your purchase</h4>
-                <p>We send the order of your purchase to your mailbox <%= user.email %>
-                </p>
-                <div class="card-body">
-                    <a href="/" class="btn btn-warning btn-block mb-4">Back to Home</a>
+    <body>
+        <%- include("partials/nav.ejs") %>
+            <div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="px-4 py-5">
+                            <small class="theme-color" style="color: rgba(25, 25, 25, .3)">order id <%= order._id %>
+                            </small>
+                            <h5 class="text-uppercase">
+                                <%= order.owner%>
+                            </h5>
+                            <h4 class="mt-5 theme-color mb-5">Thanks for your order</h4>
+                            <div>
+                                <small class="theme-color">Date: <%= order.date %></small>
+                            </div>
+                            <span class="theme-color">Payment Summary</span>
+                            <div class="mb-3">
+                                <hr class="new1">
+                            </div>
+                            <% order.products.forEach((item)=>{ %>
+                                <div class="d-flex justify-content-between">
+                                    <span class="font-weight-bold">
+                                        <%=item.title%> x <%= item.qty %>u
+                                    </span>
+                                    <span class="text-muted">$<%= item.price * item.qty %></span>
+                                </div>
+                                <% }) %>
+                                    <div class="d-flex justify-content-between">
+                                        <small>Shipping <span style="color: rgba(25, 25, 25, .3)">(Free for purchases
+                                                over
+                                                7000)
+                                            </span>
+                                        </small>
+                                        <small>$<%=order.shipment%></small>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <span class="font-weight-bold">Total</span>
+                                        <span class="font-weight-bold theme-color">$<%= order.total %></span>
+                                    </div>
+                                    <div class="text-center mt-5">
+                                        <a href="/" class="btn btn-light btn-block mb-4">Print Order</a>
+                                    </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-        </body>
+    </body>

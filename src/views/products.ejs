@@ -1,10 +1,12 @@
-<%- include("layout/main", {title: "Productos" }) %> <%- include("partials/nav.ejs") %>
+<%- include("layout/main", {title: "Products" }) %>
 
-    <body>
+  <body>
+    <%- include("partials/nav.ejs") %>
       <main>
         <% if(!products) { %>
-          <div class="section-products nothing_here">
+          <div class="nothing_here">
             <h1>Debés cargar productos en la base de datos. Aquí no hay nada</h1>
+            <a href="/" class="btn btn-light btn-block mb-4">Cargar productos</a>
           </div>
           <% } else { %>
             <div class="section-products">
@@ -17,7 +19,7 @@
                   <option value="?category=dairy">Lácteos</option>
                   <option value="?category=cleaning">Limpieza</option>
                 </select>
-                <input type="button" name="Submit" value="Filter" onClick="top.location.href = this.form.categories.options[this.form.categories.selectedIndex].value;
+                <input type="button" class="btn-warning" name="Submit" value="Search" onClick="top.location.href = this.form.categories.options[this.form.categories.selectedIndex].value;
             return false;">
               </form>
               <table width="60%">
@@ -59,4 +61,4 @@
               <% } %>
             </div>
       </main>
-    </body>
+  </body>

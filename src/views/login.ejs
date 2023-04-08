@@ -1,53 +1,45 @@
-<%- include("layout/main", {title: "Log In"}) %>
+<%- include("layout/main", {title: "Log In" }) %>
 
-<body>
-  <main>
-    <div class="login-form">
-      <form action="/login" method="POST">
-        <div class="row mb-4">
-          <div class="col">
-            <% if(signinMsg) { %>
-            <h4><%= signinMsg %></h4>
-            <% } %>
+  <body>
+    <main>
+      <div class="login-form">
+        <form action="/login" method="POST">
+          <div class="row mb-4">
+            <div class="col">
+              <% if(signinMsg) { %>
+                <h4>
+                  <%= signinMsg %>
+                </h4>
+                <% } %>
+            </div>
           </div>
-        </div>
 
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-          <input
-            type="email"
-            id="form2Example1"
-            class="form-control"
-            name="username"
-          />
-          <label class="form-label" for="form2Example1">Email User</label>
-        </div>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form2Example1" class="form-control" name="username" />
+            <label class="form-label" for="form2Example1">Email User</label>
+          </div>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-          <input
-            type="password"
-            id="form2Example2"
-            class="form-control"
-            name="password"
-          />
-          <label class="form-label" for="form2Example2">Password</label>
-        </div>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="form2Example2" class="form-control" name="password" />
+            <label class="form-label" for="form2Example2">Password</label>
+          </div>
 
-        <!-- Submit button -->
-        <div class="text-center">
-          <button type="submit" class="btn btn-success btn-block mb-4">
-            Sign in
-          </button>
-        </div>
-        <!-- Register buttons -->
-        <div class="text-center">
-          <p>
-            Not a member?
-            <a href="/register" class="register-link">Register</a>
-          </p>
-        </div>
-      </form>
-    </div>
-  </main>
-</body>
+          <!-- Submit button -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-success btn-block mb-4">
+              Sign in
+            </button>
+          </div>
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>
+              Not a member?
+              <a href="/register" class="register-link">Register</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>

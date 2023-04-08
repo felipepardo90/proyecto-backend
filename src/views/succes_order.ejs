@@ -1,0 +1,17 @@
+<%- include("layout/main", {title: "Successful" }) %>
+
+    <body>
+        <%- include("partials/nav.ejs") %>
+            <div class="successful">
+                <h1>
+                    Dear <%= order.owner %>
+                </h1>
+                <h4>Thanks for your purchase</h4>
+                <p>We send the order of your purchase to your mailbox <%= order.email %>
+                </p>
+                <div class="card-body">
+                    <a href="/" class="btn btn-warning btn-block mb-4">Back to Home</a>
+                    <a href="/orders/<%= order._id%>" class="btn btn-light btn-block mb-4">See your order</a>
+                </div>
+            </div>
+    </body>

@@ -5,6 +5,7 @@ import usersRoute from "./user.routes.js";
 import productsRoute from "./products.routes.js";
 import cartRoute from "./cart.routes.js";
 import chatRoute from "./chat.routes.js";
+import orderRoute from "./order.routes.js";
 import { MW } from "../libs/middlewares.js";
 import renderServerInfo from "../controllers/info.controller.js";
 
@@ -14,6 +15,7 @@ router.use("/", usersRoute);
 router.use("/products", MW.isAuth, productsRoute);
 router.use("/cart", MW.isAuth, cartRoute);
 router.use("/chat", MW.isAuth, chatRoute);
+router.use("/orders", MW.isAuth, orderRoute);
 router.use("/info", MW.isAuth, renderServerInfo);
 
 export default router;

@@ -1,31 +1,27 @@
-<%- include("layout/main", {title: "Chat"}) %> <%- include("partials/nav.ejs")
-%>
+<%- include("layout/main", {title: "Chat" }) %>
 
-<body>
-  <main>
-    <div id="chat-container">
-      <div id="chat-window">
-        <% messages.forEach((msg)=>{ %>
-        <p>
-          <strong class="message-user"
-            ><%= msg.username %>
-            <span class="message-date">[ <%=msg.date%> ]</span></strong
-          >: <span class="message-txt"><%= msg.message %></span>
-        </p>
-        <!-- <p></em><%=msg.username%> Está escribiendo... </p> -->
-        <% }) %>
-      </div>
-      <form action="/chat" method="POST">
-        <p id="username">YOOOO</p>
-        <input
-          type="text"
-          id="message-chat"
-          name="message"
-          placeholder="Message"
-          required
-        />
-        <button id="send" class="button-chat" type="submit">Enviar</button>
-      </form>
-    </div>
-  </main>
-</body>
+  <body>
+    <%- include("partials/nav.ejs") %>
+      <main>
+        <div id="chat-container">
+          <div id="chat-window">
+            <% messages.forEach((msg)=>{ %>
+              <p>
+                <strong class="message-user">
+                  <%= msg.username %>
+                    <span class="message-date">[ <%=msg.date%> ]</span>
+                </strong>: <span class="message-txt">
+                  <%= msg.message %>
+                </span>
+              </p>
+              <!-- <p></em><%=msg.username%> Está escribiendo... </p> -->
+              <% }) %>
+          </div>
+          <form action="/chat" method="POST">
+            <p id="username">YOOOO</p>
+            <input type="text" id="message-chat" name="message" placeholder="Message" required />
+            <button id="send" class="button-chat" type="submit">Enviar</button>
+          </form>
+        </div>
+      </main>
+  </body>

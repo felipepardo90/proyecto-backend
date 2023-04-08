@@ -7,7 +7,6 @@ const controller = {};
 
 controller.getAll = async (req, res) => {
   const { category } = req.query;
-  console.log(category);
   if (!category) {
     const products = await DAOProducts.getAll();
     res.render("products", { products });

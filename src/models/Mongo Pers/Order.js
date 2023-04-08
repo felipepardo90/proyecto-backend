@@ -8,7 +8,7 @@ export default class Order {
     this.db = mongoose.model(coll, schema);
   }
 
-  async newOrder(order) {
+  async saveOrder(order) {
     try {
       return await this.db.create(order);
     } catch (error) {
@@ -16,9 +16,18 @@ export default class Order {
     }
   }
 
-  async getOrders(user_id) {
+  async getOrders(id) {
     try {
-      return await this.db.find({ _id: user_id });
+      return await this.db.find({ owner_id: id });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async getOrderById(id) {
+    try {
+      if (!mongoose.isValidObjectId(id)) return false;
+      const order = await this.db.find({ _id: id });
+      return order[0];
     } catch (error) {
       throw new Error(error);
     }
